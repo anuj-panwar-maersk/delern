@@ -271,13 +271,6 @@
     "placeholders": {
     }
   },
-  "markdown": "Markdown",
-  "@markdown": {
-    "description": "Markdown",
-    "type": "text",
-    "placeholders": {
-    }
-  },
   "cardDeletedUserMessage": "Karte wurde gelöscht",
   "@cardDeletedUserMessage": {
     "description": "Card was deleted",

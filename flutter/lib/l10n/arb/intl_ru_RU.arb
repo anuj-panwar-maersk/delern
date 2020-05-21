@@ -249,13 +249,6 @@
     "placeholders": {
     }
   },
-  "markdown": "Маркдаун",
-  "@markdown": {
-    "description": "Markdown",
-    "type": "text",
-    "placeholders": {
-    }
-  },
   "cardDeletedUserMessage": "Карточка удалена",
   "@cardDeletedUserMessage": {
     "description": "Card was deleted",
