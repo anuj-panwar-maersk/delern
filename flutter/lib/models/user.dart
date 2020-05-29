@@ -23,36 +23,40 @@ import 'package:uuid/uuid.dart';
 /// An abstraction layer on top of FirebaseUser, plus data writing methods.
 class User {
   FirebaseUser _dataSource;
-  StreamSubscription<bool> _onlineSubscription;
+  final StreamSubscription<bool> _onlineSubscription;
 
   final StreamWithValue<bool> isOnline;
   final DataListAccessor<DeckModel> decks;
 
-  User(this._dataSource)
-      : assert(_dataSource != null),
-        decks = DeckModelListAccessor(_dataSource.uid),
-        isOnline = StreamWithLatestValue<bool>(FirebaseDatabase.instance
-            .reference()
-            .child('.info/connected')
-            .onValue
-            .mapPerEvent((event) => event.snapshot.value == true)) {
-    // Subscribe ourselves to online status immediately because we always want
-    // to know the current value, and that requires at least 1 subscription for
-    // StreamWithLatestValue.
-    _onlineSubscription = isOnline.updates.listen((isOnline) {
-      if (isOnline) {
-        // Update latest_online_at node immediately, and also schedule an
-        // onDisconnect handler which will set latest_online_at node to the
-        // timestamp on the server when a client is disconnected.
-        (FirebaseDatabase.instance
+  User(FirebaseUser dataSource)
+      : this._withOnlineStream(
+            dataSource,
+            // Workaround for not being able to reference fields in initializer
+            // expressions: https://github.com/dart-lang/sdk/issues/28950.
+            StreamWithLatestValue<bool>(FirebaseDatabase.instance
                 .reference()
-                .child('latest_online_at')
-                .child(uid)
-                  ..onDisconnect().set(ServerValue.timestamp))
-            .set(ServerValue.timestamp);
-      }
-    });
-  }
+                .child('.info/connected')
+                .onValue
+                .mapPerEvent((event) => event.snapshot.value == true)));
+
+  User._withOnlineStream(this._dataSource, this.isOnline)
+      : decks = DeckModelListAccessor(_dataSource.uid),
+        // Subscribe ourselves to online status immediately because we always
+        // want to know the current value, and that requires at least 1
+        // subscription for StreamWithLatestValue.
+        _onlineSubscription = isOnline.updates.listen((isOnline) {
+          if (isOnline) {
+            // Update latest_online_at node immediately, and also schedule an
+            // onDisconnect handler which will set latest_online_at node to the
+            // timestamp on the server when a client is disconnected.
+            (FirebaseDatabase.instance
+                    .reference()
+                    .child('latest_online_at')
+                    .child(_dataSource.uid)
+                      ..onDisconnect().set(ServerValue.timestamp))
+                .set(ServerValue.timestamp);
+          }
+        });
 
   /// Update source of profile information (such as email, displayName etc) for
   /// this user. If in-place update is not possible, i.e. [newDataSource] is
