@@ -49,12 +49,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   List<Widget> _buildUserButtons(User user) {
     final list = <Widget>[
       ListTile(
-        title: Text(
-          context.l.navigationDrawerCommunicateGroup,
-          style: app_styles.navigationDrawerGroupText,
-        ),
-      ),
-      ListTile(
         leading: const Icon(Icons.contact_mail),
         title: Text(context.l.navigationDrawerInviteFriends),
         onTap: () {

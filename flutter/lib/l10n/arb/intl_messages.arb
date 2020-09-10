@@ -1,16 +1,9 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-04-25T11:13:34.404824",
+  "@@last_modified": "2020-09-10T13:56:23.583113",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "navigationDrawerCommunicateGroup": "Communicate",
-  "@navigationDrawerCommunicateGroup": {
-    "description": "Communicate Group Name in Navigation Drawer",
     "type": "text",
     "placeholders": {
     }
@@ -25,13 +18,6 @@
   "navigationDrawerContactUs": "Contact Us",
   "@navigationDrawerContactUs": {
     "description": "Contact Us in Navigation Drawer",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "navigationDrawerSupportDevelopment": "Support Development",
-  "@navigationDrawerSupportDevelopment": {
-    "description": "Support Development in Navigation Drawer",
     "type": "text",
     "placeholders": {
     }
@@ -383,13 +369,6 @@
     "placeholders": {
     }
   },
-  "supportDevelopment": "Please tell us what we can do to make your experience with Delern better!\n\nIf you have any questions or suggestions please contact us:\n[delern@dasfoo.org](mailto:delern@dasfoo.org)\n\nFollow latest news on:\n\n- [Facebook](https://fb.me/das.delern)\n- [Twitter](https://twitter.com/dasdelern)\n- [LinkedIn](https://www.linkedin.com/company/delern)\n- [VK](https://vk.com/delern)\n\nTo see the source code for this app, please visit the [Delern GitHub repo](https://github.com/dasfoo/delern).\n      ",
-  "@supportDevelopment": {
-    "description": "Support Development",
-    "type": "text",
-    "placeholders": {
-    }
-  },
   "installEmailApp": "Please install Email App",
   "@installEmailApp": {
     "description": "Please install Email App",
@@ -488,62 +467,6 @@
   "deleteDeckWriteReadAccessQuestion": "The deck will be removed from your account only, all cards and learning history will remain with the owner and other users. Do you want to delete the deck?",
   "@deleteDeckWriteReadAccessQuestion": {
     "description": "Delete deck question to user with write access",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "decksIntroTitle": "Create Decks",
-  "@decksIntroTitle": {
-    "description": "Create decks intro title",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "decksIntroDescription": "Create decks with flashcards",
-  "@decksIntroDescription": {
-    "description": "Create decks with flashcards",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "learnIntroTitle": "Learn",
-  "@learnIntroTitle": {
-    "description": "Learn intro title",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "learnIntroDescription": "Learn in any place and offline as well",
-  "@learnIntroDescription": {
-    "description": "Learn intro description",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "shareIntroTitle": "Share decks",
-  "@shareIntroTitle": {
-    "description": "Share intro title",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "shareIntroDescription": "Share decks with friends and colleagues to learn together",
-  "@shareIntroDescription": {
-    "description": "Share intro description",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "done": "Done",
-  "@done": {
-    "description": "Done",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "skip": "Skip",
-  "@skip": {
-    "description": "Skip",
     "type": "text",
     "placeholders": {
     }
@@ -760,20 +683,6 @@
   "legacyPartsConnector": " and the  ",
   "@legacyPartsConnector": {
     "description": "Connects parts of legacy",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "privacyPolicySignIn": "Privacy Policy",
-  "@privacyPolicySignIn": {
-    "description": "Privacy Policy label",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "termsOfServiceSignIn": "Terms of Service",
-  "@termsOfServiceSignIn": {
-    "description": "Terms of Service label",
     "type": "text",
     "placeholders": {
     }

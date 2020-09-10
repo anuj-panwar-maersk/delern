@@ -19,201 +19,191 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de_DE';
 
-  static m0(number) => "Answered: ${number}";
+  static m0(number) => "Beantwortet: ${number}";
 
-  static m1(numberOfCards, total) => "${numberOfCards} of ${total} to learn";
+  static m1(numberOfCards, total) => "${numberOfCards} von ${total} zu lernen";
 
   static m2(date) =>
-      "Next card to learn is suggested at ${date}. Would you like to continue learning anyway?";
+      "Die nächste zu lernende Karte wird am ${date} vorgeschlagen. Möchtest du trotzdem weiter lernen?";
 
-  static m3(url) => "Could not launch url ${url}";
+  static m3(url) => "Konnte url nicht starten ${url}";
 
-  static m4(deckName) => "Learning: ${deckName}";
+  static m4(deckName) => "Lernen: ${deckName}";
 
-  static m5(number) => "Cards in the deck: ${number}";
+  static m5(number) => "Karten im Lernset: ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{
         "accessibilityAddImageLabel":
-            MessageLookupByLibrary.simpleMessage("Add Image"),
-        "add": MessageLookupByLibrary.simpleMessage("Add"),
-        "addCardTooltip": MessageLookupByLibrary.simpleMessage("Add Card"),
-        "addCardsDeckMenu": MessageLookupByLibrary.simpleMessage("Add Cards"),
-        "addDeckTooltip": MessageLookupByLibrary.simpleMessage("Add Deck"),
+            MessageLookupByLibrary.simpleMessage("Bild hinzufügen"),
+        "add": MessageLookupByLibrary.simpleMessage("Hinzufügen"),
+        "addCardTooltip":
+            MessageLookupByLibrary.simpleMessage("Karte hinzufügen"),
+        "addCardsDeckMenu":
+            MessageLookupByLibrary.simpleMessage("Karten hinzufügen"),
+        "addDeckTooltip":
+            MessageLookupByLibrary.simpleMessage("Lernset hinzufügen"),
         "anonymous": MessageLookupByLibrary.simpleMessage("Anonymous"),
         "answeredCards": m0,
         "appNotInstalledSharingDeck": MessageLookupByLibrary.simpleMessage(
-            "This user hasn\'t installed Delern yet. Do you want to sent an invite?"),
-        "backSideHint": MessageLookupByLibrary.simpleMessage("Back side:"),
-        "basicDeckType": MessageLookupByLibrary.simpleMessage("Basic"),
-        "canEdit": MessageLookupByLibrary.simpleMessage("Can Edit"),
-        "canView": MessageLookupByLibrary.simpleMessage("Can View"),
+            "Dieser Benutzer hat Delern noch nicht installiert. Möchtest du eine Einladung verschicken?"),
+        "backSideHint": MessageLookupByLibrary.simpleMessage("Rückseite:"),
+        "basicDeckType": MessageLookupByLibrary.simpleMessage("Basis"),
+        "canEdit": MessageLookupByLibrary.simpleMessage("Kann bearbeiten"),
+        "canView": MessageLookupByLibrary.simpleMessage("Kann anschauen"),
         "cardAddedUserMessage":
-            MessageLookupByLibrary.simpleMessage("Card was added"),
+            MessageLookupByLibrary.simpleMessage("Karte wurde hinzugefügt"),
         "cardAndReversedAddedUserMessage": MessageLookupByLibrary.simpleMessage(
-            "Card and reversed card were added"),
+            "Karte und umgekehrte Karte wurden hinzugefügt"),
         "cardDeletedUserMessage":
-            MessageLookupByLibrary.simpleMessage("Card was deleted"),
+            MessageLookupByLibrary.simpleMessage("Karte wurde gelöscht"),
         "cardsToLearnLabel": m1,
         "continueAnonymously":
-            MessageLookupByLibrary.simpleMessage("Continue as a Guest"),
+            MessageLookupByLibrary.simpleMessage("Als Gast fortfahren"),
         "continueEditingQuestion": MessageLookupByLibrary.simpleMessage(
-            "You have unsaved changes. Would you like to continue editing?"),
+            "Du hast ungespeicherte Änderungen. Möchtest du die Bearbeitung fortsetzen?"),
         "continueLearningQuestion": m2,
         "couldNotLaunchUrl": m3,
         "createDeckTooltip":
-            MessageLookupByLibrary.simpleMessage("Create deck"),
-        "deck": MessageLookupByLibrary.simpleMessage("Deck"),
+            MessageLookupByLibrary.simpleMessage("Lernset erstellen"),
+        "deck": MessageLookupByLibrary.simpleMessage("Lernset"),
         "deckDeletedUserMessage":
-            MessageLookupByLibrary.simpleMessage("Deck was deleted"),
+            MessageLookupByLibrary.simpleMessage("Lernset wurde gelöscht"),
         "deckSettingsTooltip":
-            MessageLookupByLibrary.simpleMessage("Settings of deck"),
-        "deckType": MessageLookupByLibrary.simpleMessage("Deck Type"),
-        "decksIntroDescription": MessageLookupByLibrary.simpleMessage(
-            "Create decks with flashcards"),
-        "decksIntroTitle": MessageLookupByLibrary.simpleMessage("Create Decks"),
+            MessageLookupByLibrary.simpleMessage("Einstellungen des Lernsets"),
+        "deckType": MessageLookupByLibrary.simpleMessage("Lernset Typ"),
         "decksRefreshed":
-            MessageLookupByLibrary.simpleMessage("Decks refreshed"),
-        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+            MessageLookupByLibrary.simpleMessage("Lernsets erneuert"),
+        "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
         "deleteCardQuestion": MessageLookupByLibrary.simpleMessage(
-            "Do you want to delete this card?"),
+            "Möchtest diese Karte löschen?"),
         "deleteCardTooltip":
-            MessageLookupByLibrary.simpleMessage("Delete card"),
-        "deleteDeckButton": MessageLookupByLibrary.simpleMessage("Delete Deck"),
+            MessageLookupByLibrary.simpleMessage("Karte löschen"),
+        "deleteDeckButton":
+            MessageLookupByLibrary.simpleMessage("Lernset löschen"),
         "deleteDeckOwnerAccessQuestion": MessageLookupByLibrary.simpleMessage(
-            "The deck, all cards and learning history will be removed.\n\nIf you have shared this deck with other users, it will also be removed from all users it is shared with. Do you want to delete the deck?"),
+            "Dieses Lernset, alle Karten und die Lernhistorie werden entfernt. Wenn du dieses Lernset mit anderen Benutzern geteilt hast, wird es auch von allen Benutzern, mit denen es geteilt wird, entfernt. Möchtest du das Lernset löschen?"),
         "deleteDeckWriteReadAccessQuestion": MessageLookupByLibrary.simpleMessage(
-            "The deck will be removed from your account only, all cards and learning history will remain with the owner and other users. Do you want to delete the deck?"),
-        "discard": MessageLookupByLibrary.simpleMessage("Discard"),
+            "Das Lernset wird nur von deinem Konto entfernt, alle Karten und die Lernhistorie verbleiben beim Besitzer und anderen Benutzern. Möchtest du das Lernset löschen?"),
+        "discard": MessageLookupByLibrary.simpleMessage("Verwerfen"),
         "doNotKnowCardTooltip":
-            MessageLookupByLibrary.simpleMessage("I don\'t know"),
-        "done": MessageLookupByLibrary.simpleMessage("Done"),
-        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
-        "editCardTooltip": MessageLookupByLibrary.simpleMessage("Edit card"),
-        "editCardsDeckMenu": MessageLookupByLibrary.simpleMessage("Edit Cards"),
+            MessageLookupByLibrary.simpleMessage("Ich weiß es nicht."),
+        "edit": MessageLookupByLibrary.simpleMessage("Bearbeiten"),
+        "editCardTooltip":
+            MessageLookupByLibrary.simpleMessage("Karte bearbeiten"),
+        "editCardsDeckMenu":
+            MessageLookupByLibrary.simpleMessage("Karten bearbeiten"),
         "emailAddressHint":
-            MessageLookupByLibrary.simpleMessage("Email address"),
+            MessageLookupByLibrary.simpleMessage("E-Mail Adresse"),
         "emptyCardsList":
-            MessageLookupByLibrary.simpleMessage("Add your cards"),
+            MessageLookupByLibrary.simpleMessage("Füge deine Karten hinzu"),
         "emptyDecksList":
-            MessageLookupByLibrary.simpleMessage("Add your decks"),
+            MessageLookupByLibrary.simpleMessage("Füge deine Lernsets hinzu"),
         "emptyUserSharingList":
-            MessageLookupByLibrary.simpleMessage("Share your deck"),
-        "errorUserMessage": MessageLookupByLibrary.simpleMessage("Error: "),
+            MessageLookupByLibrary.simpleMessage("Teile deinen Lernset"),
+        "errorUserMessage": MessageLookupByLibrary.simpleMessage("Fehler: "),
         "featureNotAvailableUserMessage": MessageLookupByLibrary.simpleMessage(
-            "This feature is currently not available. Please try it later."),
+            "Diese Funktion ist derzeit nicht verfügbar. Bitte versuche es später."),
         "flip": MessageLookupByLibrary.simpleMessage("flip"),
-        "frontSideHint": MessageLookupByLibrary.simpleMessage("Front side:"),
-        "germanDeckType": MessageLookupByLibrary.simpleMessage("German"),
+        "frontSideHint": MessageLookupByLibrary.simpleMessage("Frontseite:"),
+        "germanDeckType": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "imageFromGalleryLabel":
-            MessageLookupByLibrary.simpleMessage("From Gallery"),
+            MessageLookupByLibrary.simpleMessage("Von Galerie"),
         "imageFromPhotoLabel":
-            MessageLookupByLibrary.simpleMessage("Take Photo"),
+            MessageLookupByLibrary.simpleMessage("Foto aufnehmen"),
         "imageLoadingErrorUserMessage": MessageLookupByLibrary.simpleMessage(
-            "Error during loading the image. Please try it later."),
-        "installEmailApp":
-            MessageLookupByLibrary.simpleMessage("Please install Email App"),
-        "intervalLearning": MessageLookupByLibrary.simpleMessage("Interval"),
+            "Fehler beim Laden des Bildes. Bitte versuche es später."),
+        "installEmailApp": MessageLookupByLibrary.simpleMessage(
+            "Bitte installiere die E-Mail-App"),
+        "intervalLearning": MessageLookupByLibrary.simpleMessage("Intervall"),
         "intervalLearningTooltip": MessageLookupByLibrary.simpleMessage(
-            "Start learning cards ordered for interval learning"),
+            "Für das Intervall-Lernen bestellte Lernkarten starten"),
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
-            "I invite you to install Delern, a spaced repetition learning app, which will allow you to learn quickly and easily!\n\nProceed to install it from:\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nAfter install, follow Delern latest news on:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
-        "knowCardTooltip": MessageLookupByLibrary.simpleMessage("I know"),
-        "learnIntroDescription": MessageLookupByLibrary.simpleMessage(
-            "Learn in any place and offline as well"),
-        "learnIntroTitle": MessageLookupByLibrary.simpleMessage("Learn"),
+            "Ich lade dich ein, Delern zu installieren, eine App für das Lernen mit Intervallwiederholungen, die es dir ermöglicht, schnell und einfach zu lernen!\n\nInstalliere es von:\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nNach der Installation folgen Sie den neuesten Nachrichten von Delern auf:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
+        "knowCardTooltip": MessageLookupByLibrary.simpleMessage("Ich weiß"),
         "learning": m4,
         "legacyAcceptanceLabel": MessageLookupByLibrary.simpleMessage(
-            "By using this app you accept the "),
+            "Mit der Benutzung dieser App akzeptierst du die "),
         "legacyPartsConnector":
-            MessageLookupByLibrary.simpleMessage(" and the  "),
+            MessageLookupByLibrary.simpleMessage(" und die  "),
         "listOFDecksScreenTitle":
-            MessageLookupByLibrary.simpleMessage("List of decks"),
+            MessageLookupByLibrary.simpleMessage("Lernsets"),
         "markdown": MessageLookupByLibrary.simpleMessage("Markdown"),
         "menuTooltip": MessageLookupByLibrary.simpleMessage("Menu"),
-        "navigationDrawerAbout": MessageLookupByLibrary.simpleMessage("About"),
-        "navigationDrawerCommunicateGroup":
-            MessageLookupByLibrary.simpleMessage("Communicate"),
+        "navigationDrawerAbout":
+            MessageLookupByLibrary.simpleMessage("Über uns"),
         "navigationDrawerContactUs":
-            MessageLookupByLibrary.simpleMessage("Contact Us"),
+            MessageLookupByLibrary.simpleMessage("Kontaktiere uns"),
         "navigationDrawerInviteFriends":
-            MessageLookupByLibrary.simpleMessage("Invite Friends"),
+            MessageLookupByLibrary.simpleMessage("Lade Freunde ein"),
         "navigationDrawerSignIn":
-            MessageLookupByLibrary.simpleMessage("Sign In"),
+            MessageLookupByLibrary.simpleMessage("Anmelden"),
         "navigationDrawerSignOut":
-            MessageLookupByLibrary.simpleMessage("Sign Out"),
-        "navigationDrawerSupportDevelopment":
-            MessageLookupByLibrary.simpleMessage("Support Development"),
-        "no": MessageLookupByLibrary.simpleMessage("no"),
-        "noAccess": MessageLookupByLibrary.simpleMessage("No access"),
+            MessageLookupByLibrary.simpleMessage("Abmelden"),
+        "no": MessageLookupByLibrary.simpleMessage("nein"),
+        "noAccess": MessageLookupByLibrary.simpleMessage("Kein Zugang"),
         "noAddingWithReadAccessUserMessage":
             MessageLookupByLibrary.simpleMessage(
-                "You cannot add cards with a read access."),
+                "Du kanst keine Karten mit Lesezugriff hinzufügen."),
         "noDeletingWithReadAccessUserMessage":
             MessageLookupByLibrary.simpleMessage(
-                "You cannot delete card with a read access."),
+                "Du kanst keine Karte mit Lesezugriff löschen."),
         "noEditingWithReadAccessUserMessage":
             MessageLookupByLibrary.simpleMessage(
-                "You cannot edit card with a read access."),
+                "Du kanst keine Karte mit Lesezugriff bearbeiten."),
         "noSharingAccessUserMessage": MessageLookupByLibrary.simpleMessage(
-            "Only owner of deck can share it."),
-        "noUpdates": MessageLookupByLibrary.simpleMessage("No updates"),
+            "Nur der Besitzer eines Lernsets kann es teilen."),
+        "noUpdates":
+            MessageLookupByLibrary.simpleMessage("Keine Aktualisierungen"),
         "numberOfCards": m5,
         "offlineProfileTooltip":
-            MessageLookupByLibrary.simpleMessage("Profile (you are offline)"),
+            MessageLookupByLibrary.simpleMessage("Profil (du bist offline)"),
         "offlineUserMessage": MessageLookupByLibrary.simpleMessage(
-            "You are offline, please try it later"),
-        "other": MessageLookupByLibrary.simpleMessage("other"),
-        "owner": MessageLookupByLibrary.simpleMessage("Owner"),
-        "peopleLabel": MessageLookupByLibrary.simpleMessage("People"),
-        "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "privacyPolicySignIn":
-            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "profileTooltip": MessageLookupByLibrary.simpleMessage("Profile"),
+            "Du bist offline, bitte versuche es später"),
+        "other": MessageLookupByLibrary.simpleMessage("andere"),
+        "owner": MessageLookupByLibrary.simpleMessage("Besitzer"),
+        "peopleLabel": MessageLookupByLibrary.simpleMessage("Personen"),
+        "privacyPolicy":
+            MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
+        "profileTooltip": MessageLookupByLibrary.simpleMessage("Profil"),
         "reversedCardLabel": MessageLookupByLibrary.simpleMessage(
-            "Add a reversed copy of this card"),
-        "save": MessageLookupByLibrary.simpleMessage("Save"),
+            "Fügen Sie eine umgekehrte Kopie dieser Karte hinzu"),
+        "save": MessageLookupByLibrary.simpleMessage("Speichern"),
         "saveChangesQuestion": MessageLookupByLibrary.simpleMessage(
-            "Do you want to save changes?"),
+            "Möchtest Änderungen speichern?"),
         "scrollToStartLabel":
-            MessageLookupByLibrary.simpleMessage("Scroll to the beginning"),
-        "searchHint": MessageLookupByLibrary.simpleMessage("Search..."),
-        "send": MessageLookupByLibrary.simpleMessage("Send"),
+            MessageLookupByLibrary.simpleMessage("Zum Anfang blättern"),
+        "searchHint": MessageLookupByLibrary.simpleMessage("Suche..."),
+        "send": MessageLookupByLibrary.simpleMessage("Senden"),
         "serverUnavailableUserMessage": MessageLookupByLibrary.simpleMessage(
-            "Server temporarily unavailable, please try again later"),
-        "settingsDeckMenu": MessageLookupByLibrary.simpleMessage("Settings"),
-        "shareDeckMenu": MessageLookupByLibrary.simpleMessage("Share"),
-        "shareDeckTooltip": MessageLookupByLibrary.simpleMessage("Share deck"),
-        "shareIntroDescription": MessageLookupByLibrary.simpleMessage(
-            "Share decks with friends and colleagues to learn together"),
-        "shareIntroTitle": MessageLookupByLibrary.simpleMessage("Share decks"),
-        "shuffleTooltip": MessageLookupByLibrary.simpleMessage("Shuffle cards"),
+            "Server vorübergehend nicht verfügbar, bitte versuche es später noch einmal"),
+        "settingsDeckMenu":
+            MessageLookupByLibrary.simpleMessage("Einstellungen"),
+        "shareDeckMenu": MessageLookupByLibrary.simpleMessage("Teilen"),
+        "shareDeckTooltip":
+            MessageLookupByLibrary.simpleMessage("Lernset teilen"),
+        "shuffleTooltip":
+            MessageLookupByLibrary.simpleMessage("Karten mischen"),
         "signInAccountExistWithDifferentCredentialWarning":
             MessageLookupByLibrary.simpleMessage(
-                "You have previously signed in to the application using this email, but with a different provider (e.g. Google instead of Facebook). Please sign in with the same provider you have used before."),
+                "Du hast dich zuvor mit dieser E-Mail bei der Anwendung angemeldet, jedoch bei einem anderen Anbieter (z.B. Google statt Facebook). Bitte melden dich bei demselben Provider an, den du zuvor verwendet hast."),
         "signInCredentialAlreadyInUseWarning": MessageLookupByLibrary.simpleMessage(
-            "The account you have chosen is already registered with the application. If you continue with sign in, all data that you have created anonymously will be lost. Would you like to continue?"),
-        "signInScreenOr": MessageLookupByLibrary.simpleMessage("or"),
+            "Das von dir gewählte Konto ist bereits bei der Anmeldung registriert. Wenn du mit der Anmeldung weitermachst, gehen alle Daten, die du anonym erstellt hast, verloren. Möchtest du fortfahren?"),
+        "signInScreenOr": MessageLookupByLibrary.simpleMessage("oder"),
         "signInWithFacebook": MessageLookupByLibrary.simpleMessage("Facebook"),
         "signInWithGoogle": MessageLookupByLibrary.simpleMessage("Google"),
-        "signInWithLabel":
-            MessageLookupByLibrary.simpleMessage("Sign in with:"),
-        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "signInWithLabel": MessageLookupByLibrary.simpleMessage("Anmelde mit:"),
         "splashScreenFeatures": MessageLookupByLibrary.simpleMessage(
-            "All the data will be saved in the Cloud and synchronized across all your devices. You can also share cards with your friends and colleagues"),
-        "supportDevelopment": MessageLookupByLibrary.simpleMessage(
-            "Please tell us what we can do to make your experience with Delern better!\n\nIf you have any questions or suggestions please contact us:\n[delern@dasfoo.org](mailto:delern@dasfoo.org)\n\nFollow latest news on:\n\n- [Facebook](https://fb.me/das.delern)\n- [Twitter](https://twitter.com/dasdelern)\n- [LinkedIn](https://www.linkedin.com/company/delern)\n- [VK](https://vk.com/delern)\n\nTo see the source code for this app, please visit the [Delern GitHub repo](https://github.com/dasfoo/delern).\n      "),
-        "swissDeckType": MessageLookupByLibrary.simpleMessage("Swiss"),
+            "Alle Daten werden in der Cloud gespeichert und über alle Ihre Geräte hinweg synchronisiert. Du kannst Karten auch mit deinen Freunden und Kollegen teilen."),
+        "swissDeckType": MessageLookupByLibrary.simpleMessage("Schweizerisch"),
         "termsOfService":
-            MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "termsOfServiceSignIn":
-            MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "unknownDeckType": MessageLookupByLibrary.simpleMessage("Unknown"),
-        "viewLearning": MessageLookupByLibrary.simpleMessage("View"),
+            MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
+        "unknownDeckType": MessageLookupByLibrary.simpleMessage("Unbekannt"),
+        "viewLearning": MessageLookupByLibrary.simpleMessage("Ansehen"),
         "viewLearningTooltip": MessageLookupByLibrary.simpleMessage(
-            "Start learning all cards in any order"),
+            "Lerne alle Karten in beliebiger Reihenfolge zu"),
         "whoHasAccessLabel":
-            MessageLookupByLibrary.simpleMessage("Who has access"),
-        "yes": MessageLookupByLibrary.simpleMessage("Yes")
+            MessageLookupByLibrary.simpleMessage("Wer hat Zugang"),
+        "yes": MessageLookupByLibrary.simpleMessage("Ja")
       };
 }

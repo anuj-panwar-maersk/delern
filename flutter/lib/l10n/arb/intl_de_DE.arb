@@ -1,42 +1,28 @@
 {
   "@@locale": "de_DE",
   "@@last_modified": "2020-04-25T11:13:34.404824",
-  "navigationDrawerSignOut": "Sign Out",
+  "navigationDrawerSignOut": "Abmelden",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
     "type": "text",
     "placeholders": {
     }
   },
-  "navigationDrawerCommunicateGroup": "Communicate",
-  "@navigationDrawerCommunicateGroup": {
-    "description": "Communicate Group Name in Navigation Drawer",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "navigationDrawerInviteFriends": "Invite Friends",
+  "navigationDrawerInviteFriends": "Lade Freunde ein",
   "@navigationDrawerInviteFriends": {
     "description": "Invite Friends in Navigation Drawer",
     "type": "text",
     "placeholders": {
     }
   },
-  "navigationDrawerContactUs": "Contact Us",
+  "navigationDrawerContactUs": "Kontaktiere uns",
   "@navigationDrawerContactUs": {
     "description": "Contact Us in Navigation Drawer",
     "type": "text",
     "placeholders": {
     }
   },
-  "navigationDrawerSupportDevelopment": "Support Development",
-  "@navigationDrawerSupportDevelopment": {
-    "description": "Support Development in Navigation Drawer",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "navigationDrawerAbout": "About",
+  "navigationDrawerAbout": "Über uns",
   "@navigationDrawerAbout": {
     "description": "About in Navigation Drawer",
     "type": "text",
@@ -50,7 +36,7 @@
     "placeholders": {
     }
   },
-  "signInWithLabel": "Sign in with:",
+  "signInWithLabel": "Anmelde mit:",
   "@signInWithLabel": {
     "description": "Sign in with lable before different providers",
     "type": "text",
@@ -64,28 +50,28 @@
     "placeholders": {
     }
   },
-  "editCardsDeckMenu": "Edit Cards",
+  "editCardsDeckMenu": "Karten bearbeiten",
   "@editCardsDeckMenu": {
     "description": "Edit Cards in Deck Menu",
     "type": "text",
     "placeholders": {
     }
   },
-  "settingsDeckMenu": "Settings",
+  "settingsDeckMenu": "Einstellungen",
   "@settingsDeckMenu": {
     "description": "Settings in Deck Menu",
     "type": "text",
     "placeholders": {
     }
   },
-  "shareDeckMenu": "Share",
+  "shareDeckMenu": "Teilen",
   "@shareDeckMenu": {
     "description": "Share in Deck Menu",
     "type": "text",
     "placeholders": {
     }
   },
-  "numberOfCards": "Cards in the deck: {number}",
+  "numberOfCards": "Karten im Lernset: {number}",
   "@numberOfCards": {
     "description": "Card in the deck",
     "type": "text",
@@ -94,154 +80,154 @@
       }
     }
   },
-  "canEdit": "Can Edit",
+  "canEdit": "Kann bearbeiten",
   "@canEdit": {
     "description": "User can edit a deck",
     "type": "text",
     "placeholders": {
     }
   },
-  "canView": "Can View",
+  "canView": "Kann anschauen",
   "@canView": {
     "description": "User can view a deck",
     "type": "text",
     "placeholders": {
     }
   },
-  "owner": "Owner",
+  "owner": "Besitzer",
   "@owner": {
     "description": "User has owner access",
     "type": "text",
     "placeholders": {
     }
   },
-  "noAccess": "No access",
+  "noAccess": "Kein Zugang",
   "@noAccess": {
     "description": "User has no access",
     "type": "text",
     "placeholders": {
     }
   },
-  "emailAddressHint": "Email address",
+  "emailAddressHint": "E-Mail Adresse",
   "@emailAddressHint": {
     "description": "Email address hint",
     "type": "text",
     "placeholders": {
     }
   },
-  "peopleLabel": "People",
+  "peopleLabel": "Personen",
   "@peopleLabel": {
     "description": "People label",
     "type": "text",
     "placeholders": {
     }
   },
-  "whoHasAccessLabel": "Who has access",
+  "whoHasAccessLabel": "Wer hat Zugang",
   "@whoHasAccessLabel": {
     "description": "Who has access label",
     "type": "text",
     "placeholders": {
     }
   },
-  "frontSideHint": "Front side:",
+  "frontSideHint": "Frontseite:",
   "@frontSideHint": {
     "description": "front side",
     "type": "text",
     "placeholders": {
     }
   },
-  "backSideHint": "Back side:",
+  "backSideHint": "Rückseite:",
   "@backSideHint": {
     "description": "back side",
     "type": "text",
     "placeholders": {
     }
   },
-  "reversedCardLabel": "Add a reversed copy of this card",
+  "reversedCardLabel": "Fügen Sie eine umgekehrte Kopie dieser Karte hinzu",
   "@reversedCardLabel": {
     "description": "Add reversed card",
     "type": "text",
     "placeholders": {
     }
   },
-  "deck": "Deck",
+  "deck": "Lernset",
   "@deck": {
     "description": "Deck label",
     "type": "text",
     "placeholders": {
     }
   },
-  "add": "Add",
+  "add": "Hinzufügen",
   "@add": {
     "description": "Add",
     "type": "text",
     "placeholders": {
     }
   },
-  "save": "Save",
+  "save": "Speichern",
   "@save": {
     "description": "Save",
     "type": "text",
     "placeholders": {
     }
   },
-  "delete": "Delete",
+  "delete": "Löschen",
   "@delete": {
     "description": "Delete",
     "type": "text",
     "placeholders": {
     }
   },
-  "saveChangesQuestion": "Do you want to save changes?",
+  "saveChangesQuestion": "Möchtest Änderungen speichern?",
   "@saveChangesQuestion": {
     "description": "Do you want to save changes?",
     "type": "text",
     "placeholders": {
     }
   },
-  "deleteCardQuestion": "Do you want to delete this card?",
+  "deleteCardQuestion": "Möchtest diese Karte löschen?",
   "@deleteCardQuestion": {
     "description": "Do you want to delete card?",
     "type": "text",
     "placeholders": {
     }
   },
-  "errorUserMessage": "Error: ",
+  "errorUserMessage": "Fehler: ",
   "@errorUserMessage": {
     "description": "Error occurred.",
     "type": "text",
     "placeholders": {
     }
   },
-  "send": "Send",
+  "send": "Senden",
   "@send": {
     "description": "Send",
     "type": "text",
     "placeholders": {
     }
   },
-  "appNotInstalledSharingDeck": "This user hasn't installed Delern yet. Do you want to sent an invite?",
+  "appNotInstalledSharingDeck": "Dieser Benutzer hat Delern noch nicht installiert. Möchtest du eine Einladung verschicken?",
   "@appNotInstalledSharingDeck": {
     "description": "The app hasn't installed by user with who deck was shared",
     "type": "text",
     "placeholders": {
     }
   },
-  "inviteToAppMessage": "I invite you to install Delern, a spaced repetition learning app, which will allow you to learn quickly and easily!\n\nProceed to install it from:\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nAfter install, follow Delern latest news on:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern",
+  "inviteToAppMessage": "Ich lade dich ein, Delern zu installieren, eine App für das Lernen mit Intervallwiederholungen, die es dir ermöglicht, schnell und einfach zu lernen!\n\nInstalliere es von:\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nNach der Installation folgen Sie den neuesten Nachrichten von Delern auf:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern",
   "@inviteToAppMessage": {
     "description": "Invite to the App message",
     "type": "text",
     "placeholders": {
     }
   },
-  "edit": "Edit",
+  "edit": "Bearbeiten",
   "@edit": {
     "description": "Edit",
     "type": "text",
     "placeholders": {
     }
   },
-  "answeredCards": "Answered: {number}",
+  "answeredCards": "Beantwortet: {number}",
   "@answeredCards": {
     "description": "Label for number of answered cards",
     "type": "text",
@@ -250,35 +236,35 @@
       }
     }
   },
-  "basicDeckType": "Basic",
+  "basicDeckType": "Basis",
   "@basicDeckType": {
     "description": "basic decktype name",
     "type": "text",
     "placeholders": {
     }
   },
-  "germanDeckType": "German",
+  "germanDeckType": "Deutsch",
   "@germanDeckType": {
     "description": "german decktype name",
     "type": "text",
     "placeholders": {
     }
   },
-  "swissDeckType": "Swiss",
+  "swissDeckType": "Schweizerisch",
   "@swissDeckType": {
     "description": "swiss decktype name",
     "type": "text",
     "placeholders": {
     }
   },
-  "unknownDeckType": "Unknown",
+  "unknownDeckType": "Unbekannt",
   "@unknownDeckType": {
     "description": "unknown decktype name",
     "type": "text",
     "placeholders": {
     }
   },
-  "deckType": "Deck Type",
+  "deckType": "Lernset Typ",
   "@deckType": {
     "description": "Deck Type",
     "type": "text",
@@ -292,112 +278,105 @@
     "placeholders": {
     }
   },
-  "cardDeletedUserMessage": "Card was deleted",
+  "cardDeletedUserMessage": "Karte wurde gelöscht",
   "@cardDeletedUserMessage": {
     "description": "Card was deleted",
     "type": "text",
     "placeholders": {
     }
   },
-  "cardAddedUserMessage": "Card was added",
+  "cardAddedUserMessage": "Karte wurde hinzugefügt",
   "@cardAddedUserMessage": {
     "description": "Card was added",
     "type": "text",
     "placeholders": {
     }
   },
-  "searchHint": "Search...",
+  "searchHint": "Suche...",
   "@searchHint": {
     "description": "Search...",
     "type": "text",
     "placeholders": {
     }
   },
-  "emptyUserSharingList": "Share your deck",
+  "emptyUserSharingList": "Teile deinen Lernset",
   "@emptyUserSharingList": {
     "description": "Share your deck",
     "type": "text",
     "placeholders": {
     }
   },
-  "emptyDecksList": "Add your decks",
+  "emptyDecksList": "Füge deine Lernsets hinzu",
   "@emptyDecksList": {
     "description": "Add your decks",
     "type": "text",
     "placeholders": {
     }
   },
-  "emptyCardsList": "Add your cards",
+  "emptyCardsList": "Füge deine Karten hinzu",
   "@emptyCardsList": {
     "description": "Add your cards",
     "type": "text",
     "placeholders": {
     }
   },
-  "noSharingAccessUserMessage": "Only owner of deck can share it.",
+  "noSharingAccessUserMessage": "Nur der Besitzer eines Lernsets kann es teilen.",
   "@noSharingAccessUserMessage": {
     "description": "Only owner of deck can share it.",
     "type": "text",
     "placeholders": {
     }
   },
-  "noEditingWithReadAccessUserMessage": "You cannot edit card with a read access.",
+  "noEditingWithReadAccessUserMessage": "Du kanst keine Karte mit Lesezugriff bearbeiten.",
   "@noEditingWithReadAccessUserMessage": {
     "description": "You cannot edit card with a read access.",
     "type": "text",
     "placeholders": {
     }
   },
-  "noDeletingWithReadAccessUserMessage": "You cannot delete card with a read access.",
+  "noDeletingWithReadAccessUserMessage": "Du kanst keine Karte mit Lesezugriff löschen.",
   "@noDeletingWithReadAccessUserMessage": {
     "description": "You cannot delete card with a read access.",
     "type": "text",
     "placeholders": {
     }
   },
-  "noAddingWithReadAccessUserMessage": "You cannot add cards with a read access.",
+  "noAddingWithReadAccessUserMessage": "Du kanst keine Karten mit Lesezugriff hinzufügen.",
   "@noAddingWithReadAccessUserMessage": {
     "description": "You cannot add cards with a read access..",
     "type": "text",
     "placeholders": {
     }
   },
-  "continueEditingQuestion": "You have unsaved changes. Would you like to continue editing?",
+  "continueEditingQuestion": "Du hast ungespeicherte Änderungen. Möchtest du die Bearbeitung fortsetzen?",
   "@continueEditingQuestion": {
     "description": "You have unsaved changes. Would you like to continue editing?",
     "type": "text",
     "placeholders": {
     }
   },
-  "yes": "Yes",
+  "yes": "Ja",
   "@yes": {
     "description": "Yes",
     "type": "text",
     "placeholders": {
     }
   },
-  "discard": "Discard",
+  "discard": "Verwerfen",
   "@discard": {
     "description": "Discard",
     "type": "text",
     "placeholders": {
     }
   },
-  "supportDevelopment": "Please tell us what we can do to make your experience with Delern better!\n\nIf you have any questions or suggestions please contact us:\n[delern@dasfoo.org](mailto:delern@dasfoo.org)\n\nFollow latest news on:\n\n- [Facebook](https://fb.me/das.delern)\n- [Twitter](https://twitter.com/dasdelern)\n- [LinkedIn](https://www.linkedin.com/company/delern)\n- [VK](https://vk.com/delern)\n\nTo see the source code for this app, please visit the [Delern GitHub repo](https://github.com/dasfoo/delern).\n      ",
-  "@supportDevelopment": {
-    "description": "Support Development",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "installEmailApp": "Please install Email App",
+  "installEmailApp": "Bitte installiere die E-Mail-App",
   "@installEmailApp": {
     "description": "Please install Email App",
     "type": "text",
     "placeholders": {
     }
   },
-  "couldNotLaunchUrl": "Could not launch url {url}",
+  "couldNotLaunchUrl": "Konnte url nicht starten {url}",
   "@couldNotLaunchUrl": {
     "description": "Could not launch url",
     "type": "text",
@@ -406,14 +385,14 @@
       }
     }
   },
-  "no": "no",
+  "no": "nein",
   "@no": {
     "description": "no",
     "type": "text",
     "placeholders": {
     }
   },
-  "continueLearningQuestion": "Next card to learn is suggested at {date}. Would you like to continue learning anyway?",
+  "continueLearningQuestion": "Die nächste zu lernende Karte wird am {date} vorgeschlagen. Möchtest du trotzdem weiter lernen?",
   "@continueLearningQuestion": {
     "description": "Question for the user to continue learning",
     "type": "text",
@@ -422,28 +401,28 @@
       }
     }
   },
-  "offlineUserMessage": "You are offline, please try it later",
+  "offlineUserMessage": "Du bist offline, bitte versuche es später",
   "@offlineUserMessage": {
     "description": "Offline user message",
     "type": "text",
     "placeholders": {
     }
   },
-  "serverUnavailableUserMessage": "Server temporarily unavailable, please try again later",
+  "serverUnavailableUserMessage": "Server vorübergehend nicht verfügbar, bitte versuche es später noch einmal",
   "@serverUnavailableUserMessage": {
     "description": "Server temporarily unavailable",
     "type": "text",
     "placeholders": {
     }
   },
-  "continueAnonymously": "Continue as a Guest",
+  "continueAnonymously": "Als Gast fortfahren",
   "@continueAnonymously": {
     "description": "Sign in as a guest to the app",
     "type": "text",
     "placeholders": {
     }
   },
-  "splashScreenFeatures": "All the data will be saved in the Cloud and synchronized across all your devices. You can also share cards with your friends and colleagues",
+  "splashScreenFeatures": "Alle Daten werden in der Cloud gespeichert und über alle Ihre Geräte hinweg synchronisiert. Du kannst Karten auch mit deinen Freunden und Kollegen teilen.",
   "@splashScreenFeatures": {
     "description": "Data and progress are saved",
     "type": "text",
@@ -457,133 +436,77 @@
     "placeholders": {
     }
   },
-  "navigationDrawerSignIn": "Sign In",
+  "navigationDrawerSignIn": "Anmelden",
   "@navigationDrawerSignIn": {
     "description": "Sign In",
     "type": "text",
     "placeholders": {
     }
   },
-  "signInCredentialAlreadyInUseWarning": "The account you have chosen is already registered with the application. If you continue with sign in, all data that you have created anonymously will be lost. Would you like to continue?",
+  "signInCredentialAlreadyInUseWarning": "Das von dir gewählte Konto ist bereits bei der Anmeldung registriert. Wenn du mit der Anmeldung weitermachst, gehen alle Daten, die du anonym erstellt hast, verloren. Möchtest du fortfahren?",
   "@signInCredentialAlreadyInUseWarning": {
     "description": "Sign in flow: a warning after sign in attempt (anonymous)",
     "type": "text",
     "placeholders": {
     }
   },
-  "signInAccountExistWithDifferentCredentialWarning": "You have previously signed in to the application using this email, but with a different provider (e.g. Google instead of Facebook). Please sign in with the same provider you have used before.",
+  "signInAccountExistWithDifferentCredentialWarning": "Du hast dich zuvor mit dieser E-Mail bei der Anwendung angemeldet, jedoch bei einem anderen Anbieter (z.B. Google statt Facebook). Bitte melden dich bei demselben Provider an, den du zuvor verwendet hast.",
   "@signInAccountExistWithDifferentCredentialWarning": {
     "description": "Sign in flow: a warning after sign in attempt (unauthenticated)",
     "type": "text",
     "placeholders": {
     }
   },
-  "deleteDeckOwnerAccessQuestion": "The deck, all cards and learning history will be removed.\n\nIf you have shared this deck with other users, it will also be removed from all users it is shared with. Do you want to delete the deck?",
+  "deleteDeckOwnerAccessQuestion": "Dieses Lernset, alle Karten und die Lernhistorie werden entfernt. Wenn du dieses Lernset mit anderen Benutzern geteilt hast, wird es auch von allen Benutzern, mit denen es geteilt wird, entfernt. Möchtest du das Lernset löschen?",
   "@deleteDeckOwnerAccessQuestion": {
     "description": "Delete deck question to owner of deck",
     "type": "text",
     "placeholders": {
     }
   },
-  "deleteDeckWriteReadAccessQuestion": "The deck will be removed from your account only, all cards and learning history will remain with the owner and other users. Do you want to delete the deck?",
+  "deleteDeckWriteReadAccessQuestion": "Das Lernset wird nur von deinem Konto entfernt, alle Karten und die Lernhistorie verbleiben beim Besitzer und anderen Benutzern. Möchtest du das Lernset löschen?",
   "@deleteDeckWriteReadAccessQuestion": {
     "description": "Delete deck question to user with write access",
     "type": "text",
     "placeholders": {
     }
   },
-  "decksIntroTitle": "Create Decks",
-  "@decksIntroTitle": {
-    "description": "Create decks intro title",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "decksIntroDescription": "Create decks with flashcards",
-  "@decksIntroDescription": {
-    "description": "Create decks with flashcards",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "learnIntroTitle": "Learn",
-  "@learnIntroTitle": {
-    "description": "Learn intro title",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "learnIntroDescription": "Learn in any place and offline as well",
-  "@learnIntroDescription": {
-    "description": "Learn intro description",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "shareIntroTitle": "Share decks",
-  "@shareIntroTitle": {
-    "description": "Share intro title",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "shareIntroDescription": "Share decks with friends and colleagues to learn together",
-  "@shareIntroDescription": {
-    "description": "Share intro description",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "done": "Done",
-  "@done": {
-    "description": "Done",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "skip": "Skip",
-  "@skip": {
-    "description": "Skip",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "addCardsDeckMenu": "Add Cards",
+  "addCardsDeckMenu": "Karten hinzufügen",
   "@addCardsDeckMenu": {
     "description": "Add Cards in Deck Menu",
     "type": "text",
     "placeholders": {
     }
   },
-  "addDeckTooltip": "Add Deck",
+  "addDeckTooltip": "Lernset hinzufügen",
   "@addDeckTooltip": {
     "description": "Add Deck",
     "type": "text",
     "placeholders": {
     }
   },
-  "addCardTooltip": "Add Card",
+  "addCardTooltip": "Karte hinzufügen",
   "@addCardTooltip": {
     "description": "Add Card",
     "type": "text",
     "placeholders": {
     }
   },
-  "cardAndReversedAddedUserMessage": "Card and reversed card were added",
+  "cardAndReversedAddedUserMessage": "Karte und umgekehrte Karte wurden hinzugefügt",
   "@cardAndReversedAddedUserMessage": {
     "description": "Card and reversed card were added",
     "type": "text",
     "placeholders": {
     }
   },
-  "listOFDecksScreenTitle": "List of decks",
+  "listOFDecksScreenTitle": "Lernsets",
   "@listOFDecksScreenTitle": {
     "description": "List of decks",
     "type": "text",
     "placeholders": {
     }
   },
-  "cardsToLearnLabel": "{numberOfCards} of {total} to learn",
+  "cardsToLearnLabel": "{numberOfCards} von {total} zu lernen",
   "@cardsToLearnLabel": {
     "description": "Cards to learn label",
     "type": "text",
@@ -594,21 +517,21 @@
       }
     }
   },
-  "profileTooltip": "Profile",
+  "profileTooltip": "Profil",
   "@profileTooltip": {
     "description": "Tooltip for the icon in top corner that opens Navigation Drawer",
     "type": "text",
     "placeholders": {
     }
   },
-  "offlineProfileTooltip": "Profile (you are offline)",
+  "offlineProfileTooltip": "Profil (du bist offline)",
   "@offlineProfileTooltip": {
     "description": "Tooltip for the icon in top corner when offline",
     "type": "text",
     "placeholders": {
     }
   },
-  "deckDeletedUserMessage": "Deck was deleted",
+  "deckDeletedUserMessage": "Lernset wurde gelöscht",
   "@deckDeletedUserMessage": {
     "description": "Deck was deleted",
     "type": "text",
@@ -622,7 +545,7 @@
     "placeholders": {
     }
   },
-  "learning": "Learning: {deckName}",
+  "learning": "Lernen: {deckName}",
   "@learning": {
     "description": "Learning Type",
     "type": "text",
@@ -631,56 +554,56 @@
       }
     }
   },
-  "intervalLearning": "Interval",
+  "intervalLearning": "Intervall",
   "@intervalLearning": {
     "description": "Interval Learning Label",
     "type": "text",
     "placeholders": {
     }
   },
-  "intervalLearningTooltip": "Start learning cards ordered for interval learning",
+  "intervalLearningTooltip": "Für das Intervall-Lernen bestellte Lernkarten starten",
   "@intervalLearningTooltip": {
     "description": "Tooltip for Interval Learning Label",
     "type": "text",
     "placeholders": {
     }
   },
-  "viewLearning": "View",
+  "viewLearning": "Ansehen",
   "@viewLearning": {
     "description": "View Learning Label",
     "type": "text",
     "placeholders": {
     }
   },
-  "viewLearningTooltip": "Start learning all cards in any order",
+  "viewLearningTooltip": "Lerne alle Karten in beliebiger Reihenfolge zu",
   "@viewLearningTooltip": {
     "description": "Tooltip for View Learning Label",
     "type": "text",
     "placeholders": {
     }
   },
-  "scrollToStartLabel": "Scroll to the beginning",
+  "scrollToStartLabel": "Zum Anfang blättern",
   "@scrollToStartLabel": {
     "description": "Scroll to the beginning",
     "type": "text",
     "placeholders": {
     }
   },
-  "deleteDeckButton": "Delete Deck",
+  "deleteDeckButton": "Lernset löschen",
   "@deleteDeckButton": {
     "description": "Delete deck button",
     "type": "text",
     "placeholders": {
     }
   },
-  "other": "other",
+  "other": "andere",
   "@other": {
     "description": "Other",
     "type": "text",
     "placeholders": {
     }
   },
-  "createDeckTooltip": "Create deck",
+  "createDeckTooltip": "Lernset erstellen",
   "@createDeckTooltip": {
     "description": "Create Deck tooltip",
     "type": "text",
@@ -694,147 +617,133 @@
     "placeholders": {
     }
   },
-  "deckSettingsTooltip": "Settings of deck",
+  "deckSettingsTooltip": "Einstellungen des Lernsets",
   "@deckSettingsTooltip": {
     "description": "Tooltip for settings of deck",
     "type": "text",
     "placeholders": {
     }
   },
-  "shareDeckTooltip": "Share deck",
+  "shareDeckTooltip": "Lernset teilen",
   "@shareDeckTooltip": {
     "description": "Tooltip for deck sharing",
     "type": "text",
     "placeholders": {
     }
   },
-  "deleteCardTooltip": "Delete card",
+  "deleteCardTooltip": "Karte löschen",
   "@deleteCardTooltip": {
     "description": "Tooltip for deleting card",
     "type": "text",
     "placeholders": {
     }
   },
-  "editCardTooltip": "Edit card",
+  "editCardTooltip": "Karte bearbeiten",
   "@editCardTooltip": {
     "description": "Tooltip for editing card",
     "type": "text",
     "placeholders": {
     }
   },
-  "knowCardTooltip": "I know",
+  "knowCardTooltip": "Ich weiß",
   "@knowCardTooltip": {
     "description": "Tooltip for know card button",
     "type": "text",
     "placeholders": {
     }
   },
-  "doNotKnowCardTooltip": "I don't know",
+  "doNotKnowCardTooltip": "Ich weiß es nicht.",
   "@doNotKnowCardTooltip": {
     "description": "Tooltip for do not know card button",
     "type": "text",
     "placeholders": {
     }
   },
-  "privacyPolicy": "Privacy Policy",
+  "privacyPolicy": "Datenschutzerklärung",
   "@privacyPolicy": {
     "description": "Privacy Policy label",
     "type": "text",
     "placeholders": {
     }
   },
-  "termsOfService": "Terms of Service",
+  "termsOfService": "Nutzungsbedingungen",
   "@termsOfService": {
     "description": "Terms of Service label",
     "type": "text",
     "placeholders": {
     }
   },
-  "legacyAcceptanceLabel": "By using this app you accept the ",
+  "legacyAcceptanceLabel": "Mit der Benutzung dieser App akzeptierst du die ",
   "@legacyAcceptanceLabel": {
     "description": "User accept policy by using the app",
     "type": "text",
     "placeholders": {
     }
   },
-  "legacyPartsConnector": " and the  ",
+  "legacyPartsConnector": " und die  ",
   "@legacyPartsConnector": {
     "description": "Connects parts of legacy",
     "type": "text",
     "placeholders": {
     }
   },
-  "privacyPolicySignIn": "Privacy Policy",
-  "@privacyPolicySignIn": {
-    "description": "Privacy Policy label",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "termsOfServiceSignIn": "Terms of Service",
-  "@termsOfServiceSignIn": {
-    "description": "Terms of Service label",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "shuffleTooltip": "Shuffle cards",
+  "shuffleTooltip": "Karten mischen",
   "@shuffleTooltip": {
     "description": "Shuffle cards tooltip",
     "type": "text",
     "placeholders": {
     }
   },
-  "signInScreenOr": "or",
+  "signInScreenOr": "oder",
   "@signInScreenOr": {
     "description": "or label",
     "type": "text",
     "placeholders": {
     }
   },
-  "featureNotAvailableUserMessage": "This feature is currently not available. Please try it later.",
+  "featureNotAvailableUserMessage": "Diese Funktion ist derzeit nicht verfügbar. Bitte versuche es später.",
   "@featureNotAvailableUserMessage": {
     "description": "User message that a feature is not available right now",
     "type": "text",
     "placeholders": {
     }
   },
-  "imageFromGalleryLabel": "From Gallery",
+  "imageFromGalleryLabel": "Von Galerie",
   "@imageFromGalleryLabel": {
     "description": "Upload image from Gallery",
     "type": "text",
     "placeholders": {
     }
   },
-  "imageFromPhotoLabel": "Take Photo",
+  "imageFromPhotoLabel": "Foto aufnehmen",
   "@imageFromPhotoLabel": {
     "description": "Take photo to upload image",
     "type": "text",
     "placeholders": {
     }
   },
-  "accessibilityAddImageLabel": "Add Image",
+  "accessibilityAddImageLabel": "Bild hinzufügen",
   "@accessibilityAddImageLabel": {
     "description": "Add Image Accessibility label",
     "type": "text",
     "placeholders": {
     }
   },
-  "imageLoadingErrorUserMessage": "Error during loading the image. Please try it later.",
+  "imageLoadingErrorUserMessage": "Fehler beim Laden des Bildes. Bitte versuche es später.",
   "@imageLoadingErrorUserMessage": {
     "description": "Image loading error message to user",
     "type": "text",
     "placeholders": {
     }
   },
-  "decksRefreshed": "Decks refreshed",
+  "decksRefreshed": "Lernsets erneuert",
   "@decksRefreshed": {
     "description": "The user pulled down on decks list and some updates have been picked up",
     "type": "text",
     "placeholders": {
     }
   },
-  "noUpdates": "No updates",
+  "noUpdates": "Keine Aktualisierungen",
   "@noUpdates": {
     "description": "The user pulled down on decks list but no updates were found",
     "type": "text",

@@ -69,9 +69,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "deckSettingsTooltip":
             MessageLookupByLibrary.simpleMessage("Settings of deck"),
         "deckType": MessageLookupByLibrary.simpleMessage("Deck Type"),
-        "decksIntroDescription": MessageLookupByLibrary.simpleMessage(
-            "Create decks with flashcards"),
-        "decksIntroTitle": MessageLookupByLibrary.simpleMessage("Create Decks"),
         "decksRefreshed":
             MessageLookupByLibrary.simpleMessage("Decks refreshed"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
@@ -87,7 +84,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "discard": MessageLookupByLibrary.simpleMessage("Discard"),
         "doNotKnowCardTooltip":
             MessageLookupByLibrary.simpleMessage("I don\'t know"),
-        "done": MessageLookupByLibrary.simpleMessage("Done"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editCardTooltip": MessageLookupByLibrary.simpleMessage("Edit card"),
         "editCardsDeckMenu": MessageLookupByLibrary.simpleMessage("Edit Cards"),
@@ -119,9 +115,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
             "I invite you to install Delern, a spaced repetition learning app, which will allow you to learn quickly and easily!\n\nProceed to install it from:\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nAfter install, follow Delern latest news on:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
         "knowCardTooltip": MessageLookupByLibrary.simpleMessage("I know"),
-        "learnIntroDescription": MessageLookupByLibrary.simpleMessage(
-            "Learn in any place and offline as well"),
-        "learnIntroTitle": MessageLookupByLibrary.simpleMessage("Learn"),
         "learning": m4,
         "legacyAcceptanceLabel": MessageLookupByLibrary.simpleMessage(
             "By using this app you accept the "),
@@ -132,8 +125,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "markdown": MessageLookupByLibrary.simpleMessage("Markdown"),
         "menuTooltip": MessageLookupByLibrary.simpleMessage("Menu"),
         "navigationDrawerAbout": MessageLookupByLibrary.simpleMessage("About"),
-        "navigationDrawerCommunicateGroup":
-            MessageLookupByLibrary.simpleMessage("Communicate"),
         "navigationDrawerContactUs":
             MessageLookupByLibrary.simpleMessage("Contact Us"),
         "navigationDrawerInviteFriends":
@@ -142,8 +133,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign In"),
         "navigationDrawerSignOut":
             MessageLookupByLibrary.simpleMessage("Sign Out"),
-        "navigationDrawerSupportDevelopment":
-            MessageLookupByLibrary.simpleMessage("Support Development"),
         "no": MessageLookupByLibrary.simpleMessage("no"),
         "noAccess": MessageLookupByLibrary.simpleMessage("No access"),
         "noAddingWithReadAccessUserMessage":
@@ -167,8 +156,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "owner": MessageLookupByLibrary.simpleMessage("Owner"),
         "peopleLabel": MessageLookupByLibrary.simpleMessage("People"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "privacyPolicySignIn":
-            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "profileTooltip": MessageLookupByLibrary.simpleMessage("Profile"),
         "reversedCardLabel": MessageLookupByLibrary.simpleMessage(
             "Add a reversed copy of this card"),
@@ -184,9 +171,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "settingsDeckMenu": MessageLookupByLibrary.simpleMessage("Settings"),
         "shareDeckMenu": MessageLookupByLibrary.simpleMessage("Share"),
         "shareDeckTooltip": MessageLookupByLibrary.simpleMessage("Share deck"),
-        "shareIntroDescription": MessageLookupByLibrary.simpleMessage(
-            "Share decks with friends and colleagues to learn together"),
-        "shareIntroTitle": MessageLookupByLibrary.simpleMessage("Share decks"),
         "shuffleTooltip": MessageLookupByLibrary.simpleMessage("Shuffle cards"),
         "signInAccountExistWithDifferentCredentialWarning":
             MessageLookupByLibrary.simpleMessage(
@@ -198,15 +182,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "signInWithGoogle": MessageLookupByLibrary.simpleMessage("Google"),
         "signInWithLabel":
             MessageLookupByLibrary.simpleMessage("Sign in with:"),
-        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "splashScreenFeatures": MessageLookupByLibrary.simpleMessage(
             "All the data will be saved in the Cloud and synchronized across all your devices. You can also share cards with your friends and colleagues"),
-        "supportDevelopment": MessageLookupByLibrary.simpleMessage(
-            "Please tell us what we can do to make your experience with Delern better!\n\nIf you have any questions or suggestions please contact us:\n[delern@dasfoo.org](mailto:delern@dasfoo.org)\n\nFollow latest news on:\n\n- [Facebook](https://fb.me/das.delern)\n- [Twitter](https://twitter.com/dasdelern)\n- [LinkedIn](https://www.linkedin.com/company/delern)\n- [VK](https://vk.com/delern)\n\nTo see the source code for this app, please visit the [Delern GitHub repo](https://github.com/dasfoo/delern).\n      "),
         "swissDeckType": MessageLookupByLibrary.simpleMessage("Swiss"),
         "termsOfService":
-            MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "termsOfServiceSignIn":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "unknownDeckType": MessageLookupByLibrary.simpleMessage("Unknown"),
         "viewLearning": MessageLookupByLibrary.simpleMessage("View"),

@@ -215,12 +215,12 @@ class LegalInfoWidget extends StatelessWidget {
               _buildLegalUrl(
                   context: context,
                   url: kPrivacyPolicy,
-                  text: context.l.privacyPolicySignIn),
+                  text: context.l.privacyPolicy),
               TextSpan(text: context.l.legacyPartsConnector),
               _buildLegalUrl(
                   context: context,
                   url: kTermsOfService,
-                  text: context.l.termsOfServiceSignIn),
+                  text: context.l.termsOfService),
             ],
           ),
         ),
