@@ -42,6 +42,7 @@ class App extends StatelessWidget {
           // a fallback locale.
           Locale('en', 'US'),
           Locale('ru', 'RU'),
+          Locale('de', 'DE'),
         ],
         navigatorObservers: [
           _analyticsNavigatorObserver,
