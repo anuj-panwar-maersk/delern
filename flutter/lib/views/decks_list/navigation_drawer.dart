@@ -70,14 +70,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           await launchEmail(context);
         },
       ),
-      ListTile(
-        leading: const Icon(Icons.developer_board),
-        title: Text(context.l.navigationDrawerSupportDevelopment),
-        onTap: () {
-          Navigator.pop(context);
-          openSupportDevelopmentScreen(context);
-        },
-      ),
       const Divider(height: 1),
       AboutListTile(
         icon: const Icon(Icons.perm_device_information),

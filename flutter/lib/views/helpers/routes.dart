@@ -99,13 +99,6 @@ Future<void> openShareDeckScreen(BuildContext context, DeckModel deck) =>
           builder: (context) => DeckSharing(deck)),
     );
 
-Future<void> openSupportDevelopmentScreen(BuildContext context) =>
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: const RouteSettings(name: SupportDevelopment.routeName),
-            builder: (context) => SupportDevelopment()));
-
 Future<void> openPreviewCardScreen(
   BuildContext context, {
   @required String deckKey,
