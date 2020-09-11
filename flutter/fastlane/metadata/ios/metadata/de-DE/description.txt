@@ -1,0 +1,17 @@
+Delern Flashcards hilft dir, einfacher und schneller zu lernen, indem du Flashcards und eine "Spaced repetition" Lernmethode verwendest.
+
+Installiere Delern Flashcards auf deinen Geräten: Telefone, Tablets. Erstelle und verwalte ganz einfach deine eigenen Karteikarten, um alle möglichen Dinge zu lernen. Der Lernfortschritt und die Karten werden auf all deinen Geräten synchronisiert. Lerne auch dann, wenn du offline ist und keine Internetverbindung hast. Teile dein Lernkarten mit Freunden, um gemeinsam zu lernen.
+
+Jetzt kostenlos herunterladen, auf Prüfungen vorbereiten, Wortschatz verbessern!
+
+Funktionen:
+
+- Über alle Geräte hinweg synchronisiert;
+- Bilder in Karten verwenden;
+- Gemeinsame Nutzung mit Freunden;
+- Hintergrundfarben für deutsche Karten;
+- Verfügbares Lernen im Offline-Modus;
+- Karten und Lernfortschritte in einer Cloud gespeichert;
+- Unterstützte Lernkarteninhalte: Text, Markdown.
+
+Wir freuen uns über dein Feedback! Bitte senden Sie uns eine E-Mail an delern@dasfoo.org oder finde uns auf Twitter @dasdelern oder Facebook fb.me/das.delern.
