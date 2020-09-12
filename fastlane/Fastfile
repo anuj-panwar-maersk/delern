@@ -125,10 +125,10 @@ lane :setup do
       ],
       'keytool from JDK' => [
         lambda do
-          if Helper.backticks('keytool').include?('Management Tool')
-            # Keytool does not seem to have a flag to print its version.
-            'some version'
-          end
+          sh(%w(keytool -help), log: false)
+          # Keytool does not seem to have a flag to print its version, but will
+          # succeed if used with "-help" flag (otherwise sh() will fail).
+          'some version'
         end,
         'https://www3.ntu.edu.sg/home/ehchua/programming/howto/JDK_Howto.html',
       ],
