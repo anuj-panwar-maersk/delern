@@ -14,4 +14,4 @@ Funktionen:
 - Karten und Lernfortschritte in einer Cloud gespeichert;
 - Unterstützte Lernkarteninhalte: Text, Markdown.
 
-Wir freuen uns über dein Feedback! Bitte senden Sie uns eine E-Mail an delern@dasfoo.org oder finde uns auf Twitter @dasdelern oder Facebook fb.me/das.delern.
+Wir freuen uns über dein Feedback! Bitte sende uns eine E-Mail an delern@dasfoo.org oder finde uns auf Twitter @dasdelern oder Facebook fb.me/das.delern.
