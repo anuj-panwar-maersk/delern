@@ -119,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "intervalLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Für das Intervall-Lernen bestellte Lernkarten starten"),
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
-            "Ich lade dich ein, Delern zu installieren, eine App für das Lernen mit Intervallwiederholungen, die es dir ermöglicht, schnell und einfach zu lernen!\n\nInstalliere es von:\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nNach der Installation folgen Sie den neuesten Nachrichten von Delern auf:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
+            "Ich lade dich ein, Delern zu installieren, eine App für das Lernen mit Intervallwiederholungen, die es dir ermöglicht, schnell und einfach zu lernen!\n\nInstalliere es von:\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nNach der Installation folge den neuesten Nachrichten von Delern auf:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
         "knowCardTooltip": MessageLookupByLibrary.simpleMessage("Ich weiß"),
         "learning": m4,
         "legacyAcceptanceLabel": MessageLookupByLibrary.simpleMessage(
@@ -167,7 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
         "profileTooltip": MessageLookupByLibrary.simpleMessage("Profil"),
         "reversedCardLabel": MessageLookupByLibrary.simpleMessage(
-            "Fügen Sie eine umgekehrte Kopie dieser Karte hinzu"),
+            "Eine umgekehrte Kopie dieser Karte hinzufügen"),
         "save": MessageLookupByLibrary.simpleMessage("Speichern"),
         "saveChangesQuestion": MessageLookupByLibrary.simpleMessage(
             "Möchtest Änderungen speichern?"),
