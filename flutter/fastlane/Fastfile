@@ -221,6 +221,8 @@ platform :ios do
     # Perform an (otherwise unnecessary) build to:
     # - add version
     # - switch to release mode
+    # TODO(dotdoom): make it config-only once it's available on our branch:
+    #                https://github.com/flutter/flutter/pull/64848.
     retry_on_exception do
       flutter_build
     end
