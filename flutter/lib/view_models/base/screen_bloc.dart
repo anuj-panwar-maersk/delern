@@ -10,7 +10,7 @@ abstract class ScreenBloc {
   AppLocalizations _locale;
 
   // Not using @required named parameters because they are easily missed due to
-  // dartanalyzer bug: https://github.com/dart-lang/linter/issues/1708.
+  // dartanalyzer bug: https://github.com/dart-lang/sdk/issues/30117.
   ScreenBloc(this.user) : assert(user != null) {
     _onLocaleController.stream.listen((locale) {
       _locale = locale;

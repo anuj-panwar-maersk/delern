@@ -22,7 +22,7 @@ void main() {
 
     Future<void> expectCard(String front, String back) async {
       // TODO(ksheremet): getText doesn't work with TextSpan which is used
-      // in Markdown text https://github.com/flutter/flutter/pull/48809.
+      // in Markdown text https://github.com/flutter/flutter/issues/62489.
       //await driver.getText(find.text('front1'))
 
       final card =

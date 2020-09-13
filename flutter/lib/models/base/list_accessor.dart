@@ -9,8 +9,6 @@ import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:quiver/strings.dart';
 
-// https://github.com/dart-lang/linter/issues/1826
-// ignore: one_member_abstracts
 abstract class ListAccessor<T> implements StreamWithValue<BuiltList<T>> {
   void close();
 }

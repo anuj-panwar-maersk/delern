@@ -217,11 +217,6 @@ platform :ios do
       'keys/org.dasfoo.delern',
       '../ios/Runner/GoogleService-Info.plist',
       verbose: true)
-    # Although we don't need any settings in this file for the Release build, it
-    # must exist for the build to pass.
-    FileUtils.touch(
-      '../ios/Flutter/FirebaseLocalDeveloper.xcconfig',
-      verbose: true)
 
     # Perform an (otherwise unnecessary) build to:
     # - add version
