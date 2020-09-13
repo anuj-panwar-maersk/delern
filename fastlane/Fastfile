@@ -111,14 +111,6 @@ desc 'Create or migrate a debug Firebase project for this GitHub fork'
 lane :setup do
   Dir.chdir('../firebase') do
     software = {
-      'Google Cloud SDK' => [
-        lambda do
-          # This will fail if user is not authorized, triggering error message.
-          sh(%w(gcloud auth print-access-token), log: false)
-          Helper.backticks('gcloud --version').lines.first
-        end,
-        'https://cloud.google.com/sdk/install and run "gcloud init"',
-      ],
       'NodeJS npm' => [
         lambda { Helper.backticks('npm --version') },
         'https://nodejs.org/',
