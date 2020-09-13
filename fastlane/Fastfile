@@ -82,10 +82,7 @@ platform :ios, '9.0'
       sh %w(npm run fix)
     end
     Dir.chdir('firebase', &npm_update)
-
-    # Functions auto-update broken by
-    # https://github.com/firebase/firebase-functions/issues/610.
-    # Dir.chdir('firebase/functions', &npm_update)
+    Dir.chdir('firebase/functions', &npm_update)
   end
 end
 
