@@ -2,7 +2,7 @@
   "name": "firebase",
   "description": "Umbrella package for Firebase",
   "scripts": {
-    "deploy": "firebase --project=\"${PROJECT?}\" deploy --force --message=\"$(git describe --tags --dirty)\"",
+    "deploy": "firebase --project=\"${PROJECT?}\" deploy --only database --force --message=\"$(git describe --tags --dirty)\"",
     "start": "node build/src/index.js",
     "check": "gts check",
     "clean": "gts clean",
