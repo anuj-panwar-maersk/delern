@@ -229,18 +229,18 @@ platform :ios do
     gym(silent: true, suppress_xcode_output: true)
 
     begin
+      config = {
+        distribute_external: true,
+        # This is supposed to be the latest build, reject builds already
+        # waiting review (only applies to TestFlight reviews, not App Store!).
+        reject_build_waiting_for_review: true,
+        # Changelog is required for TestFlight.
+        changelog: 'Look for latest changes at ' +
+                   'https://github.com/dasfoo/delern/commits/master',
+        groups: lane_context[SharedValues::PROMOTE_RELEASE] ? ['alpha']
+                                                            : ['internal'],
+      }
       retry_on_exception do
-        config = {
-          distribute_external: true,
-          # This is supposed to be the latest build, reject builds already
-          # waiting review (only applies to TestFlight reviews, not App Store!).
-          reject_build_waiting_for_review: true,
-          # Changelog is required for TestFlight.
-          changelog: 'Look for latest changes at ' +
-                     'https://github.com/dasfoo/delern/commits/master',
-          groups: lane_context[SharedValues::PROMOTE_RELEASE] ? ['alpha']
-                                                              : ['internal'],
-        }
         begin
           upload_to_testflight(config)
         rescue => e
@@ -249,12 +249,14 @@ platform :ios do
           # will fail, but if we can distribute this binary without an error,
           # then we have achieved what we wanted.
           UI.error("upload + distribute failed: #{e}, retrying distribute")
-          config.merge!({
+          upload_to_testflight(config.merge(
             distribute_only: true,
-            # ipa: File.expand_path(lane_context[SharedValues::IPA_OUTPUT_PATH]),
-            # app_identifier: APP_IDENTIFIER,
-          })
-          upload_to_testflight(config)
+            # Has to be specified -- otherwise, the latest build is distributed.
+            build_number: lane_context[SharedValues::BUILD_NUMBER].to_s,
+            # When uploading, this value is taken from IPA, but for distribution
+            # it is unknown.
+            app_identifier: APP_IDENTIFIER,
+          ))
         end
       end
     ensure
