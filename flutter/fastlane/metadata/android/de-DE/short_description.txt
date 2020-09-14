@@ -1,1 +1,1 @@
-Verwende Lernkarten, um etwas zu lernen. Die App verwendet ein "Spaced repetition" System.
+Verwende Lernkarten zu lernen. Die App verwendet ein "Spaced repetition" System.
