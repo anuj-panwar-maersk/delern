@@ -21,6 +21,7 @@ dependencies:
   rxdart:
   uuid:
   device_preview:
+  flutter_local_notifications:
 
   flutter_sentry:
   # Needed for the User context type, version is bound by flutter_sentry.
