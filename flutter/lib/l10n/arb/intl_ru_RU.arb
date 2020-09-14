@@ -7,13 +7,6 @@
     "placeholders": {
     }
   },
-  "navigationDrawerCommunicateGroup": "Общение",
-  "@navigationDrawerCommunicateGroup": {
-    "description": "Communicate Group Name in Navigation Drawer",
-    "type": "text",
-    "placeholders": {
-    }
-  },
   "navigationDrawerInviteFriends": "Пригласить друзей",
   "@navigationDrawerInviteFriends": {
     "description": "Invite Friends in Navigation Drawer",
@@ -24,13 +17,6 @@
   "navigationDrawerContactUs": "Связаться с нами",
   "@navigationDrawerContactUs": {
     "description": "Contact Us in Navigation Drawer",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "navigationDrawerSupportDevelopment": "Поддержать разработку",
-  "@navigationDrawerSupportDevelopment": {
-    "description": "Support Development in Navigation Drawer",
     "type": "text",
     "placeholders": {
     }
@@ -361,13 +347,6 @@
     "placeholders": {
     }
   },
-  "supportDevelopment": "Расскажите, пожалуйста, что мы можем сделать, чтобы улучшить Ваш опыт с Delern!\n\nЕсли у вас есть какие-либо вопросы или предложения, свяжитесь с нами:\n[delern@dasfoo.org](mailto:delern@dasfoo.org)\n\nCледите за последними новостями Delern:\n\n- [Facebook](https://fb.me/das.delern)\n- [LinkedIn](https://www.linkedin.com/company/delern)\n- [Twitter](https://twitter.com/dasdelern)\n- [VK](https://vk.com/delern)\n\nЧтобы увидеть исходный код этого приложения, посетите [Delern GitHub repo](https://github.com/dasfoo/delern).\n      ",
-  "@supportDevelopment": {
-    "description": "Support Development",
-    "type": "text",
-    "placeholders": {
-    }
-  },
   "installEmailApp": "Пожалуйста установите приложение Электронной Почты",
   "@installEmailApp": {
     "description": "Please install Email App",
@@ -452,62 +431,6 @@
   "deleteDeckWriteReadAccessQuestion": "Список будет удален с Вашего аккаунта, все карточки и история изучения останутся у владельца списка и остальных пользователей. Вы хотите удалить список?",
   "@deleteDeckWriteReadAccessQuestion": {
     "description": "Delete deck question to user with write access",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "decksIntroTitle": "Создавайте списки",
-  "@decksIntroTitle": {
-    "description": "Create decks intro title",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "decksIntroDescription": "Создавайте списки с карточками",
-  "@decksIntroDescription": {
-    "description": "Create decks with flashcards",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "learnIntroTitle": "Изучайте",
-  "@learnIntroTitle": {
-    "description": "Learn intro title",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "learnIntroDescription": "Изучайте в любом месте, а также без сети",
-  "@learnIntroDescription": {
-    "description": "Learn intro description",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "shareIntroTitle": "Делитесь списками",
-  "@shareIntroTitle": {
-    "description": "Share intro title",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "shareIntroDescription": "Делитесь списками с друзьями и коллегами, чтобы изучать вместе",
-  "@shareIntroDescription": {
-    "description": "Share intro description",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "done": "Закрыть",
-  "@done": {
-    "description": "Done",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "skip": "Пропустить",
-  "@skip": {
-    "description": "Skip",
     "type": "text",
     "placeholders": {
     }
@@ -731,20 +654,6 @@
   "legacyPartsConnector": " и  ",
   "@legacyPartsConnector": {
     "description": "Connects parts of legacy",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "privacyPolicySignIn": "Политикой Конфиденциальности",
-  "@privacyPolicySignIn": {
-    "description": "Privacy Policy label",
-    "type": "text",
-    "placeholders": {
-    }
-  },
-  "termsOfServiceSignIn": "Условиями Использования",
-  "@termsOfServiceSignIn": {
-    "description": "Terms of Service label",
     "type": "text",
     "placeholders": {
     }

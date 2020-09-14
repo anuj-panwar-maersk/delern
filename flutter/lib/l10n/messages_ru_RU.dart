@@ -74,10 +74,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "deckSettingsTooltip":
             MessageLookupByLibrary.simpleMessage("Настройки списка"),
         "deckType": MessageLookupByLibrary.simpleMessage("Тип списка"),
-        "decksIntroDescription": MessageLookupByLibrary.simpleMessage(
-            "Создавайте списки с карточками"),
-        "decksIntroTitle":
-            MessageLookupByLibrary.simpleMessage("Создавайте списки"),
         "decksRefreshed":
             MessageLookupByLibrary.simpleMessage("Списки обновлены"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
@@ -94,7 +90,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "discard": MessageLookupByLibrary.simpleMessage("Отменить изменения"),
         "doNotKnowCardTooltip":
             MessageLookupByLibrary.simpleMessage("Я не знаю"),
-        "done": MessageLookupByLibrary.simpleMessage("Закрыть"),
         "edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
         "editCardTooltip":
             MessageLookupByLibrary.simpleMessage("Редактировать карточку"),
@@ -131,9 +126,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
             "Я приглашаю Вас установить Delern, систему интервального изучения, которая позволяет изучать быстро и легко!\n\nПройдите по ссылке чтобы установить из\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nПосле установки, следите за последними новостями Delern:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
         "knowCardTooltip": MessageLookupByLibrary.simpleMessage("Я знаю"),
-        "learnIntroDescription": MessageLookupByLibrary.simpleMessage(
-            "Изучайте в любом месте, а также без сети"),
-        "learnIntroTitle": MessageLookupByLibrary.simpleMessage("Изучайте"),
         "learning": m4,
         "legacyAcceptanceLabel": MessageLookupByLibrary.simpleMessage(
             "При использовании приложения Вы соглашаетесь с  "),
@@ -144,8 +136,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "menuTooltip": MessageLookupByLibrary.simpleMessage("Меню"),
         "navigationDrawerAbout":
             MessageLookupByLibrary.simpleMessage("О приложении"),
-        "navigationDrawerCommunicateGroup":
-            MessageLookupByLibrary.simpleMessage("Общение"),
         "navigationDrawerContactUs":
             MessageLookupByLibrary.simpleMessage("Связаться с нами"),
         "navigationDrawerInviteFriends":
@@ -153,8 +143,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationDrawerSignIn": MessageLookupByLibrary.simpleMessage("Войти"),
         "navigationDrawerSignOut":
             MessageLookupByLibrary.simpleMessage("Выход"),
-        "navigationDrawerSupportDevelopment":
-            MessageLookupByLibrary.simpleMessage("Поддержать разработку"),
         "no": MessageLookupByLibrary.simpleMessage("нет"),
         "noAccess": MessageLookupByLibrary.simpleMessage("Нет доступа"),
         "noAddingWithReadAccessUserMessage":
@@ -179,8 +167,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "peopleLabel": MessageLookupByLibrary.simpleMessage("Люди"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Политика Конфиденциальности"),
-        "privacyPolicySignIn": MessageLookupByLibrary.simpleMessage(
-            "Политикой Конфиденциальности"),
         "profileTooltip": MessageLookupByLibrary.simpleMessage("Профиль"),
         "reversedCardLabel": MessageLookupByLibrary.simpleMessage(
             "Добавить обратную копию этой карточки"),
@@ -197,10 +183,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareDeckMenu": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "shareDeckTooltip":
             MessageLookupByLibrary.simpleMessage("Поделиться списком"),
-        "shareIntroDescription": MessageLookupByLibrary.simpleMessage(
-            "Делитесь списками с друзьями и коллегами, чтобы изучать вместе"),
-        "shareIntroTitle":
-            MessageLookupByLibrary.simpleMessage("Делитесь списками"),
         "shuffleTooltip":
             MessageLookupByLibrary.simpleMessage("Перемешать карточки"),
         "signInAccountExistWithDifferentCredentialWarning":
@@ -213,16 +195,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "signInWithGoogle": MessageLookupByLibrary.simpleMessage("Google"),
         "signInWithLabel":
             MessageLookupByLibrary.simpleMessage("Войти с помощью:"),
-        "skip": MessageLookupByLibrary.simpleMessage("Пропустить"),
         "splashScreenFeatures": MessageLookupByLibrary.simpleMessage(
             "Данные и прогресс изучения будут сохранены в Облаке и синхронизированы на всех Ваших устройствах. Вы также можете поделиться карточками с друзьями и коллегами"),
-        "supportDevelopment": MessageLookupByLibrary.simpleMessage(
-            "Расскажите, пожалуйста, что мы можем сделать, чтобы улучшить Ваш опыт с Delern!\n\nЕсли у вас есть какие-либо вопросы или предложения, свяжитесь с нами:\n[delern@dasfoo.org](mailto:delern@dasfoo.org)\n\nCледите за последними новостями Delern:\n\n- [Facebook](https://fb.me/das.delern)\n- [LinkedIn](https://www.linkedin.com/company/delern)\n- [Twitter](https://twitter.com/dasdelern)\n- [VK](https://vk.com/delern)\n\nЧтобы увидеть исходный код этого приложения, посетите [Delern GitHub repo](https://github.com/dasfoo/delern).\n      "),
         "swissDeckType": MessageLookupByLibrary.simpleMessage("Швейцарский"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Условия Использования"),
-        "termsOfServiceSignIn":
-            MessageLookupByLibrary.simpleMessage("Условиями Использования"),
         "unknownDeckType": MessageLookupByLibrary.simpleMessage("Неизвестный"),
         "viewLearning": MessageLookupByLibrary.simpleMessage("Просмотр"),
         "viewLearningTooltip": MessageLookupByLibrary.simpleMessage(

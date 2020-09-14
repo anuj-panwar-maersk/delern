@@ -23,12 +23,6 @@ class AppLocalizations {
         desc: 'Sign Out in Navigation Drawer',
       );
 
-  String get navigationDrawerCommunicateGroup => Intl.message(
-        'Communicate',
-        name: 'navigationDrawerCommunicateGroup',
-        desc: 'Communicate Group Name in Navigation Drawer',
-      );
-
   String get navigationDrawerInviteFriends => Intl.message(
         'Invite Friends',
         name: 'navigationDrawerInviteFriends',
@@ -39,12 +33,6 @@ class AppLocalizations {
         'Contact Us',
         name: 'navigationDrawerContactUs',
         desc: 'Contact Us in Navigation Drawer',
-      );
-
-  String get navigationDrawerSupportDevelopment => Intl.message(
-        'Support Development',
-        name: 'navigationDrawerSupportDevelopment',
-        desc: 'Support Development in Navigation Drawer',
       );
 
   String get navigationDrawerAbout => Intl.message(
@@ -355,26 +343,6 @@ Twitter: https://twitter.com/dasdelern''',
         desc: 'Discard',
       );
 
-  String get supportDevelopment => Intl.message(
-        '''
-Please tell us what we can do to make your experience with Delern better!
-
-If you have any questions or suggestions please contact us:
-[delern@dasfoo.org](mailto:delern@dasfoo.org)
-
-Follow latest news on:
-
-- [Facebook](https://fb.me/das.delern)
-- [Twitter](https://twitter.com/dasdelern)
-- [LinkedIn](https://www.linkedin.com/company/delern)
-- [VK](https://vk.com/delern)
-
-To see the source code for this app, please visit the [Delern GitHub repo](https://github.com/dasfoo/delern).
-      ''',
-        name: 'supportDevelopment',
-        desc: 'Support Development',
-      );
-
   String get installEmailApp => Intl.message(
         'Please install Email App',
         name: 'installEmailApp',
@@ -471,54 +439,6 @@ To see the source code for this app, please visit the [Delern GitHub repo](https
         'Do you want to delete the deck?',
         name: 'deleteDeckWriteReadAccessQuestion',
         desc: 'Delete deck question to user with write access',
-      );
-
-  String get decksIntroTitle => Intl.message(
-        'Create Decks',
-        name: 'decksIntroTitle',
-        desc: 'Create decks intro title',
-      );
-
-  String get decksIntroDescription => Intl.message(
-        'Create decks with flashcards',
-        name: 'decksIntroDescription',
-        desc: 'Create decks with flashcards',
-      );
-
-  String get learnIntroTitle => Intl.message(
-        'Learn',
-        name: 'learnIntroTitle',
-        desc: 'Learn intro title',
-      );
-
-  String get learnIntroDescription => Intl.message(
-        'Learn in any place and offline as well',
-        name: 'learnIntroDescription',
-        desc: 'Learn intro description',
-      );
-
-  String get shareIntroTitle => Intl.message(
-        'Share decks',
-        name: 'shareIntroTitle',
-        desc: 'Share intro title',
-      );
-
-  String get shareIntroDescription => Intl.message(
-        'Share decks with friends and colleagues to learn together',
-        name: 'shareIntroDescription',
-        desc: 'Share intro description',
-      );
-
-  String get done => Intl.message(
-        'Done',
-        name: 'done',
-        desc: 'Done',
-      );
-
-  String get skip => Intl.message(
-        'Skip',
-        name: 'skip',
-        desc: 'Skip',
       );
 
   String get addCardsDeckMenu => Intl.message(
@@ -701,18 +621,6 @@ To see the source code for this app, please visit the [Delern GitHub repo](https
         ' and the  ',
         name: 'legacyPartsConnector',
         desc: 'Connects parts of legacy',
-      );
-
-  String get privacyPolicySignIn => Intl.message(
-        'Privacy Policy',
-        name: 'privacyPolicySignIn',
-        desc: 'Privacy Policy label',
-      );
-
-  String get termsOfServiceSignIn => Intl.message(
-        'Terms of Service',
-        name: 'termsOfServiceSignIn',
-        desc: 'Terms of Service label',
       );
 
   String get shuffleTooltip => Intl.message(

@@ -6,7 +6,6 @@ import 'package:delern_flutter/views/cards_view_learning/cards_view_learning.dar
 import 'package:delern_flutter/views/deck_sharing/deck_sharing.dart';
 import 'package:delern_flutter/views/edit_deck/edit_deck.dart';
 import 'package:delern_flutter/views/sign_in/sign_in.dart';
-import 'package:delern_flutter/views/support_dev/support_development.dart';
 import 'package:flutter/material.dart';
 
 // How to specify RouteSettings name parameter:
@@ -98,13 +97,6 @@ Future<void> openShareDeckScreen(BuildContext context, DeckModel deck) =>
           settings: const RouteSettings(name: DeckSharing.routeName),
           builder: (context) => DeckSharing(deck)),
     );
-
-Future<void> openSupportDevelopmentScreen(BuildContext context) =>
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: const RouteSettings(name: SupportDevelopment.routeName),
-            builder: (context) => SupportDevelopment()));
 
 Future<void> openPreviewCardScreen(
   BuildContext context, {

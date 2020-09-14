@@ -49,12 +49,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   List<Widget> _buildUserButtons(User user) {
     final list = <Widget>[
       ListTile(
-        title: Text(
-          context.l.navigationDrawerCommunicateGroup,
-          style: app_styles.navigationDrawerGroupText,
-        ),
-      ),
-      ListTile(
         leading: const Icon(Icons.contact_mail),
         title: Text(context.l.navigationDrawerInviteFriends),
         onTap: () {
@@ -68,14 +62,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         onTap: () async {
           Navigator.pop(context);
           await launchEmail(context);
-        },
-      ),
-      ListTile(
-        leading: const Icon(Icons.developer_board),
-        title: Text(context.l.navigationDrawerSupportDevelopment),
-        onTap: () {
-          Navigator.pop(context);
-          openSupportDevelopmentScreen(context);
         },
       ),
       const Divider(height: 1),
