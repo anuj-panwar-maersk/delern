@@ -27,7 +27,7 @@ class AuthWidget extends StatefulWidget {
 }
 
 class _AuthWidgetState extends State<AuthWidget> {
-  User _currentUser = Auth.instance.currentUser;
+  User _currentUser = Auth.instance.currentUser.value;
 
   StreamSubscription<String> _fcmSubscription;
   StreamSubscription<User> _userChangedSubscription;
@@ -54,8 +54,12 @@ class _AuthWidgetState extends State<AuthWidget> {
       unawaited(_currentUser.addFCM(fcm: fcm));
     });
 
+    // We won't get the first update if the user is already signed in, but it is
+    // only possible when the widget is re-created for some reason. When the app
+    // starts, the user is always signed out, and it's only the signInSilently
+    // call that we do below that may change that, without user interaction.
     _userChangedSubscription =
-        Auth.instance.onUserChanged.listen((newUser) async {
+        Auth.instance.currentUser.updates.listen((newUser) async {
       setState(() {
         _currentUser = newUser;
       });
@@ -64,11 +68,17 @@ class _AuthWidgetState extends State<AuthWidget> {
         error_reporting.uid = _currentUser.uid;
 
         unawaited(FirebaseAnalytics().setUserId(_currentUser.uid));
-        final loginProviders = _currentUser.providers;
-        unawaited(FirebaseAnalytics().logLogin(
-            loginMethod: loginProviders.isEmpty
-                ? 'anonymous'
-                : loginProviders.join(',')));
+        final loginProviders = _currentUser.profile.value.providers.isEmpty
+            ? 'anonymous'
+            : _currentUser.profile.value.providers.join(',');
+
+        unawaited(FirebaseAnalytics().logLogin(loginMethod: loginProviders));
+
+        if (_currentUser.isNewUser) {
+          unawaited(FirebaseAnalytics().logSignUp(
+            signUpMethod: loginProviders,
+          ));
+        }
 
         // Must be called after each login to obtain a FirebaseMessaging token.
         FirebaseMessaging().configure(

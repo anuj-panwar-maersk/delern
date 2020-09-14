@@ -97,9 +97,9 @@ class FacebookSignInButton extends StatelessWidget {
       );
 }
 
-class AnonymousSighInButton extends StatelessWidget {
+class AnonymousSignInButton extends StatelessWidget {
   final VoidCallback onPressed;
-  const AnonymousSighInButton({this.onPressed});
+  const AnonymousSignInButton({this.onPressed});
 
   @override
   Widget build(BuildContext context) => GestureDetector(

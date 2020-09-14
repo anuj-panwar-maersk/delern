@@ -75,9 +75,9 @@ class DataListAccessorItem<T extends KeyedListItem>
   }
 }
 
-/// A proxy class for [DatabaseError], only used to only report errors about
-/// reading from a database (streams like [Query.onChildAdded], [Query.onValue]
-/// etc). The differences are:
+/// A proxy class for [DatabaseError], used to only report errors about reading
+/// from a database (streams like [Query.onChildAdded], [Query.onValue] etc).
+/// The differences are:
 /// - it includes [path], which should be set to [Query.path] of the [Query]
 ///   which subscription has failed;
 /// - it overrides [toString] to provide additional information like [path];

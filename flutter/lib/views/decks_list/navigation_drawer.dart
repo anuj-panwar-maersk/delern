@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:delern_flutter/models/user.dart';
 import 'package:delern_flutter/remote/analytics.dart';
 import 'package:delern_flutter/remote/auth.dart';
-import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
 import 'package:delern_flutter/views/decks_list/developer_menu.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
 import 'package:delern_flutter/views/helpers/email_launcher.dart';
@@ -11,9 +10,9 @@ import 'package:delern_flutter/views/helpers/legal.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/helpers/routes.dart';
 import 'package:delern_flutter/views/helpers/send_invite.dart';
+import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/url_launcher.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
@@ -115,34 +114,33 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   Widget build(BuildContext context) {
     final user = CurrentUserWidget.of(context).user;
 
-    ImageProvider<dynamic> backgroundImage;
-    if (user.photoUrl == null) {
-      backgroundImage = const AssetImage('images/anonymous.jpg');
-    } else {
-      backgroundImage = NetworkImage(user.photoUrl);
-    }
-
-    final accountName = user.displayName ?? context.l.anonymous;
-
     return Drawer(
       child: ListView(
           // Remove any padding from the ListView.
           // https://flutter.io/docs/cookbook/design/drawer
           padding: EdgeInsets.zero,
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text(accountName),
-              accountEmail: Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (user.email != null) Text(user.email),
-                      ...user.providers.map(_buildProviderImage),
-                    ],
-                  )),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: backgroundImage,
+            DataStreamWithValueBuilder<UserProfile>(
+              streamWithValue: user.profile,
+              builder: (context, profile) => UserAccountsDrawerHeader(
+                accountName: Text(profile.displayName ?? context.l.anonymous),
+                accountEmail: Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (profile.email != null) Text(profile.email),
+                        ...profile.providers.map(_buildProviderImage),
+                      ],
+                    )),
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: profile.photoUrl == null
+                      ? const AssetImage('images/anonymous.jpg')
+                          // https://github.com/dart-lang/sdk/issues/43410
+                          // ignore: avoid_as
+                          as ImageProvider<dynamic>
+                      : NetworkImage(profile.photoUrl),
+                ),
               ),
             ),
             ...?_buildUserButtons(user),
@@ -150,22 +148,19 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     );
   }
 
-  Widget _buildProviderImage(String provider) {
+  Widget _buildProviderImage(AuthProvider provider) {
     Color backgroundColor;
     String providerImageAsset;
     switch (provider) {
       // TODO(dotdoom): add more providers here #944.
-      case GoogleAuthProvider.providerId:
+      case AuthProvider.google:
         backgroundColor = Colors.white;
         providerImageAsset = 'images/google_sign_in.png';
         break;
-      case FacebookAuthProvider.providerId:
+      case AuthProvider.facebook:
         backgroundColor = app_styles.kFacebookBlueColor;
         providerImageAsset = 'images/facebook_sign_in.webp';
         break;
-      default:
-        unawaited(error_reporting.report('Unknown provider: $provider'));
-        return Text(provider);
     }
 
     return Container(

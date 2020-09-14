@@ -4,6 +4,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/database.dart';
 import 'package:delern_flutter/view_models/decks_list_bloc.dart';
 import 'package:delern_flutter/views/decks_list/create_deck_widget.dart';
 import 'package:delern_flutter/views/decks_list/deck_menu.dart';
@@ -75,7 +76,8 @@ class _DecksListState extends State<DecksList> {
           title: context.l.listOFDecksScreenTitle,
           search: setFilter,
           leading: buildStreamBuilderWithValue<bool>(
-              streamWithValue: _bloc.isOnline,
+              // TODO(dotdoom): take the existing Database value from User.
+              streamWithValue: Database().isOnline,
               builder: (context, snapshot) {
                 final online = snapshot.data == true;
                 return IconButton(

@@ -1,9 +1,8 @@
+import 'package:delern_flutter/remote/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-// There might be more methods coming soon (e.g. verifyEmail and signOut).
-// ignore: one_member_abstracts
 abstract class CredentialProvider {
   /// Get AuthCredential from user or provider-specific credential cache.
   ///
@@ -22,17 +21,29 @@ abstract class CredentialProvider {
     bool silent = false,
     bool forceAccountPicker = false,
   });
+
+  /// ID for reverse mapping of [User]'s providers into [AuthProvider].
+  String get _providerId;
 }
 
 // The order in this map defines silent Sign In probe order. First wins.
-final credentialProviders = <String, CredentialProvider>{
-  GoogleAuthProvider.providerId: _GoogleCredentialProvider(),
-  FacebookAuthProvider.providerId: _FacebookCredentialProvider(),
+final credentialProviders = <AuthProvider, CredentialProvider>{
+  AuthProvider.google: _GoogleCredentialProvider(),
+  AuthProvider.facebook: _FacebookCredentialProvider(),
   // TODO(dotdoom): handle other providers here (ex.: Twitter) #944.
 };
 
+/// [AuthProvider] for the provider with ID, or `null` if unknown.
+AuthProvider providerFromID(String providerId) => credentialProviders.entries
+    .firstWhere((element) => element.value._providerId == providerId,
+        orElse: () => null)
+    ?.key;
+
 class _GoogleCredentialProvider implements CredentialProvider {
   static final _googleSignIn = GoogleSignIn();
+
+  @override
+  final _providerId = GoogleAuthProvider.PROVIDER_ID;
 
   @override
   Future<AuthCredential> getCredential({
@@ -64,7 +75,7 @@ class _GoogleCredentialProvider implements CredentialProvider {
     //       structure without validation.
     //       Another solution is to always call `clearAuthCache()`, but what are
     //       the side effects of it?
-    return GoogleAuthProvider.getCredential(
+    return GoogleAuthProvider.credential(
       accessToken: auth.accessToken,
       idToken: auth.idToken,
     );
@@ -73,6 +84,9 @@ class _GoogleCredentialProvider implements CredentialProvider {
 
 class _FacebookCredentialProvider implements CredentialProvider {
   static final _facebookSignIn = FacebookLogin();
+
+  @override
+  final _providerId = FacebookAuthProvider.PROVIDER_ID;
 
   @override
   Future<AuthCredential> getCredential({
@@ -95,7 +109,7 @@ class _FacebookCredentialProvider implements CredentialProvider {
     }
 
     if (accessToken != null && accessToken.isValid()) {
-      return FacebookAuthProvider.getCredential(accessToken: accessToken.token);
+      return FacebookAuthProvider.credential(accessToken.token);
     }
     return null;
   }

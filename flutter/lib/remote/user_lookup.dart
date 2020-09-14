@@ -7,10 +7,10 @@ import 'package:http/http.dart' as http;
 FirebaseOptions _opts;
 
 Future<String> userLookup(String email) async {
-  _opts ??= await FirebaseApp.instance.options;
+  _opts ??= Firebase.app().options;
   final uri = Uri(
       scheme: 'https',
-      host: 'us-central1-${_opts.projectID}.cloudfunctions.net',
+      host: 'us-central1-${_opts.projectId}.cloudfunctions.net',
       path: 'userLookup',
       queryParameters: <String, dynamic>{'q': email});
 
