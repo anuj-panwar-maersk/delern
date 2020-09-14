@@ -131,7 +131,7 @@ GEM
       xcpretty-travis-formatter (>= 0.0.3)
     fastlane-plugin-firebase_app_distribution (0.2.0)
     fastlane-plugin-flutter (0.4.2)
-    fastlane-plugin-versioning (0.4.3)
+    fastlane-plugin-versioning (0.4.4)
     ffi (1.13.1)
     ffi (1.13.1-x64-mingw32)
     ffi (1.13.1-x86-mingw32)
