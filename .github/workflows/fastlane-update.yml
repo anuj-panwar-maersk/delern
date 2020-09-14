@@ -40,4 +40,4 @@ jobs:
           commit-message: "[auto] update dependencies"
           branch: automated-update
           title: "[auto] update dependencies"
-          labels: dependencies
+          labels: auto,dependencies
