@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addCardTooltip": MessageLookupByLibrary.simpleMessage("Add Card"),
         "addCardsDeckMenu": MessageLookupByLibrary.simpleMessage("Add Cards"),
         "addDeckTooltip": MessageLookupByLibrary.simpleMessage("Add Deck"),
+        "addReminder": MessageLookupByLibrary.simpleMessage("Add Reminder"),
         "anonymous": MessageLookupByLibrary.simpleMessage("Anonymous"),
         "answeredCards": m0,
         "appNotInstalledSharingDeck": MessageLookupByLibrary.simpleMessage(
@@ -146,6 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noSharingAccessUserMessage": MessageLookupByLibrary.simpleMessage(
             "Only owner of deck can share it."),
         "noUpdates": MessageLookupByLibrary.simpleMessage("No updates"),
+        "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
         "numberOfCards": m5,
         "offlineProfileTooltip":
             MessageLookupByLibrary.simpleMessage("Profile (you are offline)"),

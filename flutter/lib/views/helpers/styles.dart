@@ -14,6 +14,8 @@ const kDeckItemColor = Colors.white;
 const kCurrentDeckTypeColor = Colors.grey;
 final kGeneralDeckTypeColor = Colors.grey[200];
 final kBottomSheetColor = Colors.blueGrey[50];
+const kNotificationByDayDisabledColor = Colors.grey;
+final kNotificationByDayEnabledColor = Colors.orange;
 
 // "Facebook brand blue" color per instructions at
 // https://developers.facebook.com/docs/facebook-login/for-devices

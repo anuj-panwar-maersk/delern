@@ -749,5 +749,19 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "notifications": "Benachrichtigungen",
+  "@notifications": {
+    "description": "Notifications label that is showed in settings",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "addReminder": "Erinnerung hinzufügen",
+  "@addReminder": {
+    "description": "Add Reminder label in button",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

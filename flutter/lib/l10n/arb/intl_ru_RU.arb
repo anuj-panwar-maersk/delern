@@ -748,5 +748,19 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "notifications": "Уведомления",
+  "@notifications": {
+    "description": "Notifications label that is showed in settings",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "addReminder": "Добавить напоминание",
+  "@addReminder": {
+    "description": "Add Reminder label in button",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

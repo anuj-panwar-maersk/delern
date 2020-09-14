@@ -679,4 +679,15 @@ Twitter: https://twitter.com/dasdelern''',
         name: 'noUpdates',
         desc: 'The user pulled down on decks list but no updates were found',
       );
+
+  String get notifications => Intl.message(
+        'Notifications',
+        name: 'notifications',
+        desc: 'Notifications label that is showed in settings',
+      );
+  String get addReminder => Intl.message(
+        'Add Reminder',
+        name: 'addReminder',
+        desc: 'Add Reminder label in button',
+      );
 }

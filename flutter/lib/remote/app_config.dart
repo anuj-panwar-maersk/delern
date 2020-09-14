@@ -60,4 +60,13 @@ class AppConfig {
       }
     }
   }
+
+  static const _notificationsKey = 'remote_config_is_notifications_set';
+
+  /// Shared Preference: whether notifications were set
+  bool get isNotificationsSet =>
+      _sharedPreferences?.getBool(_notificationsKey) ?? false;
+
+  set isNotificationsSet(bool value) =>
+      _sharedPreferences?.setBool(_notificationsKey, value);
 }

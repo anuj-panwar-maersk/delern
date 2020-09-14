@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Добавить карточки"),
         "addDeckTooltip":
             MessageLookupByLibrary.simpleMessage("Добавить список"),
+        "addReminder":
+            MessageLookupByLibrary.simpleMessage("Добавить напоминание"),
         "anonymous":
             MessageLookupByLibrary.simpleMessage("Анонимный пользователь"),
         "answeredCards": m0,
@@ -156,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noSharingAccessUserMessage": MessageLookupByLibrary.simpleMessage(
             "Только владелец может поделиться списком."),
         "noUpdates": MessageLookupByLibrary.simpleMessage("Нет обновлений"),
+        "notifications": MessageLookupByLibrary.simpleMessage("Уведомления"),
         "numberOfCards": m5,
         "offlineProfileTooltip":
             MessageLookupByLibrary.simpleMessage("Профиль (Вы не в сети)"),

@@ -1,5 +1,6 @@
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/auth.dart';
+import 'package:delern_flutter/view_models/notifications.dart';
 import 'package:delern_flutter/views/decks_list/decks_list.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_sentry/flutter_sentry.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
 @immutable
 class App extends StatelessWidget {
@@ -64,9 +66,21 @@ class App extends StatelessWidget {
             // CurrentUserWidget.of().
             DevicePreview.appBuilder(
                 context,
-                AuthWidget(
-                  auth: auth,
-                  child: child,
+                ChangeNotifierProvider(
+                  create: (_) => LocalNotifications(
+                    onNotificationReceived: (notification) {
+                      debugPrint(
+                          'Notification received: ${notification.title}');
+                    },
+                    onNotificationPressed: (payload) {
+                      debugPrint('Notification pressed: $payload');
+                    },
+                  ),
+                  lazy: false,
+                  child: AuthWidget(
+                    auth: auth,
+                    child: child,
+                  ),
                 )),
         theme: ThemeData(
           scaffoldBackgroundColor: app_styles.kScaffoldBackgroundColor,

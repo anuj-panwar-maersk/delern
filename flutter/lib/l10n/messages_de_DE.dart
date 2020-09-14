@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Karten hinzufügen"),
         "addDeckTooltip":
             MessageLookupByLibrary.simpleMessage("Lernset hinzufügen"),
+        "addReminder":
+            MessageLookupByLibrary.simpleMessage("Erinnerung hinzufügen"),
         "anonymous": MessageLookupByLibrary.simpleMessage("Anonymous"),
         "answeredCards": m0,
         "appNotInstalledSharingDeck": MessageLookupByLibrary.simpleMessage(
@@ -154,6 +156,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nur der Besitzer eines Lernsets kann es teilen."),
         "noUpdates":
             MessageLookupByLibrary.simpleMessage("Keine Aktualisierungen"),
+        "notifications":
+            MessageLookupByLibrary.simpleMessage("Benachrichtigungen"),
         "numberOfCards": m5,
         "offlineProfileTooltip":
             MessageLookupByLibrary.simpleMessage("Profil (du bist offline)"),
