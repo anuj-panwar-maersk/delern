@@ -98,20 +98,13 @@ class _DeckMenuState extends State<DeckMenu>
 
 enum _DeckMenuItemType { add, edit, share, delete }
 
-List<MapEntry<_DeckMenuItemType, String>> _buildMenu(BuildContext context) {
-  final deckMenu = <_DeckMenuItemType, String>{
-    _DeckMenuItemType.add: context.l.addCardsDeckMenu,
-    _DeckMenuItemType.edit: context.l.editCardsDeckMenu,
-  };
-
-  if (!CurrentUserWidget.of(context).user.isAnonymous) {
-    deckMenu[_DeckMenuItemType.share] = context.l.shareDeckMenu;
-  }
-
-  // Put delete the last to be sure that delete is the last in menu
-  deckMenu[_DeckMenuItemType.delete] = context.l.delete;
-  return deckMenu.entries.toList();
-}
+Map<_DeckMenuItemType, String> _buildMenu(BuildContext context) => {
+      _DeckMenuItemType.add: context.l.addCardsDeckMenu,
+      _DeckMenuItemType.edit: context.l.editCardsDeckMenu,
+      if (!CurrentUserWidget.of(context).user.isAnonymous)
+        _DeckMenuItemType.share: context.l.shareDeckMenu,
+      _DeckMenuItemType.delete: context.l.delete,
+    };
 
 class _MenuRoute<_DeckMenuItemType> extends PopupRoute<_DeckMenuItemType> {
   // We need parent to count position of menu.
@@ -199,7 +192,7 @@ class _MenuItemsWidgetState extends State<_MenuItemsWidget>
 
   @override
   Widget build(BuildContext context) {
-    final menu = _buildMenu(context);
+    final menu = _buildMenu(context).entries.toList();
     return AnimatedBuilder(
         animation: _controller,
         builder: (context, child) =>
