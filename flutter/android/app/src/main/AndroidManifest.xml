@@ -3,6 +3,8 @@
 
     <!-- The INTERNET permission is required for fetching ToS etc -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Used for notifications -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".Application"
@@ -92,5 +94,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Ensure that notifications remain scheduled upon a reboot and after an application is updated -->
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
     </application>
 </manifest>
