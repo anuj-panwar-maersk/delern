@@ -71,7 +71,7 @@ class _AuthWidgetState extends State<AuthWidget> {
 
         unawaited(FirebaseAnalytics().logLogin(loginMethod: loginProviders));
 
-        if (_currentUser.isNewUser) {
+        if (_currentUser.isNewUser == true) {
           unawaited(FirebaseAnalytics().logSignUp(
             signUpMethod: loginProviders,
           ));
