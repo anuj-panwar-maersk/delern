@@ -2,7 +2,7 @@ import 'package:delern_flutter/views/helpers/device_info.dart';
 import 'package:delern_flutter/views/helpers/progress_indicator_widget.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/user_messages.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sentry/flutter_sentry.dart';
@@ -10,8 +10,8 @@ import 'package:flutter_sentry/flutter_sentry.dart';
 bool _debugAllowDevMenu = true;
 
 Future<String> _getDebugInformation() async {
-  final projectID = (await FirebaseApp.instance.options).projectID,
-      user = await FirebaseAuth.instance.currentUser(),
+  final projectID = (Firebase.app().options).projectId,
+      user = fb_auth.FirebaseAuth.instance.currentUser,
       keyValueInfo = [
         ...?user.providerData.map((info) => '\t${info.toString()}'),
         ...?(await DeviceInfo.getDeviceInfo())

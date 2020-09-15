@@ -110,10 +110,9 @@ Future<void> logPromoteAnonymous() =>
 Future<void> logPromoteAnonymousFail() =>
     FirebaseAnalytics().logEvent(name: 'promote_anonymous_fail');
 
+/// [provider] must be a valid event identifier (e.g. no dots).
 Future<void> logLoginEvent(String provider) =>
-    // provider looks like 'google.com', 'facebook.com'. Dots are invalid for
-    // reporting, therefore cut string till dot and send the first part
-    FirebaseAnalytics().logEvent(name: 'login_${provider.split('.')[0]}');
+    FirebaseAnalytics().logEvent(name: 'login_$provider');
 
 Future<void> logOnboardingStartEvent() =>
     FirebaseAnalytics().logEvent(name: 'onboarding_start');

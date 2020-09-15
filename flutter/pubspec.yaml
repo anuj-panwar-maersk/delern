@@ -30,6 +30,7 @@ dependencies:
   # https://github.com/renefloor/flutter_cached_network_image/issues/261
   cached_network_image: 2.0.0-rc
   app_settings: ^4.0.0
+  firebase_core: any
   firebase_auth: any
   firebase_analytics: any
   firebase_database: any
@@ -59,7 +60,7 @@ dev_dependencies:
   pedantic: ^1.0.0
   build_runner: ^1.10.0
   built_value_generator: any
-  test: ^1.15.2
+  test: any
 
 dependency_overrides:
 # Uncomment the following to override any dependency.

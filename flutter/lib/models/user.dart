@@ -10,8 +10,8 @@ import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/models/fcm_model.dart';
 import 'package:delern_flutter/models/scheduled_card_model.dart';
-import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:delern_flutter/remote/auth.dart';
+import 'package:delern_flutter/remote/database.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -20,82 +20,46 @@ import 'package:pedantic/pedantic.dart';
 import 'package:quiver/strings.dart';
 import 'package:uuid/uuid.dart';
 
-/// An abstraction layer on top of FirebaseUser, plus data writing methods.
-class User {
-  FirebaseUser _dataSource;
-  final StreamSubscription<bool> _onlineSubscription;
+class UserProfile {
+  final String photoUrl;
+  final String displayName;
 
-  final StreamWithValue<bool> isOnline;
-  final DataListAccessor<DeckModel> decks;
-
-  User(FirebaseUser dataSource)
-      : this._withOnlineStream(
-            dataSource,
-            // Workaround for not being able to reference fields in initializer
-            // expressions: https://github.com/dart-lang/sdk/issues/28950.
-            StreamWithLatestValue<bool>(FirebaseDatabase.instance
-                .reference()
-                .child('.info/connected')
-                .onValue
-                .mapPerEvent((event) => event.snapshot.value == true)));
-
-  User._withOnlineStream(this._dataSource, this.isOnline)
-      : decks = DeckModelListAccessor(_dataSource.uid),
-        // Subscribe ourselves to online status immediately because we always
-        // want to know the current value, and that requires at least 1
-        // subscription for StreamWithLatestValue.
-        _onlineSubscription = isOnline.updates.listen((isOnline) {
-          if (isOnline) {
-            // Update latest_online_at node immediately, and also schedule an
-            // onDisconnect handler which will set latest_online_at node to the
-            // timestamp on the server when a client is disconnected.
-            (FirebaseDatabase.instance
-                    .reference()
-                    .child('latest_online_at')
-                    .child(_dataSource.uid)
-                      ..onDisconnect().set(ServerValue.timestamp))
-                .set(ServerValue.timestamp);
-          }
-        });
-
-  /// Update source of profile information (such as email, displayName etc) for
-  /// this user. If in-place update is not possible, i.e. [newDataSource] is
-  /// about a different user, this method returns false.
-  bool updateDataSource(FirebaseUser newDataSource) {
-    assert(newDataSource != null);
-    if (newDataSource.uid == _dataSource.uid) {
-      _dataSource = newDataSource;
-      return true;
-    }
-    return false;
-  }
-
-  void dispose() {
-    _onlineSubscription.cancel();
-    decks.close();
-  }
-
-  /// Unique ID of the user used in Firebase Database and across the app.
-  String get uid => _dataSource.uid;
-
-  /// Display name. Can be null, e.g. for anonymous user.
-  String get displayName =>
-      isBlank(_dataSource.displayName) ? null : _dataSource.displayName;
-
-  /// Photo URL. Can be null.
-  String get photoUrl =>
-      isBlank(_dataSource.photoUrl) ? null : _dataSource.photoUrl;
-
-  /// Email. Can be null.
-  String get email => isBlank(_dataSource.email) ? null : _dataSource.email;
+  /// User email, can be null.
+  final String email;
 
   /// All providers (aka "linked accounts") for the current user. Empty for
   /// anonymously signed in.
-  Iterable<String> get providers => _dataSource.providerData
-      .map((p) => p.providerId)
-      .where((p) => p != 'firebase');
+  final Set<AuthProvider> providers;
 
-  bool get isAnonymous => _dataSource.isAnonymous;
+  UserProfile({
+    @required String photoUrl,
+    @required String displayName,
+    @required String email,
+    @required this.providers,
+  })  : photoUrl = isBlank(photoUrl) ? null : photoUrl,
+        displayName = isBlank(displayName) ? null : displayName,
+        email = isBlank(email) ? null : email;
+}
+
+/// An abstraction layer on top of FirebaseUser, plus data writing methods.
+class User {
+  final DataListAccessor<DeckModel> decks;
+
+  final bool isNewUser;
+  final DateTime createdAt;
+  final String uid;
+  final StreamWithValue<UserProfile> profile;
+
+  User({
+    @required this.uid,
+    @required this.profile,
+    @required this.createdAt,
+    @required this.isNewUser,
+  }) : decks = DeckModelListAccessor(uid);
+
+  void dispose() => decks.close();
+
+  bool get isAnonymous => profile.value.providers.isEmpty;
 
   Future<DeckModel> createDeck({
     @required DeckModel deckTemplate,
@@ -103,7 +67,7 @@ class User {
     final deck = deckTemplate.rebuild((b) => b..key = _newKey());
     final deckPath = 'decks/$uid/${deck.key}';
     final deckAccessPath = 'deck_access/${deck.key}/$uid';
-    await _write(<String, dynamic>{
+    await Database().write(<String, dynamic>{
       '$deckPath/name': deck.name,
       '$deckPath/markdown': deck.markdown,
       '$deckPath/deckType': deck.type.toString().toUpperCase(),
@@ -113,9 +77,9 @@ class User {
       '$deckPath/latestTagSelection': deck.latestTagSelection,
       '$deckPath/access': deck.access.toString(),
       '$deckAccessPath/access': deck.access.toString(),
-      '$deckAccessPath/email': email,
-      '$deckAccessPath/displayName': displayName,
-      '$deckAccessPath/photoUrl': photoUrl,
+      '$deckAccessPath/email': profile.value.email,
+      '$deckAccessPath/displayName': profile.value.displayName,
+      '$deckAccessPath/photoUrl': profile.value.photoUrl,
     });
 
     return deck;
@@ -123,7 +87,7 @@ class User {
 
   Future<void> updateDeck({@required DeckModel deck}) {
     final deckPath = 'decks/$uid/${deck.key}';
-    return _write(<String, dynamic>{
+    return Database().write(<String, dynamic>{
       '$deckPath/name': deck.name,
       '$deckPath/markdown': deck.markdown,
       '$deckPath/deckType': deck.type.toString().toUpperCase(),
@@ -162,7 +126,7 @@ class User {
     final backImageUriList =
         deck.cards.value.expand((card) => card.backImagesUri).toList();
     final allImagesUri = frontImageUriList..addAll(backImageUriList);
-    await _write(updates);
+    await Database().write(updates);
     for (final imageUri in allImagesUri) {
       unawaited(deleteImage(imageUri));
     }
@@ -212,12 +176,12 @@ class User {
       addCard(reverse: true);
     }
 
-    return _write(updates);
+    return Database().write(updates);
   }
 
   Future<void> updateCard({@required CardModel card}) {
     final cardPath = 'cards/${card.deckKey}/${card.key}';
-    return _write(<String, dynamic>{
+    return Database().write(<String, dynamic>{
       '$cardPath/front': card.front,
       '$cardPath/back': card.back,
       '$cardPath/frontImagesUri': card.frontImagesUri.toList(),
@@ -230,7 +194,7 @@ class User {
       ..addAll(card.backImagesUri);
     // We want to make sure all values are set to `null`.
     // ignore: prefer_void_to_null
-    await _write(<String, Null>{
+    await Database().write(<String, Null>{
       'cards/${card.deckKey}/${card.key}': null,
       'learning/$uid/${card.deckKey}/${card.key}': null,
     });
@@ -250,7 +214,7 @@ class User {
         'learning/$uid/${scheduledCard.deckKey}/${scheduledCard.key}';
     final cardViewPath =
         'views/$uid/${scheduledCard.deckKey}/${scheduledCard.key}/${_newKey()}';
-    return _write(<String, dynamic>{
+    return Database().write(<String, dynamic>{
       '$scheduledCardPath/level': scheduledCard.level,
       '$scheduledCardPath/repeatAt':
           scheduledCard.repeatAt.millisecondsSinceEpoch,
@@ -266,7 +230,7 @@ class User {
   }) =>
       // We want to make sure all values are set to `null`.
       // ignore: prefer_void_to_null
-      _write(<String, Null>{
+      Database().write(<String, Null>{
         'deck_access/${deck.key}/$shareWithUid': null,
         'decks/$shareWithUid/${deck.key}': null,
       });
@@ -301,10 +265,11 @@ class User {
       });
     }
 
-    return _write(updates);
+    return Database().write(updates);
   }
 
-  Future<void> addFCM({@required FCMModel fcm}) => _write(<String, dynamic>{
+  Future<void> addFCM({@required FCMModel fcm}) =>
+      Database().write(<String, dynamic>{
         'fcm/$uid/${fcm.key}': {
           'name': fcm.name,
           'language': fcm.language,
@@ -314,7 +279,7 @@ class User {
   Future<void> cleanupOrphanedScheduledCard(ScheduledCardModel sc) =>
       // We want to make sure all values are set to `null`.
       // ignore: prefer_void_to_null
-      _write(<String, Null>{
+      Database().write(<String, Null>{
         'learning/$uid/${sc.deckKey}/${sc.key}': null,
       });
 
@@ -347,36 +312,8 @@ class User {
       return false;
     }
 
-    await _write(updates);
+    await Database().write(updates);
     return true;
-  }
-
-  Future<void> _write(Map<String, dynamic> updates) async {
-    // Firebase update() does not return until it gets response from the server.
-    final updateFuture = FirebaseDatabase.instance.reference().update(updates);
-
-    if (isOnline.value != true) {
-      unawaited(updateFuture.catchError(
-          // https://github.com/dart-lang/linter/issues/1099
-          // ignore: avoid_types_on_closure_parameters
-          (dynamic error, StackTrace stackTrace) => error_reporting.report(
-                error,
-                stackTrace: stackTrace,
-                extra: <String, dynamic>{'updates': updates, 'online': false},
-              )));
-      return;
-    }
-
-    try {
-      await updateFuture;
-    } catch (error, stackTrace) {
-      unawaited(error_reporting.report(
-        error,
-        stackTrace: stackTrace,
-        extra: <String, dynamic>{'updates': updates, 'online': true},
-      ));
-      rethrow;
-    }
   }
 
   String _newKey() => FirebaseDatabase.instance.reference().push().key;

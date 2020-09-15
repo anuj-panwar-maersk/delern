@@ -8,11 +8,13 @@ import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_sentry/flutter_sentry.dart';
+import 'package:pedantic/pedantic.dart';
 
 class App extends StatelessWidget {
   static final _analyticsNavigatorObserver =
@@ -65,10 +67,11 @@ class App extends StatelessWidget {
   }
 }
 
-void main() => FlutterSentry.wrap(
-      () {
-        FirebaseDatabase.instance.setPersistenceEnabled(true);
-        FirebaseAnalytics().logAppOpen();
+Future<void> main() async => FlutterSentry.wrap(
+      () async {
+        await Firebase.initializeApp();
+        unawaited(FirebaseDatabase.instance.setPersistenceEnabled(true));
+        unawaited(FirebaseAnalytics().logAppOpen());
         AppConfig.instance;
         setDeviceOrientation();
         runApp(App());

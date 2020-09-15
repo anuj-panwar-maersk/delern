@@ -77,7 +77,8 @@ extension MapPerEvent<TInput> on Stream<TInput> {
 /// [StreamWithValue] implementation that wraps a [Stream] and keeps the latest
 /// value that was received from it. Beware that for "push" model, where a
 /// (typically broadcast) stream pushes data even when it's not listened to,
-/// the [value] will not be tracked if there are no listeners on [updates].
+/// the [value] will not be tracked if there are no listeners on [updates]. In
+/// such case [PushStreamWithValue] may be more appropriate.
 // Why not use BehaviorSubject?
 // 1. It incapsulates all of: stream, value and add(), i.e. requires another
 //    interface / wrapper to expose read-only properties: stream and value.
@@ -113,4 +114,42 @@ class StreamWithLatestValue<T> implements StreamWithValue<T> {
 
   @override
   bool get loaded => _hasLatestValue;
+}
+
+/// [StreamWithValue] implementation that creates a [Stream] from subsequent
+/// calls to [add]. This way, [value] is always set to the latest value that has
+/// been [add]ed, regardless of whether the [updates] are listened to (in
+/// contrast to [StreamWithLatestValue].
+class PushStreamWithValue<T> implements StreamWithValue<T>, Sink<T> {
+  final _controller = StreamController<T>.broadcast();
+  bool _hasLatestValue = false;
+  T _latestValue;
+
+  PushStreamWithValue({T initialValue}) {
+    if (initialValue != null) {
+      _latestValue = initialValue;
+      _hasLatestValue = true;
+    }
+  }
+
+  /// Push [data] to the stream and save it in [value].
+  @override
+  void add(T data) {
+    _latestValue = data;
+    _hasLatestValue = true;
+    _controller.add(data);
+  }
+
+  /// Close the stream. After that, calls to [add] are no longer allowed.
+  @override
+  void close() => _controller.close();
+
+  @override
+  bool get loaded => _hasLatestValue;
+
+  @override
+  Stream<T> get updates => _controller.stream;
+
+  @override
+  T get value => _latestValue;
 }

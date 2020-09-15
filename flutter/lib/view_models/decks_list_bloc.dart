@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:delern_flutter/models/base/list_accessor.dart';
-import 'package:delern_flutter/models/base/stream_with_value.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/models/user.dart';
 import 'package:delern_flutter/remote/analytics.dart';
@@ -27,8 +26,6 @@ class DecksListBloc {
     logDeckCreate();
     return user.createDeck(deckTemplate: deck);
   }
-
-  StreamWithValue<bool> get isOnline => user.isOnline;
 
   /// Close all streams and release associated timer resources.
   void dispose() {

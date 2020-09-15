@@ -4,7 +4,7 @@ on:
     - cron: "7 2 * * *"
 
 jobs:
-  fastlane-update:
+  update-overlays:
     # Do not run on forks.
     if: startsWith(github.repository, 'futureware-tech/')
     runs-on: ubuntu-latest

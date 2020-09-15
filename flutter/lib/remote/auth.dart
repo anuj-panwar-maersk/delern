@@ -1,10 +1,18 @@
 import 'dart:async';
 
+import 'package:delern_flutter/models/base/stream_with_value.dart';
 import 'package:delern_flutter/models/user.dart';
 import 'package:delern_flutter/remote/credential_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:quiver/strings.dart';
+
+enum AuthProvider {
+  google,
+  facebook,
+}
 
 /// An abstraction layer on top of FirebaseAuth.
 class Auth {
@@ -12,26 +20,74 @@ class Auth {
   Auth._() {
     // Even though this will be evaluated lazily, the initial trigger is
     // guaranteed by Firebase (per documentation).
-    FirebaseAuth.instance.onAuthStateChanged.listen((firebaseUser) async {
-      _authStateKnown = true;
-      _setCurrentUser(firebaseUser);
+    fb_auth.FirebaseAuth.instance.userChanges().listen((firebaseUser) async {
+      UserProfile constructUserProfile() => UserProfile(
+            displayName: firebaseUser.displayName,
+            email: firebaseUser.email,
+            photoUrl: firebaseUser.photoURL,
+            providers: firebaseUser.providerData
+                .map((e) => providerFromID(e.providerId))
+                .where((element) => element != null)
+                .toSet(),
+          );
+
+      if (firebaseUser == null || _currentUser.value?.uid != firebaseUser.uid) {
+        _currentUser.value?.dispose();
+        // Destroy the profile so that any references to the previosly signed in
+        // User model do not accidentally get profile of the new user.
+        _userProfile?.close();
+
+        if (firebaseUser == null) {
+          _currentUser.add(null);
+        } else {
+          _userProfile = PushStreamWithValue(
+            initialValue: constructUserProfile(),
+          );
+
+          final userInfo = await _latestSignInAdditionalInfo;
+          _currentUser.add(User(
+            createdAt: firebaseUser.metadata.creationTime,
+            isNewUser: userInfo?.isNewUser,
+            profile: _userProfile,
+            uid: firebaseUser.uid,
+          ));
+
+          // Update latest_online_at node immediately, and also schedule an
+          // onDisconnect handler which will set latest_online_at node to the
+          // timestamp on the server when a client is disconnected.
+          unawaited((FirebaseDatabase.instance
+                  .reference()
+                  .child('latest_online_at')
+                  .child(firebaseUser.uid)
+                    // ignore: unawaited_futures
+                    ..onDisconnect().set(ServerValue.timestamp))
+              .set(ServerValue.timestamp));
+        }
+      } else {
+        // UID stays the same and firebaseUser isn't null -- either ID token or
+        // profile change.
+        _userProfile.add(constructUserProfile());
+      }
     });
   }
 
-  final _userChanged = StreamController<User>.broadcast();
-  Stream<User> get onUserChanged => _userChanged.stream;
+  PushStreamWithValue<UserProfile> _userProfile;
+  Future<fb_auth.AdditionalUserInfo> _latestSignInAdditionalInfo;
 
-  bool _authStateKnown = false;
-  bool get authStateKnown => _authStateKnown;
+  /// Emits [StreamWithValue.updates] when currently signed in user is no longer
+  /// the same user, i.e. UID changed or user signed in or signed out. Does not
+  /// emit on profile or ID token changes.
+  StreamWithValue<User> get currentUser => _currentUser;
+  final _currentUser = PushStreamWithValue<User>();
 
-  User _currentUser;
-  User get currentUser => _currentUser;
+  bool get authStateKnown => _currentUser.loaded;
 
   /// Sign in using a specified provider. If the user is currently signed in
   /// anonymously, try to preserve uid. This will work only if the user hasn't
   /// signed in with this provider before, otherwise throws PlatformException.
-  /// For the full list of errors, see both [FirebaseAuth.signInWithCredential]
-  /// and FirebaseUser.linkWithCredential methods.
+  /// For the full list of errors, see both
+  /// [fb_auth.FirebaseAuth.signInWithCredential] and
+  /// [fb_auth.User.linkWithCredential] methods.
   ///
   /// Some providers may skip through the account picker window if sign in has
   /// already happened (e.g. after a failed account linking). To give user a
@@ -42,42 +98,37 @@ class Auth {
   /// account picker), the Future will still complete successfully, but no
   /// changes are done.
   Future<void> signIn(
-    String provider, {
+    AuthProvider provider, {
     bool forceAccountPicker = true,
   }) async {
-    FirebaseUser user;
-
     if (provider == null) {
-      user = (await FirebaseAuth.instance.signInAnonymously()).user;
-    } else {
-      final credential = await credentialProviders[provider]
-          .getCredential(forceAccountPicker: forceAccountPicker);
-
-      // Credential is unset, usually cancelled by user.
-      if (credential == null) {
-        return;
-      }
-
-      user = (await ((_currentUser == null)
-              ? FirebaseAuth.instance.signInWithCredential(credential)
-              : (await FirebaseAuth.instance.currentUser())
-                  .linkWithCredential(credential)))
-          .user;
-
-      // After `await`, `_currentUser` is set by `onAuthStateChanged` callback.
-      if (await _updateProfileFromProviders(user)) {
-        _setCurrentUser(await FirebaseAuth.instance.currentUser());
-      }
+      return fb_auth.FirebaseAuth.instance.signInAnonymously();
     }
+    final credential = await credentialProviders[provider]
+        .getCredential(forceAccountPicker: forceAccountPicker);
+
+    // Credential is unset, usually cancelled by user.
+    if (credential == null) {
+      return;
+    }
+
+    final user = (fb_auth.FirebaseAuth.instance.currentUser == null)
+        ? await _signInWithCredential(credential)
+        : (await fb_auth.FirebaseAuth.instance.currentUser
+                .linkWithCredential(credential))
+            .user;
+
+    unawaited(_updateProfileFromProviders(user));
   }
 
   /// If user is already signed in, do nothing. If we have existing credential
   /// (e.g. user was signed in at the previous app run), use that credential to
   /// sign in without asking the user.
   Future<void> signInSilently() async {
-    var firebaseUser = await FirebaseAuth.instance.currentUser();
+    var firebaseUser = fb_auth.FirebaseAuth.instance.currentUser;
+
     if (firebaseUser == null) {
-      AuthCredential credential;
+      fb_auth.AuthCredential credential;
       for (final provider in credentialProviders.values) {
         if ((credential = await provider.getCredential(silent: true)) != null) {
           break;
@@ -85,56 +136,59 @@ class Auth {
       }
 
       if (credential != null) {
-        firebaseUser =
-            (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+        firebaseUser = await _signInWithCredential(credential);
       }
     }
 
-    // After `await`, `_currentUser` is set by `onAuthStateChanged` callback.
     if (firebaseUser != null) {
-      if (await _updateProfileFromProviders(firebaseUser)) {
-        _setCurrentUser(await FirebaseAuth.instance.currentUser());
-      }
+      await _updateProfileFromProviders(firebaseUser);
     }
+  }
+
+  /// Wait for any previous sign in to complete, then get a hold of
+  /// [_latestSignInAdditionalInfo]. This is necessary to keep
+  /// [FirebaseAuth.userChanges()] from yielding a user to [currentUser] too
+  /// soon, i.e., before we get a hold of [fb_auth.AdditionalUserInfo].
+  Future<fb_auth.User> _signInWithCredential(
+      fb_auth.AuthCredential credential) async {
+    await _latestSignInAdditionalInfo;
+    fb_auth.UserCredential userCredential;
+
+    final signInComplete = Completer<fb_auth.AdditionalUserInfo>();
+    _latestSignInAdditionalInfo = signInComplete.future;
+    try {
+      userCredential =
+          await fb_auth.FirebaseAuth.instance.signInWithCredential(credential);
+    } finally {
+      signInComplete.complete(userCredential?.additionalUserInfo);
+    }
+
+    return userCredential.user;
   }
 
   /// Sign out of Firebase, but without signing out of linked providers.
-  Future<void> signOut() => FirebaseAuth.instance.signOut();
-
-  void _setCurrentUser(FirebaseUser user) {
-    if (user == null || _currentUser?.updateDataSource(user) != true) {
-      _currentUser?.dispose();
-      _currentUser = user == null ? null : User(user);
-    }
-    _userChanged.add(_currentUser);
-  }
+  // TODO(dotdoom): this effectively means that upon re-launching the app, the
+  //                user will be signed in again (via signInSilently) because
+  //                we haven't expired per-provider credentials. Instead, we
+  //                should go over all credentials and expire them.
+  Future<void> signOut() => fb_auth.FirebaseAuth.instance.signOut();
 
   /// Collect user facing information from providers and fill it into Firebase
   /// if it was not already there.
-  static Future<bool> _updateProfileFromProviders(FirebaseUser user) async {
-    final update = UserUpdateInfo();
-
-    var anyUpdates = false;
+  static Future<void> _updateProfileFromProviders(fb_auth.User user) {
+    var displayName = user.displayName, photoURL = user.photoURL;
     for (final providerData in user.providerData) {
-      if (isBlank(user.displayName) && !isBlank(providerData.displayName)) {
-        update.displayName = providerData.displayName;
+      if (isBlank(displayName) && !isBlank(providerData.displayName)) {
+        displayName = providerData.displayName;
         debugPrint(
             'Updating displayName from provider ${providerData.providerId}');
-        anyUpdates = true;
       }
-      if (isBlank(user.photoUrl) && !isBlank(providerData.photoUrl)) {
-        update.photoUrl = providerData.photoUrl;
+      if (isBlank(photoURL) && !isBlank(providerData.photoURL)) {
+        photoURL = providerData.photoURL;
         debugPrint(
             'Updating photoUrl from provider ${providerData.providerId}');
-        anyUpdates = true;
       }
     }
-    if (anyUpdates) {
-      await user.updateProfile(update);
-      // reload() does not change existing instance. The caller will have to get
-      // currentUser() again: https://github.com/flutter/plugins/pull/533.
-      await user.reload();
-    }
-    return anyUpdates;
+    return user.updateProfile(displayName: displayName, photoURL: photoURL);
   }
 }
