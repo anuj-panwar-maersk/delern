@@ -1,4 +1,5 @@
-import 'package:delern_flutter/view_models/notifications.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class NotificationSettings extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8),
@@ -30,12 +32,12 @@ class NotificationSettings extends StatelessWidget {
                                 onDayPressed: (weekDay) {
                                   context
                                       .read<LocalNotifications>()
-                                      .changedDayForWeekByTime(e.key, weekDay);
+                                      .changedWeekDaysForTime(e.key, weekDay);
                                 },
                                 onDeleted: () {
                                   context
                                       .read<LocalNotifications>()
-                                      .deleteNotificationRule(e.key);
+                                      .deleteReminderRule(e.key);
                                 },
                                 onTimeChanged: (newTime) {
                                   context
@@ -48,7 +50,7 @@ class NotificationSettings extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Padding(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(20),
                 child: FloatingActionButton.extended(
                     // To turn off animation with previous screen
                     heroTag: 'Add Reminder',
@@ -66,7 +68,7 @@ class NotificationSettings extends StatelessWidget {
 
 class NotificationCard extends StatelessWidget {
   final TimeOfDay time;
-  final List<int> days;
+  final BuiltList<int> days;
   final void Function(int weekDay) onDayPressed;
   final void Function(TimeOfDay time) onTimeChanged;
   final void Function() onDeleted;
@@ -106,7 +108,7 @@ class NotificationCard extends StatelessWidget {
                       onTimeChanged(newTime);
                     },
                     child: Text(
-                      '${time.hour}:${time.minute}',
+                      time.format(context),
                       style: app_styles.secondaryText
                           .copyWith(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
@@ -116,7 +118,7 @@ class NotificationCard extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Wrap(children: <Widget>[
-              for (var i = 1; i < DateTime.daysPerWeek; i++)
+              for (var i = 1; i <= DateTime.daysPerWeek; i++)
                 Padding(
                   padding: const EdgeInsets.all(2),
                   child: ActionChip(
@@ -124,8 +126,7 @@ class NotificationCard extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     label: Text(
                       DateFormat.E(Localizations.localeOf(context).languageCode)
-                          .format(DateTime(
-                              DateTime.now().year, DateTime.now().month, i)),
+                          .format(DateTime(2020, 6, i)),
                       style:
                           app_styles.primaryText.copyWith(color: Colors.white),
                     ),

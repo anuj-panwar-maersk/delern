@@ -9,9 +9,7 @@ class AppConfig {
 
   static AppConfig get instance => _instance;
 
-  AppConfig._() {
-    _init();
-  }
+  AppConfig._();
 
   /// Remote Config: whether enable or disable images uploading feature.
   bool get imageFeatureEnabled =>
@@ -43,7 +41,7 @@ class AppConfig {
   RemoteConfig _remoteConfig;
   SharedPreferences _sharedPreferences;
 
-  Future<void> _init() async {
+  Future<void> initialize() async {
     try {
       _sharedPreferences = await SharedPreferences.getInstance();
     } finally {
@@ -61,7 +59,7 @@ class AppConfig {
     }
   }
 
-  static const _notificationsKey = 'remote_config_is_notifications_set';
+  static const _notificationsKey = 'shared_pref_is_notifications_set';
 
   /// Shared Preference: whether notifications were set
   bool get isNotificationsSet =>
@@ -69,4 +67,12 @@ class AppConfig {
 
   set isNotificationsSet(bool value) =>
       _sharedPreferences?.setBool(_notificationsKey, value);
+
+  static const _notificationsScheduleKey = 'shared_pref_notification_schedule';
+
+  String get notificationSchedule =>
+      _sharedPreferences?.getString(_notificationsScheduleKey);
+
+  set notificationSchedule(String schedule) =>
+      _sharedPreferences?.setString(_notificationsScheduleKey, schedule);
 }

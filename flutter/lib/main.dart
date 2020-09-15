@@ -1,6 +1,6 @@
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/auth.dart';
-import 'package:delern_flutter/view_models/notifications.dart';
+import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/decks_list/decks_list.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
@@ -99,7 +99,7 @@ Future<void> main() async => FlutterSentry.wrap(
         await Firebase.initializeApp();
         unawaited(FirebaseDatabase.instance.setPersistenceEnabled(true));
         unawaited(FirebaseAnalytics().logAppOpen());
-        AppConfig.instance;
+        await AppConfig.instance.initialize();
         setDeviceOrientation();
         runApp(App(auth: Auth()));
       },
