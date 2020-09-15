@@ -259,12 +259,6 @@ Twitter: https://twitter.com/dasdelern''',
         desc: 'Deck Type',
       );
 
-  String get markdown => Intl.message(
-        'Markdown',
-        name: 'markdown',
-        desc: 'Markdown',
-      );
-
   String get cardDeletedUserMessage => Intl.message(
         'Card was deleted',
         name: 'cardDeletedUserMessage',
@@ -385,7 +379,9 @@ Twitter: https://twitter.com/dasdelern''',
   String get continueAnonymously => Intl.message(
         'Continue as a Guest',
         name: 'continueAnonymously',
-        desc: 'Sign in as a guest to the app',
+        desc: 'This text is used on the button to sign in as a guest to the '
+            'app, but also to return to the previous screen after a guest user '
+            'goes to Sign In screen',
       );
 
   String get splashScreenFeatures => Intl.message(

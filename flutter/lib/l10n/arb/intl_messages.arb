@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-09-10T13:56:23.583113",
+  "@@last_modified": "2020-09-15T14:13:01.550813",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -271,13 +271,6 @@
     "placeholders": {
     }
   },
-  "markdown": "Markdown",
-  "@markdown": {
-    "description": "Markdown",
-    "type": "text",
-    "placeholders": {
-    }
-  },
   "cardDeletedUserMessage": "Card was deleted",
   "@cardDeletedUserMessage": {
     "description": "Card was deleted",
@@ -417,7 +410,7 @@
   },
   "continueAnonymously": "Continue as a Guest",
   "@continueAnonymously": {
-    "description": "Sign in as a guest to the app",
+    "description": "This text is used on the button to sign in as a guest to the app, but also to return to the previous screen after a guest user goes to Sign In screen",
     "type": "text",
     "placeholders": {
     }

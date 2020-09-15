@@ -21,15 +21,17 @@ class AppConfig {
   bool get sharingFeatureEnabled =>
       _remoteValueOrNull('sharing_feature_enabled')?.asBool() ?? true;
 
+  /// Remote Config: call silentSignIn() instead of relying on Firebase.
+  bool get explicitSilentSignInEnabled =>
+      _remoteValueOrNull('explicit_silent_sign_in_enabled')?.asBool() ?? true;
+
   static const _remoteConfigIsStaleKey = 'remote_config_is_stale';
 
   /// Shared Preference: whether remote config is stale and needs to be fetched
   /// soon.
+  // TODO(dotdoom): remove this as it is merely an example and is unused.
   bool get remoteConfigIsStale =>
       _sharedPreferences?.getBool(_remoteConfigIsStaleKey) ?? false;
-
-  set remoteConfigIsStale(bool value) =>
-      _sharedPreferences?.setBool(_remoteConfigIsStaleKey, value);
 
   /// Returns [RemoteConfigValue] if the source is remote storage, otherwise
   /// `null` (if the value comes from defaults or is unitialized).
@@ -51,11 +53,8 @@ class AppConfig {
       ));
 
       await _remoteConfig.fetch(
-        expiration: (kDebugMode || remoteConfigIsStale)
-            ? const Duration()
-            : const Duration(hours: 5),
+        expiration: kDebugMode ? const Duration() : const Duration(hours: 5),
       );
-      remoteConfigIsStale = false;
       if (await _remoteConfig.activateFetched()) {
         debugPrint('Fetched Remote Config from the server and it has changed');
       }

@@ -41,8 +41,6 @@ class _AuthWidgetState extends State<AuthWidget> {
         return;
       }
 
-      unawaited(FirebaseMessaging().subscribeToTopic('PUSH_RC'));
-
       final fcm = (FCMModelBuilder()
             ..language = Localizations.localeOf(context).toString()
             ..name = (await DeviceInfo.getDeviceInfo()).userFriendlyName
@@ -74,7 +72,7 @@ class _AuthWidgetState extends State<AuthWidget> {
 
         unawaited(FirebaseAnalytics().logLogin(loginMethod: loginProviders));
 
-        if (_currentUser.isNewUser) {
+        if (_currentUser.isNewUser == true) {
           unawaited(FirebaseAnalytics().logSignUp(
             signUpMethod: loginProviders,
           ));
@@ -82,24 +80,15 @@ class _AuthWidgetState extends State<AuthWidget> {
 
         // Must be called after each login to obtain a FirebaseMessaging token.
         FirebaseMessaging().configure(
-          onMessage: (message) {
-            // TODO(dotdoom): show a snack bar if message['notification'] map
-            //                has 'title' and 'body' values.
-
-            final dynamic data = message['data'];
-            if (data is Map<String, String>) {
-              if (data['CONFIG_STATE'] == 'STALE') {
-                AppConfig.instance.remoteConfigIsStale = true;
-              }
-            }
-
-            return null;
-          },
+          // TODO(dotdoom): show a snack bar if message['notification'] map has
+          //                'title' and 'body' values.
+          onMessage: (message) => null,
         );
       }
     });
 
-    if (!Auth.instance.authStateKnown) {
+    if (!Auth.instance.authStateKnown &&
+        AppConfig.instance.explicitSilentSignInEnabled) {
       debugPrint('Auth state unknown, trying to sign in silently...');
       Auth.instance.signInSilently();
     }

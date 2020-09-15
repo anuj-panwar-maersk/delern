@@ -132,7 +132,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "legacyPartsConnector": MessageLookupByLibrary.simpleMessage(" и  "),
         "listOFDecksScreenTitle":
             MessageLookupByLibrary.simpleMessage("Список папок"),
-        "markdown": MessageLookupByLibrary.simpleMessage("Маркдаун"),
         "menuTooltip": MessageLookupByLibrary.simpleMessage("Меню"),
         "navigationDrawerAbout":
             MessageLookupByLibrary.simpleMessage("О приложении"),

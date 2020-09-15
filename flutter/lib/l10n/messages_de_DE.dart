@@ -128,7 +128,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" und die  "),
         "listOFDecksScreenTitle":
             MessageLookupByLibrary.simpleMessage("Lernsets"),
-        "markdown": MessageLookupByLibrary.simpleMessage("Markdown"),
         "menuTooltip": MessageLookupByLibrary.simpleMessage("Menu"),
         "navigationDrawerAbout":
             MessageLookupByLibrary.simpleMessage("Über uns"),
