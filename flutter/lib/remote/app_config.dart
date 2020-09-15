@@ -21,6 +21,10 @@ class AppConfig {
   bool get sharingFeatureEnabled =>
       _remoteValueOrNull('sharing_feature_enabled')?.asBool() ?? true;
 
+  /// Remote Config: call silentSignIn() instead of relying on Firebase.
+  bool get explicitSilentSignInEnabled =>
+      _remoteValueOrNull('explicit_silent_sign_in_enabled')?.asBool() ?? true;
+
   static const _remoteConfigIsStaleKey = 'remote_config_is_stale';
 
   /// Shared Preference: whether remote config is stale and needs to be fetched

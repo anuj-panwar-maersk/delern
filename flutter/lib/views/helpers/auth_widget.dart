@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:delern_flutter/models/fcm_model.dart';
 import 'package:delern_flutter/models/user.dart';
+import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
 import 'package:delern_flutter/views/helpers/device_info.dart';
@@ -86,7 +87,8 @@ class _AuthWidgetState extends State<AuthWidget> {
       }
     });
 
-    if (!Auth.instance.authStateKnown) {
+    if (!Auth.instance.authStateKnown &&
+        AppConfig.instance.explicitSilentSignInEnabled) {
       debugPrint('Auth state unknown, trying to sign in silently...');
       Auth.instance.signInSilently();
     }
