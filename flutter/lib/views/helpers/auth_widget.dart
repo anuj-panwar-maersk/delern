@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:delern_flutter/models/fcm_model.dart';
 import 'package:delern_flutter/models/user.dart';
-import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
 import 'package:delern_flutter/views/helpers/device_info.dart';
@@ -40,8 +39,6 @@ class _AuthWidgetState extends State<AuthWidget> {
       if (token == null) {
         return;
       }
-
-      unawaited(FirebaseMessaging().subscribeToTopic('PUSH_RC'));
 
       final fcm = (FCMModelBuilder()
             ..language = Localizations.localeOf(context).toString()
@@ -82,19 +79,9 @@ class _AuthWidgetState extends State<AuthWidget> {
 
         // Must be called after each login to obtain a FirebaseMessaging token.
         FirebaseMessaging().configure(
-          onMessage: (message) {
-            // TODO(dotdoom): show a snack bar if message['notification'] map
-            //                has 'title' and 'body' values.
-
-            final dynamic data = message['data'];
-            if (data is Map<String, String>) {
-              if (data['CONFIG_STATE'] == 'STALE') {
-                AppConfig.instance.remoteConfigIsStale = true;
-              }
-            }
-
-            return null;
-          },
+          // TODO(dotdoom): show a snack bar if message['notification'] map has
+          //                'title' and 'body' values.
+          onMessage: (message) => null,
         );
       }
     });
