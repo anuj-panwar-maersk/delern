@@ -1,31 +1,10 @@
-import 'package:delern_flutter/views/helpers/device_info.dart';
-import 'package:delern_flutter/views/helpers/progress_indicator_widget.dart';
+import 'package:delern_flutter/views/developer/developer.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/user_messages.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sentry/flutter_sentry.dart';
 
 bool _debugAllowDevMenu = true;
-
-Future<String> _getDebugInformation() async {
-  final projectID = (Firebase.app().options).projectId,
-      user = fb_auth.FirebaseAuth.instance.currentUser,
-      keyValueInfo = [
-        ...?user.providerData.map((info) => '\t${info.toString()}'),
-        ...?(await DeviceInfo.getDeviceInfo())
-            .info
-            .entries
-            .map((entry) => '${entry.key}: ${entry.value}'),
-      ];
-  return '''
-Firebase project ID: $projectID
-Firebase user ID: ${user.uid}
-
-${keyValueInfo.join('\n')}
-      ''';
-}
 
 List<Widget> buildDeveloperMenu(BuildContext context) {
   if (!_debugAllowDevMenu) {
@@ -69,17 +48,13 @@ List<Widget> buildDeveloperMenu(BuildContext context) {
         });
       },
     ),
-    AboutListTile(
-      icon: const Icon(Icons.info),
-      aboutBoxChildren: <Widget>[
-        FutureBuilder<String>(
-          future: _getDebugInformation(),
-          builder: (context, snapshot) => snapshot.hasData
-              ? SelectableText(snapshot.data)
-              : const ProgressIndicatorWidget(),
-        ),
-      ],
-      child: const Text('About Debug version'),
+    ListTile(
+      leading: const Icon(Icons.code),
+      title: const Text('Developer screen'),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute<void>(builder: (context) => const Developer()),
+      ),
     ),
   ];
 }
