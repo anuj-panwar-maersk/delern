@@ -115,6 +115,13 @@ class _SignInState extends State<SignIn> {
                             },
                           ),
                           _kHeightBetweenWidgets,
+                          AppleSignInButton(
+                            onPressed: () {
+                              logLoginEvent('apple');
+                              // TODO(dotdoom): implement logic
+                            },
+                          ),
+                          _kHeightBetweenWidgets
                         ],
                       ),
                     ),

@@ -742,5 +742,12 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "signInWithApple": "Apple",
+  "@signInWithApple": {
+    "description": "Sign in with Apple Button",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

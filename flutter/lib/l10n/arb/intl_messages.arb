@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-09-15T14:13:01.550813",
+  "@@last_modified": "2020-09-16T14:14:59.675936",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -32,6 +32,13 @@
   "signInWithGoogle": "Google",
   "@signInWithGoogle": {
     "description": "Sign in with Google Button",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "signInWithApple": "Apple",
+  "@signInWithApple": {
+    "description": "Sign in with Apple Button",
     "type": "text",
     "placeholders": {
     }
