@@ -24,7 +24,7 @@ enum SignInMode {
 /// A screen with sign in information and buttons.
 @immutable
 class SignIn extends StatefulWidget {
-  static const routeName = '/sign_in';
+  static const linkAccountRouteName = '/link_account';
 
   final SignInMode signInMode;
 

@@ -120,7 +120,7 @@ Future<void> openLinkAccountScreen(
     Navigator.push(
         context,
         MaterialPageRoute(
-          settings: const RouteSettings(name: SignIn.routeName),
+          settings: const RouteSettings(name: SignIn.linkAccountRouteName),
           builder: (_) => SignIn(
             SignInMode.linkToAccount,
             auth: auth,
