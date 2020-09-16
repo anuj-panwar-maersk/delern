@@ -1,4 +1,3 @@
-import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
 import 'package:delern_flutter/views/helpers/progress_indicator_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -83,7 +82,7 @@ class _DeveloperState extends State<Developer> {
                     _CopyableListTile(
                       leading: const Icon(Icons.person),
                       title: 'User ID',
-                      value: Auth.instance.currentUser.value?.uid,
+                      value: FirebaseAuth.instance.currentUser?.uid,
                     ),
                     ...FirebaseAuth.instance.currentUser.providerData
                         .map(

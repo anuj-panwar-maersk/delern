@@ -1,4 +1,5 @@
 import 'package:delern_flutter/remote/app_config.dart';
+import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/decks_list/decks_list.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
@@ -16,9 +17,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_sentry/flutter_sentry.dart';
 import 'package:pedantic/pedantic.dart';
 
+@immutable
 class App extends StatelessWidget {
   static final _analyticsNavigatorObserver =
       FirebaseAnalyticsObserver(analytics: FirebaseAnalytics());
+
+  final Auth auth;
+
+  const App({
+    @required this.auth,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +62,12 @@ class App extends StatelessWidget {
         builder: (context, child) =>
             // AuthWidget must be above Navigator to provide
             // CurrentUserWidget.of().
-            DevicePreview.appBuilder(context, AuthWidget(child: child)),
+            DevicePreview.appBuilder(
+                context,
+                AuthWidget(
+                  auth: auth,
+                  child: child,
+                )),
         theme: ThemeData(
           scaffoldBackgroundColor: app_styles.kScaffoldBackgroundColor,
           primarySwatch: app_styles.kPrimarySwatch,
@@ -74,7 +87,7 @@ Future<void> main() async => FlutterSentry.wrap(
         unawaited(FirebaseAnalytics().logAppOpen());
         AppConfig.instance;
         setDeviceOrientation();
-        runApp(App());
+        runApp(App(auth: Auth()));
       },
       dsn: 'https://e6b5021448e14a49803b2c734621deae@sentry.io/1867466',
     );

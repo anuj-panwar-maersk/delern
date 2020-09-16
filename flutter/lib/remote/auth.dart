@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:delern_flutter/models/base/stream_with_value.dart';
 import 'package:delern_flutter/models/user.dart';
 import 'package:delern_flutter/remote/credential_provider.dart';
+import 'package:delern_flutter/remote/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
@@ -16,8 +17,9 @@ enum AuthProvider {
 
 /// An abstraction layer on top of FirebaseAuth.
 class Auth {
-  static final instance = Auth._();
-  Auth._() {
+  static final _database = Database();
+
+  Auth() {
     // Even though this will be evaluated lazily, the initial trigger is
     // guaranteed by Firebase (per documentation).
     fb_auth.FirebaseAuth.instance.userChanges().listen((firebaseUser) async {
@@ -44,12 +46,12 @@ class Auth {
             initialValue: constructUserProfile(),
           );
 
-          final userInfo = await _latestSignInAdditionalInfo;
           _currentUser.add(User(
             createdAt: firebaseUser.metadata.creationTime,
-            isNewUser: userInfo?.isNewUser,
             profile: _userProfile,
             uid: firebaseUser.uid,
+            database: _database,
+            auth: this,
           ));
 
           // Update latest_online_at node immediately, and also schedule an
@@ -81,6 +83,8 @@ class Auth {
   final _currentUser = PushStreamWithValue<User>();
 
   bool get authStateKnown => _currentUser.loaded;
+  Future<bool> get latestSignInCreatedNewUser async =>
+      (await _latestSignInAdditionalInfo)?.isNewUser;
 
   /// Sign in using a specified provider. If the user is currently signed in
   /// anonymously, try to preserve uid. This will work only if the user hasn't
@@ -151,7 +155,6 @@ class Auth {
   /// soon, i.e., before we get a hold of [fb_auth.AdditionalUserInfo].
   Future<fb_auth.User> _signInWithCredential(
       fb_auth.AuthCredential credential) async {
-    await _latestSignInAdditionalInfo;
     fb_auth.UserCredential userCredential;
 
     final signInComplete = Completer<fb_auth.AdditionalUserInfo>();

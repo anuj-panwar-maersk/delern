@@ -16,12 +16,26 @@ const _kDivider = Divider(
   color: app_styles.kSignInSectionSeparationColor,
 );
 
+enum SignInMode {
+  initialSignIn,
+  linkToAccount,
+}
+
 /// A screen with sign in information and buttons.
 @immutable
 class SignIn extends StatefulWidget {
-  static const routeName = '/sign_in';
+  static const linkAccountRouteName = '/link_account';
 
-  const SignIn();
+  final SignInMode signInMode;
+
+  /// Since this widget comes above the `CurrentUserWidget`, we need an instance
+  /// of [Auth] to operate sign in.
+  final Auth auth;
+
+  const SignIn(
+    this.signInMode, {
+    @required this.auth,
+  }) : assert(auth != null);
 
   @override
   _SignInState createState() => _SignInState();
@@ -166,7 +180,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         child: AnonymousSignInButton(
                           onPressed: () {
-                            Auth.instance.currentUser.value == null
+                            widget.signInMode == SignInMode.initialSignIn
                                 ? _signInWithProvider(
                                     provider: null,
                                   )
@@ -193,7 +207,7 @@ class _SignInState extends State<SignIn> {
     bool forceAccountPicker = true,
   }) async {
     try {
-      await Auth.instance.signIn(
+      await widget.auth.signIn(
         provider,
         forceAccountPicker: forceAccountPicker,
       );
@@ -219,7 +233,7 @@ class _SignInState extends State<SignIn> {
           if (signIn) {
             // Sign out of Firebase but retain the account that has been picked
             // by user.
-            await Auth.instance.signOut();
+            await widget.auth.signOut();
             return _signInWithProvider(
               provider: provider,
               forceAccountPicker: false,
