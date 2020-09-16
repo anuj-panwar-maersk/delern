@@ -8,6 +8,7 @@ import 'package:delern_flutter/views/helpers/url_launcher.dart';
 import 'package:delern_flutter/views/helpers/user_messages.dart';
 import 'package:delern_flutter/views/sign_in/sign_in_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -111,24 +112,8 @@ class _SignInState extends State<SignIn> {
                               ),
                             ),
                           ),
-                          GoogleSignInButton(
-                            onPressed: () {
-                              logLoginEvent('google');
-                              _signInWithProvider(
-                                provider: AuthProvider.google,
-                              );
-                            },
-                          ),
-                          _kHeightBetweenWidgets,
-                          FacebookSignInButton(
-                            onPressed: () {
-                              logLoginEvent('facebook');
-                              _signInWithProvider(
-                                provider: AuthProvider.facebook,
-                              );
-                            },
-                          ),
-                          _kHeightBetweenWidgets,
+                          ...signInButtonOrder(),
+                          _kHeightBetweenWidgets
                         ],
                       ),
                     ),
@@ -201,6 +186,41 @@ class _SignInState extends State<SignIn> {
           ),
         ),
       );
+
+  Iterable<Widget> signInButtonOrder() {
+    final buttons = <Widget>[
+      GoogleSignInButton(
+        onPressed: () {
+          logLoginEvent('google');
+          _signInWithProvider(
+            provider: AuthProvider.google,
+          );
+        },
+      ),
+      _kHeightBetweenWidgets,
+      FacebookSignInButton(
+        onPressed: () {
+          logLoginEvent('facebook');
+          _signInWithProvider(
+            provider: AuthProvider.facebook,
+          );
+        },
+      ),
+      _kHeightBetweenWidgets,
+      AppleSignInButton(
+        onPressed: () {
+          logLoginEvent('apple');
+          // TODO(dotdoom): implement logic
+        },
+      ),
+    ];
+
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      return buttons.reversed;
+    }
+
+    return buttons;
+  }
 
   Future<void> _signInWithProvider({
     @required AuthProvider provider,

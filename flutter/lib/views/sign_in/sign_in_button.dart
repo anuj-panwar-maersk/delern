@@ -52,6 +52,43 @@ class GoogleSignInButton extends StatelessWidget {
       );
 }
 
+class AppleSignInButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  const AppleSignInButton({this.onPressed});
+
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: onPressed,
+        child: SignInButtonContainer(
+          color: Colors.black,
+          child: Stack(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Text(
+                      context.l.signInWithApple.toUpperCase(),
+                      style: app_styles.signInTextButton,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset('images/apple_sign_in.webp'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+}
+
 @immutable
 class FacebookSignInButton extends StatelessWidget {
   final VoidCallback onPressed;

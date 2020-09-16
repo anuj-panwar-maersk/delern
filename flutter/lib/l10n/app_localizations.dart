@@ -47,6 +47,12 @@ class AppLocalizations {
         desc: 'Sign in with Google Button',
       );
 
+  String get signInWithApple => Intl.message(
+        'Apple',
+        name: 'signInWithApple',
+        desc: 'Sign in with Apple Button',
+      );
+
   String get signInWithLabel => Intl.message(
         'Sign in with:',
         name: 'signInWithLabel',
