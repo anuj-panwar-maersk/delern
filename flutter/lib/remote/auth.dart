@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:delern_flutter/models/base/stream_with_value.dart';
 import 'package:delern_flutter/models/user.dart';
 import 'package:delern_flutter/remote/credential_provider.dart';
+import 'package:delern_flutter/remote/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
@@ -16,6 +17,7 @@ enum AuthProvider {
 
 /// An abstraction layer on top of FirebaseAuth.
 class Auth {
+  static final _database = Database();
   static final instance = Auth._();
   Auth._() {
     // Even though this will be evaluated lazily, the initial trigger is
@@ -50,6 +52,7 @@ class Auth {
             isNewUser: userInfo?.isNewUser,
             profile: _userProfile,
             uid: firebaseUser.uid,
+            database: _database,
           ));
 
           // Update latest_online_at node immediately, and also schedule an

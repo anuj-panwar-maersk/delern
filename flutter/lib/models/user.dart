@@ -52,12 +52,14 @@ class User {
   final DateTime createdAt;
   final String uid;
   final StreamWithValue<UserProfile> profile;
+  final Database database;
 
   User({
     @required this.uid,
     @required this.profile,
     @required this.createdAt,
     @required this.isNewUser,
+    @required this.database,
   }) : decks = DeckModelListAccessor(uid);
 
   void dispose() => decks.close();
@@ -70,7 +72,7 @@ class User {
     final deck = deckTemplate.rebuild((b) => b..key = _newKey());
     final deckPath = 'decks/$uid/${deck.key}';
     final deckAccessPath = 'deck_access/${deck.key}/$uid';
-    await Database().write(<String, dynamic>{
+    await database.write(<String, dynamic>{
       '$deckPath/name': deck.name,
       '$deckPath/markdown': deck.markdown,
       '$deckPath/deckType': deck.type.toString().toUpperCase(),
@@ -90,7 +92,7 @@ class User {
 
   Future<void> updateDeck({@required DeckModel deck}) {
     final deckPath = 'decks/$uid/${deck.key}';
-    return Database().write(<String, dynamic>{
+    return database.write(<String, dynamic>{
       '$deckPath/name': deck.name,
       '$deckPath/markdown': deck.markdown,
       '$deckPath/deckType': deck.type.toString().toUpperCase(),
@@ -129,7 +131,7 @@ class User {
     final backImageUriList =
         deck.cards.value.expand((card) => card.backImagesUri).toList();
     final allImagesUri = frontImageUriList..addAll(backImageUriList);
-    await Database().write(updates);
+    await database.write(updates);
     for (final imageUri in allImagesUri) {
       unawaited(deleteImage(imageUri));
     }
@@ -179,12 +181,12 @@ class User {
       addCard(reverse: true);
     }
 
-    return Database().write(updates);
+    return database.write(updates);
   }
 
   Future<void> updateCard({@required CardModel card}) {
     final cardPath = 'cards/${card.deckKey}/${card.key}';
-    return Database().write(<String, dynamic>{
+    return database.write(<String, dynamic>{
       '$cardPath/front': card.front,
       '$cardPath/back': card.back,
       '$cardPath/frontImagesUri': card.frontImagesUri.toList(),
@@ -197,7 +199,7 @@ class User {
       ..addAll(card.backImagesUri);
     // We want to make sure all values are set to `null`.
     // ignore: prefer_void_to_null
-    await Database().write(<String, Null>{
+    await database.write(<String, Null>{
       'cards/${card.deckKey}/${card.key}': null,
       'learning/$uid/${card.deckKey}/${card.key}': null,
     });
@@ -217,7 +219,7 @@ class User {
         'learning/$uid/${scheduledCard.deckKey}/${scheduledCard.key}';
     final cardViewPath =
         'views/$uid/${scheduledCard.deckKey}/${scheduledCard.key}/${_newKey()}';
-    return Database().write(<String, dynamic>{
+    return database.write(<String, dynamic>{
       '$scheduledCardPath/level': scheduledCard.level,
       '$scheduledCardPath/repeatAt':
           scheduledCard.repeatAt.millisecondsSinceEpoch,
@@ -233,7 +235,7 @@ class User {
   }) =>
       // We want to make sure all values are set to `null`.
       // ignore: prefer_void_to_null
-      Database().write(<String, Null>{
+      database.write(<String, Null>{
         'deck_access/${deck.key}/$shareWithUid': null,
         'decks/$shareWithUid/${deck.key}': null,
       });
@@ -268,11 +270,11 @@ class User {
       });
     }
 
-    return Database().write(updates);
+    return database.write(updates);
   }
 
   Future<void> addFCM({@required FCMModel fcm}) =>
-      Database().write(<String, dynamic>{
+      database.write(<String, dynamic>{
         'fcm/$uid/${fcm.key}': {
           'name': fcm.name,
           'language': fcm.language,
@@ -282,7 +284,7 @@ class User {
   Future<void> cleanupOrphanedScheduledCard(ScheduledCardModel sc) =>
       // We want to make sure all values are set to `null`.
       // ignore: prefer_void_to_null
-      Database().write(<String, Null>{
+      database.write(<String, Null>{
         'learning/$uid/${sc.deckKey}/${sc.key}': null,
       });
 
@@ -315,7 +317,7 @@ class User {
       return false;
     }
 
-    await Database().write(updates);
+    await database.write(updates);
     return true;
   }
 

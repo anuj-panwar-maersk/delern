@@ -24,6 +24,7 @@ class DatabaseWriteException implements Exception {
       '[online:$online], $sourceException)';
 }
 
+@immutable
 class Database {
   final StreamWithValue<bool> isOnline;
 
