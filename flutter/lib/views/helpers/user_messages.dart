@@ -37,11 +37,12 @@ class UserMessages {
   // reporting.
   // In navigation drawer 'Contact us' show user message to user and report
   // error.
-  static void showMessage(ScaffoldState scaffoldState, String message) =>
-      scaffoldState.showSnackBar(SnackBar(
-        content: Text(message, maxLines: 5, overflow: TextOverflow.ellipsis),
-        duration: const Duration(seconds: 7),
-      ));
+  static void showMessage(ScaffoldState scaffoldState, String message) {
+    scaffoldState.showSnackBar(SnackBar(
+      content: Text(message, maxLines: 5, overflow: TextOverflow.ellipsis),
+      duration: const Duration(seconds: 7),
+    ));
+  }
 
   static String formUserFriendlyErrorMessage(
     AppLocalizations locale,

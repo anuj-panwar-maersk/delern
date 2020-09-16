@@ -8,7 +8,7 @@ import 'package:delern_flutter/views/helpers/save_updates_dialog.dart';
 import 'package:delern_flutter/views/helpers/user_messages.dart';
 import 'package:flutter/material.dart';
 
-class CardActionsMenuWidget extends StatelessWidget {
+class CardActionsMenuWidget extends StatefulWidget {
   final User user;
   final DeckModel deck;
   final CardModel card;
@@ -23,6 +23,11 @@ class CardActionsMenuWidget extends StatelessWidget {
         assert(card != null),
         super(key: key);
 
+  @override
+  _CardActionsMenuWidgetState createState() => _CardActionsMenuWidgetState();
+}
+
+class _CardActionsMenuWidgetState extends State<CardActionsMenuWidget> {
   @override
   Widget build(BuildContext context) => PopupMenuButton<_CardMenuItemType>(
         tooltip: context.l.menuTooltip,
@@ -45,11 +50,11 @@ class CardActionsMenuWidget extends StatelessWidget {
   }) {
     switch (menuItem) {
       case _CardMenuItemType.edit:
-        if (deck.access != AccessType.read) {
+        if (widget.deck.access != AccessType.read) {
           openEditCardScreen(
             context,
-            deckKey: deck.key,
-            cardKey: card.key,
+            deckKey: widget.deck.key,
+            cardKey: widget.card.key,
           );
         } else {
           UserMessages.showMessage(Scaffold.of(context),
@@ -57,7 +62,7 @@ class CardActionsMenuWidget extends StatelessWidget {
         }
         break;
       case _CardMenuItemType.delete:
-        if (deck.access != AccessType.read) {
+        if (widget.deck.access != AccessType.read) {
           _deleteCard(context: context);
         } else {
           UserMessages.showMessage(Scaffold.of(context),
@@ -70,20 +75,21 @@ class CardActionsMenuWidget extends StatelessWidget {
   Future<void> _deleteCard({
     @required BuildContext context,
   }) async {
-    // Extract values from context before async gap might destroy it.
-    final scaffold = Scaffold.of(context), locale = context.l;
     final saveChanges = await showSaveUpdatesDialog(
         context: context,
-        changesQuestion: locale.deleteCardQuestion,
-        yesAnswer: locale.delete,
+        changesQuestion: context.l.deleteCardQuestion,
+        yesAnswer: context.l.delete,
         noAnswer: MaterialLocalizations.of(context).cancelButtonLabel);
     if (saveChanges) {
       try {
-        await user.deleteCard(card: card);
-        UserMessages.showMessage(scaffold, locale.cardDeletedUserMessage);
+        await widget.user.deleteCard(card: widget.card);
+        if (mounted) {
+          UserMessages.showMessage(
+              Scaffold.of(context), context.l.cardDeletedUserMessage);
+        }
       } catch (e, stackTrace) {
         UserMessages.showAndReportError(
-          () => scaffold,
+          () => Scaffold.of(context),
           e,
           stackTrace: stackTrace,
         );
