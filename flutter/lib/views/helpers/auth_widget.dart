@@ -6,7 +6,7 @@ import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
 import 'package:delern_flutter/views/helpers/device_info.dart';
-import 'package:delern_flutter/views/helpers/progress_indicator_widget.dart';
+import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
 import 'package:delern_flutter/views/sign_in/sign_in.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -19,16 +19,18 @@ import 'package:pedantic/pedantic.dart';
 /// [CurrentUserWidget] wrapped around [child].
 class AuthWidget extends StatefulWidget {
   final Widget child;
+  final Auth auth;
 
-  const AuthWidget({@required this.child}) : assert(child != null);
+  const AuthWidget({
+    @required this.auth,
+    @required this.child,
+  }) : assert(child != null);
 
   @override
   State<StatefulWidget> createState() => _AuthWidgetState();
 }
 
 class _AuthWidgetState extends State<AuthWidget> {
-  User _currentUser = Auth.instance.currentUser.value;
-
   StreamSubscription<String> _fcmSubscription;
   StreamSubscription<User> _userChangedSubscription;
 
@@ -47,50 +49,17 @@ class _AuthWidgetState extends State<AuthWidget> {
             ..key = token)
           .build();
 
-      debugPrint('Registering ${_currentUser.uid} for FCM as ${fcm.name} '
+      final currentUser = widget.auth.currentUser.value;
+
+      debugPrint('Registering ${currentUser.uid} for FCM as ${fcm.name} '
           'in ${fcm.language}');
-      unawaited(_currentUser.addFCM(fcm: fcm));
+      unawaited(currentUser.addFCM(fcm: fcm));
     });
 
-    // We won't get the first update if the user is already signed in, but it is
-    // only possible when the widget is re-created for some reason. When the app
-    // starts, the user is always signed out, and it's only the signInSilently
-    // call that we do below that may change that, without user interaction.
-    _userChangedSubscription =
-        Auth.instance.currentUser.updates.listen((newUser) async {
-      setState(() {
-        _currentUser = newUser;
-      });
-
-      if (_currentUser != null) {
-        error_reporting.uid = _currentUser.uid;
-
-        unawaited(FirebaseAnalytics().setUserId(_currentUser.uid));
-        final loginProviders = _currentUser.profile.value.providers.isEmpty
-            ? 'anonymous'
-            : _currentUser.profile.value.providers.join(',');
-
-        unawaited(FirebaseAnalytics().logLogin(loginMethod: loginProviders));
-
-        if (_currentUser.isNewUser == true) {
-          unawaited(FirebaseAnalytics().logSignUp(
-            signUpMethod: loginProviders,
-          ));
-        }
-
-        // Must be called after each login to obtain a FirebaseMessaging token.
-        FirebaseMessaging().configure(
-          // TODO(dotdoom): show a snack bar if message['notification'] map has
-          //                'title' and 'body' values.
-          onMessage: (message) => null,
-        );
-      }
-    });
-
-    if (!Auth.instance.authStateKnown &&
+    if (!widget.auth.authStateKnown &&
         AppConfig.instance.explicitSilentSignInEnabled) {
       debugPrint('Auth state unknown, trying to sign in silently...');
-      Auth.instance.signInSilently();
+      widget.auth.signInSilently();
     }
   }
 
@@ -102,16 +71,45 @@ class _AuthWidgetState extends State<AuthWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (_currentUser != null) {
-      return CurrentUserWidget(_currentUser, child: widget.child);
-    }
-    if (!Auth.instance.authStateKnown) {
-      return const ProgressIndicatorWidget();
-    }
+  Widget build(BuildContext context) => DataStreamWithValueBuilder<User>(
+        streamWithValue: widget.auth.currentUser,
+        onData: (currentUser) {
+          if (currentUser == null) {
+            return;
+          }
 
-    return const SignIn();
-  }
+          // We won't get the first update if the user is already signed in, but
+          // it is only possible when the widget is re-created for some reason.
+          // When the app starts, the user is always signed out, and it's only
+          // the signInSilently call that we do below that may change that,
+          // without user interaction.
+
+          error_reporting.uid = currentUser.uid;
+
+          unawaited(FirebaseAnalytics().setUserId(currentUser.uid));
+          final loginProviders = currentUser.profile.value.providers.isEmpty
+              ? 'anonymous'
+              : currentUser.profile.value.providers.join(',');
+
+          unawaited(FirebaseAnalytics().logLogin(loginMethod: loginProviders));
+
+          if (currentUser.isNewUser == true) {
+            unawaited(FirebaseAnalytics().logSignUp(
+              signUpMethod: loginProviders,
+            ));
+          }
+
+          // Must be called after each login to obtain FirebaseMessaging token.
+          FirebaseMessaging().configure(
+            // TODO(dotdoom): show a snack bar if message['notification'] map
+            //                has 'title' and 'body' values.
+            onMessage: (message) => null,
+          );
+        },
+        builder: (context, currentUser) => currentUser == null
+            ? const SignIn(SignInMode.initialSignIn)
+            : CurrentUserWidget(currentUser, child: widget.child),
+      );
 }
 
 class CurrentUserWidget extends InheritedWidget {

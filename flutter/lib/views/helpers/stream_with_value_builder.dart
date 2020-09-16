@@ -47,8 +47,13 @@ typedef DataTrigger<T> = void Function(T newValue);
 typedef DataBuilder<T> = Widget Function(BuildContext context, T value);
 
 class DataStreamWithValueBuilder<T> extends StatefulWidget {
+  /// Source [StreamWithValue].
   final StreamWithValue<T> streamWithValue;
+
+  /// Builds a child widget. Never gets `null` as a value.
   final DataBuilder<T> builder;
+
+  /// Called for every change to the data. May be called with `null`.
   final DataTrigger<T> onData;
 
   DataStreamWithValueBuilder({

@@ -16,12 +16,19 @@ const _kDivider = Divider(
   color: app_styles.kSignInSectionSeparationColor,
 );
 
+enum SignInMode {
+  initialSignIn,
+  linkToAccount,
+}
+
 /// A screen with sign in information and buttons.
 @immutable
 class SignIn extends StatefulWidget {
   static const routeName = '/sign_in';
 
-  const SignIn();
+  final SignInMode signInMode;
+
+  const SignIn(this.signInMode);
 
   @override
   _SignInState createState() => _SignInState();
@@ -166,7 +173,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         child: AnonymousSignInButton(
                           onPressed: () {
-                            Auth.instance.currentUser.value == null
+                            widget.signInMode == SignInMode.initialSignIn
                                 ? _signInWithProvider(
                                     provider: null,
                                   )

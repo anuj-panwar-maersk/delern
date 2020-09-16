@@ -13,7 +13,7 @@ void main() {
         localizationsDelegates: [
           AppLocalizationsDelegate(),
         ],
-        home: Scaffold(body: SignIn()),
+        home: Scaffold(body: SignIn(SignInMode.initialSignIn)),
       ));
       await tester.pumpAndSettle();
 

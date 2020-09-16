@@ -116,5 +116,5 @@ Future<void> openSignInScreen(BuildContext context) => Navigator.push(
     context,
     MaterialPageRoute(
       settings: const RouteSettings(name: SignIn.routeName),
-      builder: (_) => const SignIn(),
+      builder: (_) => const SignIn(SignInMode.linkToAccount),
     ));

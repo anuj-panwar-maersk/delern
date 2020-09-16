@@ -1,4 +1,5 @@
 import 'package:delern_flutter/remote/app_config.dart';
+import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/decks_list/decks_list.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
@@ -54,7 +55,12 @@ class App extends StatelessWidget {
         builder: (context, child) =>
             // AuthWidget must be above Navigator to provide
             // CurrentUserWidget.of().
-            DevicePreview.appBuilder(context, AuthWidget(child: child)),
+            DevicePreview.appBuilder(
+                context,
+                AuthWidget(
+                  auth: Auth.instance,
+                  child: child,
+                )),
         theme: ThemeData(
           scaffoldBackgroundColor: app_styles.kScaffoldBackgroundColor,
           primarySwatch: app_styles.kPrimarySwatch,
