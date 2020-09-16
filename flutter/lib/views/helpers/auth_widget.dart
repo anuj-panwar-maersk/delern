@@ -107,7 +107,10 @@ class _AuthWidgetState extends State<AuthWidget> {
           );
         },
         builder: (context, currentUser) => currentUser == null
-            ? const SignIn(SignInMode.initialSignIn)
+            ? SignIn(
+                SignInMode.initialSignIn,
+                auth: widget.auth,
+              )
             : CurrentUserWidget(currentUser, child: widget.child),
       );
 }

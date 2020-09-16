@@ -1,4 +1,5 @@
 import 'package:delern_flutter/models/deck_model.dart';
+import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/card_create_update/card_create_update.dart';
 import 'package:delern_flutter/views/card_preview/card_preview.dart';
 import 'package:delern_flutter/views/cards_interval_learning/cards_interval_learning.dart';
@@ -116,5 +117,8 @@ Future<void> openSignInScreen(BuildContext context) => Navigator.push(
     context,
     MaterialPageRoute(
       settings: const RouteSettings(name: SignIn.routeName),
-      builder: (_) => const SignIn(SignInMode.linkToAccount),
+      builder: (_) => SignIn(
+        SignInMode.linkToAccount,
+        auth: Auth.instance,
+      ),
     ));

@@ -27,8 +27,12 @@ class SignIn extends StatefulWidget {
   static const routeName = '/sign_in';
 
   final SignInMode signInMode;
+  final Auth auth;
 
-  const SignIn(this.signInMode);
+  const SignIn(
+    this.signInMode, {
+    @required this.auth,
+  }) : assert(auth != null);
 
   @override
   _SignInState createState() => _SignInState();
@@ -200,7 +204,7 @@ class _SignInState extends State<SignIn> {
     bool forceAccountPicker = true,
   }) async {
     try {
-      await Auth.instance.signIn(
+      await widget.auth.signIn(
         provider,
         forceAccountPicker: forceAccountPicker,
       );
