@@ -19,7 +19,7 @@
     "nodemailer": "^6.4.11"
   },
   "devDependencies": {
-    "@types/node": "^10.17.32",
+    "@types/node": "^10.17.34",
     "firebase-functions-test": "^0.1.7",
     "gts": "^2.0.2",
     "typescript": "~3.8.0"
