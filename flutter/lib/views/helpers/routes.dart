@@ -113,7 +113,7 @@ Future<void> openPreviewCardScreen(
       ),
     );
 
-Future<void> openSignInScreen(BuildContext context) => Navigator.push(
+Future<void> openLinkAccountScreen(BuildContext context) => Navigator.push(
     context,
     MaterialPageRoute(
       settings: const RouteSettings(name: SignIn.routeName),

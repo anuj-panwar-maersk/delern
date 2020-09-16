@@ -175,6 +175,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
 
   Future<void> _promoteAnonymous(BuildContext context) async {
     unawaited(logPromoteAnonymous());
-    return openSignInScreen(context);
+    return openLinkAccountScreen(context);
   }
 }
