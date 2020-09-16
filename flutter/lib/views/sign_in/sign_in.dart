@@ -226,7 +226,7 @@ class _SignInState extends State<SignIn> {
           if (signIn) {
             // Sign out of Firebase but retain the account that has been picked
             // by user.
-            await Auth.instance.signOut();
+            await Auth.signOut();
             return _signInWithProvider(
               provider: provider,
               forceAccountPicker: false,

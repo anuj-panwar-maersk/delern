@@ -174,7 +174,7 @@ class Auth {
   //                user will be signed in again (via signInSilently) because
   //                we haven't expired per-provider credentials. Instead, we
   //                should go over all credentials and expire them.
-  Future<void> signOut() => fb_auth.FirebaseAuth.instance.signOut();
+  static Future<void> signOut() => fb_auth.FirebaseAuth.instance.signOut();
 
   /// Collect user facing information from providers and fill it into Firebase
   /// if it was not already there.

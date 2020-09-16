@@ -90,7 +90,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         if (user.isAnonymous) {
           unawaited(_promoteAnonymous(context));
         } else {
-          unawaited(Auth.instance.signOut());
+          unawaited(Auth.signOut());
           Navigator.pop(context);
         }
       },

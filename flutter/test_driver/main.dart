@@ -24,7 +24,7 @@ Future<void> main() async {
   });
   // Sign out before running tests to clear cached data.
   await Firebase.initializeApp();
-  await Auth.instance.signOut();
+  await Auth.signOut();
   // Call the `main()` of your app or call `runApp` with whatever widget
   // you are interested in testing.
   await app.main();
