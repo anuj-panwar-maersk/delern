@@ -107,12 +107,12 @@ class _AuthWidgetState extends State<AuthWidget> {
             ));
           }
         },
-        builder: (context, currentUser) => currentUser == null
-            ? SignIn(
-                SignInMode.initialSignIn,
-                auth: widget.auth,
-              )
-            : CurrentUserWidget(currentUser, child: widget.child),
+        builder: (context, currentUser) =>
+            CurrentUserWidget(currentUser, child: widget.child),
+        nullValueBuilder: (context) => SignIn(
+          SignInMode.initialSignIn,
+          auth: widget.auth,
+        ),
       );
 }
 

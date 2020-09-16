@@ -45,6 +45,9 @@ class _StreamBuilderWithValueState<T> extends State<StreamBuilderWithValue<T>> {
 
 typedef DataTrigger<T> = void Function(T newValue);
 typedef DataBuilder<T> = Widget Function(BuildContext context, T value);
+typedef NullValueBuilder = Widget Function(BuildContext context);
+
+Widget _noValueBuilder(BuildContext context) => const ProgressIndicatorWidget();
 
 class DataStreamWithValueBuilder<T> extends StatefulWidget {
   /// Source [StreamWithValue].
@@ -53,6 +56,9 @@ class DataStreamWithValueBuilder<T> extends StatefulWidget {
   /// Builds a child widget. Never gets `null` as a value.
   final DataBuilder<T> builder;
 
+  /// Builds a child widget when data is `null` or not loaded.
+  final NullValueBuilder nullValueBuilder;
+
   /// Called for every change to the data. May be called with `null`.
   final DataTrigger<T> onData;
 
@@ -60,6 +66,7 @@ class DataStreamWithValueBuilder<T> extends StatefulWidget {
     @required this.streamWithValue,
     @required this.builder,
     this.onData,
+    this.nullValueBuilder = _noValueBuilder,
   }) : super(key: ValueKey(streamWithValue.updates));
 
   @override
@@ -117,7 +124,9 @@ class _DataStreamWithValueBuilderState<T>
   }
 
   @override
-  Widget build(BuildContext context) => _currentValue == null
-      ? const ProgressIndicatorWidget()
-      : widget.builder(context, _currentValue);
+  Widget build(BuildContext context) => widget.streamWithValue.loaded
+      ? _currentValue == null
+          ? widget.nullValueBuilder(context)
+          : widget.builder(context, _currentValue)
+      : _noValueBuilder(context);
 }
