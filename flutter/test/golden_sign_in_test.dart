@@ -17,7 +17,7 @@ void main() {
         home: Scaffold(
           body: SignIn(
             SignInMode.initialSignIn,
-            auth: Auth.instance,
+            auth: Auth(),
           ),
         ),
       ));

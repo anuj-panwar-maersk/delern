@@ -95,7 +95,7 @@ class _DecksListState extends State<DecksList> {
                 );
               }),
         ),
-        drawer: NavigationDrawer(),
+        drawer: const NavigationDrawer(),
         body: Column(
           children: <Widget>[
             Expanded(

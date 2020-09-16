@@ -27,6 +27,9 @@ class SignIn extends StatefulWidget {
   static const routeName = '/sign_in';
 
   final SignInMode signInMode;
+
+  /// Since this widget comes above the `CurrentUserWidget`, we need an instance
+  /// of [Auth] to operate sign in.
   final Auth auth;
 
   const SignIn(
@@ -230,7 +233,7 @@ class _SignInState extends State<SignIn> {
           if (signIn) {
             // Sign out of Firebase but retain the account that has been picked
             // by user.
-            await Auth.signOut();
+            await widget.auth.signOut();
             return _signInWithProvider(
               provider: provider,
               forceAccountPicker: false,

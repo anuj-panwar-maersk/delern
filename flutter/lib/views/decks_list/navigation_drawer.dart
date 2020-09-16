@@ -18,7 +18,10 @@ import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
 import 'package:pedantic/pedantic.dart';
 
+@immutable
 class NavigationDrawer extends StatefulWidget {
+  const NavigationDrawer();
+
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
 }
@@ -88,9 +91,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           : context.l.navigationDrawerSignOut),
       onTap: () {
         if (user.isAnonymous) {
-          unawaited(_promoteAnonymous(context));
+          unawaited(_promoteAnonymous(context, user));
         } else {
-          unawaited(Auth.signOut());
+          unawaited(user.auth.signOut());
           Navigator.pop(context);
         }
       },
@@ -173,8 +176,11 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     );
   }
 
-  Future<void> _promoteAnonymous(BuildContext context) async {
+  Future<void> _promoteAnonymous(
+    BuildContext context,
+    User user,
+  ) async {
     unawaited(logPromoteAnonymous());
-    return openLinkAccountScreen(context);
+    return openLinkAccountScreen(context, auth: user.auth);
   }
 }

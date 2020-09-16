@@ -45,20 +45,17 @@ class UserProfile {
 class User {
   final DataListAccessor<DeckModel> decks;
 
-  /// Whether the user has been created during the last sign in. This flag stays
-  /// until the user is changed or the app is restarted.
-  final bool isNewUser;
-
   final DateTime createdAt;
   final String uid;
   final StreamWithValue<UserProfile> profile;
   final Database database;
+  final Auth auth;
 
   User({
     @required this.uid,
     @required this.profile,
     @required this.createdAt,
-    @required this.isNewUser,
+    @required this.auth,
     @required this.database,
   }) : decks = DeckModelListAccessor(uid);
 

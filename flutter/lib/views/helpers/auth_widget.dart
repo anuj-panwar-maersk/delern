@@ -73,7 +73,7 @@ class _AuthWidgetState extends State<AuthWidget> {
   @override
   Widget build(BuildContext context) => DataStreamWithValueBuilder<User>(
         streamWithValue: widget.auth.currentUser,
-        onData: (currentUser) {
+        onData: (currentUser) async {
           if (currentUser == null) {
             return;
           }
@@ -86,6 +86,14 @@ class _AuthWidgetState extends State<AuthWidget> {
 
           error_reporting.uid = currentUser.uid;
 
+          // Must be called after each login to obtain FirebaseMessaging token.
+          FirebaseMessaging().configure(
+            // TODO(dotdoom): show a snack bar if message['notification'] map
+            //                has 'title' and 'body' values.
+            onMessage: (message) => null,
+          );
+
+          // Analytics comes in last, since it's less important.
           unawaited(FirebaseAnalytics().setUserId(currentUser.uid));
           final loginProviders = currentUser.profile.value.providers.isEmpty
               ? 'anonymous'
@@ -93,18 +101,11 @@ class _AuthWidgetState extends State<AuthWidget> {
 
           unawaited(FirebaseAnalytics().logLogin(loginMethod: loginProviders));
 
-          if (currentUser.isNewUser == true) {
+          if ((await currentUser.auth.latestSignInCreatedNewUser) == true) {
             unawaited(FirebaseAnalytics().logSignUp(
               signUpMethod: loginProviders,
             ));
           }
-
-          // Must be called after each login to obtain FirebaseMessaging token.
-          FirebaseMessaging().configure(
-            // TODO(dotdoom): show a snack bar if message['notification'] map
-            //                has 'title' and 'body' values.
-            onMessage: (message) => null,
-          );
         },
         builder: (context, currentUser) => currentUser == null
             ? SignIn(

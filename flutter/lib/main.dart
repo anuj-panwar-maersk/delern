@@ -17,9 +17,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_sentry/flutter_sentry.dart';
 import 'package:pedantic/pedantic.dart';
 
+@immutable
 class App extends StatelessWidget {
   static final _analyticsNavigatorObserver =
       FirebaseAnalyticsObserver(analytics: FirebaseAnalytics());
+
+  final Auth auth;
+
+  const App({
+    @required this.auth,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +65,7 @@ class App extends StatelessWidget {
             DevicePreview.appBuilder(
                 context,
                 AuthWidget(
-                  auth: Auth.instance,
+                  auth: auth,
                   child: child,
                 )),
         theme: ThemeData(
@@ -80,7 +87,7 @@ Future<void> main() async => FlutterSentry.wrap(
         unawaited(FirebaseAnalytics().logAppOpen());
         AppConfig.instance;
         setDeviceOrientation();
-        runApp(App());
+        runApp(App(auth: Auth()));
       },
       dsn: 'https://e6b5021448e14a49803b2c734621deae@sentry.io/1867466',
     );

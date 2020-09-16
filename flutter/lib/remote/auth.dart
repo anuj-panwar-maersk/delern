@@ -18,8 +18,8 @@ enum AuthProvider {
 /// An abstraction layer on top of FirebaseAuth.
 class Auth {
   static final _database = Database();
-  static final instance = Auth._();
-  Auth._() {
+
+  Auth() {
     // Even though this will be evaluated lazily, the initial trigger is
     // guaranteed by Firebase (per documentation).
     fb_auth.FirebaseAuth.instance.userChanges().listen((firebaseUser) async {
@@ -46,13 +46,12 @@ class Auth {
             initialValue: constructUserProfile(),
           );
 
-          final userInfo = await _latestSignInAdditionalInfo;
           _currentUser.add(User(
             createdAt: firebaseUser.metadata.creationTime,
-            isNewUser: userInfo?.isNewUser,
             profile: _userProfile,
             uid: firebaseUser.uid,
             database: _database,
+            auth: this,
           ));
 
           // Update latest_online_at node immediately, and also schedule an
@@ -84,6 +83,8 @@ class Auth {
   final _currentUser = PushStreamWithValue<User>();
 
   bool get authStateKnown => _currentUser.loaded;
+  Future<bool> get latestSignInCreatedNewUser async =>
+      (await _latestSignInAdditionalInfo)?.isNewUser;
 
   /// Sign in using a specified provider. If the user is currently signed in
   /// anonymously, try to preserve uid. This will work only if the user hasn't
@@ -154,7 +155,6 @@ class Auth {
   /// soon, i.e., before we get a hold of [fb_auth.AdditionalUserInfo].
   Future<fb_auth.User> _signInWithCredential(
       fb_auth.AuthCredential credential) async {
-    await _latestSignInAdditionalInfo;
     fb_auth.UserCredential userCredential;
 
     final signInComplete = Completer<fb_auth.AdditionalUserInfo>();
@@ -174,7 +174,7 @@ class Auth {
   //                user will be signed in again (via signInSilently) because
   //                we haven't expired per-provider credentials. Instead, we
   //                should go over all credentials and expire them.
-  static Future<void> signOut() => fb_auth.FirebaseAuth.instance.signOut();
+  Future<void> signOut() => fb_auth.FirebaseAuth.instance.signOut();
 
   /// Collect user facing information from providers and fill it into Firebase
   /// if it was not already there.

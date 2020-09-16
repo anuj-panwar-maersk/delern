@@ -113,12 +113,16 @@ Future<void> openPreviewCardScreen(
       ),
     );
 
-Future<void> openLinkAccountScreen(BuildContext context) => Navigator.push(
-    context,
-    MaterialPageRoute(
-      settings: const RouteSettings(name: SignIn.routeName),
-      builder: (_) => SignIn(
-        SignInMode.linkToAccount,
-        auth: Auth.instance,
-      ),
-    ));
+Future<void> openLinkAccountScreen(
+  BuildContext context, {
+  @required Auth auth,
+}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          settings: const RouteSettings(name: SignIn.routeName),
+          builder: (_) => SignIn(
+            SignInMode.linkToAccount,
+            auth: auth,
+          ),
+        ));
