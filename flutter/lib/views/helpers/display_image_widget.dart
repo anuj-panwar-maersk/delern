@@ -15,7 +15,7 @@ Widget buildDisplayImageWidget(
     imageUrl: url,
     placeholder: (context, url) =>
         const ImageProgressIndicatorPlaceholderWidget(),
-    errorWidget: (context, url, error) {
+    errorWidget: (context, url, dynamic error) {
       error_reporting.report(
         error,
         description: 'Image loading failed: $url',
