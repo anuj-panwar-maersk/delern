@@ -8,39 +8,38 @@ description: Spaced repetition learning system (Flutter version)
 version: 1.0.0+1
 
 dependencies:
-  device_info: ^0.4.0
-  package_info: ^0.4.0
-  url_launcher: ^5.0.1
-  flutter_markdown: ^0.4.0
-  http: ^0.12.0
-  share: ^0.6.0
-  shared_preferences: ^0.5.1
-  quiver: ">=2.0.0 <3.0.0"
-  built_collection: ^4.3.2
-  built_value: ^7.1.0
-  rxdart: ^0.23.1
-  uuid: ^2.0.1
-  device_preview: ^0.4.8
+  device_info:
+  package_info:
+  url_launcher:
+  flutter_markdown:
+  http:
+  share:
+  shared_preferences:
+  quiver:
+  built_collection:
+  built_value:
+  rxdart:
+  uuid:
+  device_preview:
 
-  flutter_sentry: ^0.4.1
+  flutter_sentry:
   # Needed for the User context type, version is bound by flutter_sentry.
-  sentry: any
+  sentry:
 
-  image_picker: ^0.6.1
-  # https://github.com/renefloor/flutter_cached_network_image/issues/261
-  cached_network_image: 2.0.0-rc
-  app_settings: ^4.0.0
-  firebase_core: any
-  firebase_auth: any
-  firebase_analytics: any
-  firebase_database: any
-  firebase_messaging: any
-  firebase_remote_config: any
-  firebase_storage: any
-  firebase_performance: any
+  image_picker:
+  cached_network_image:
+  app_settings:
+  firebase_core:
+  firebase_auth:
+  firebase_analytics:
+  firebase_database:
+  firebase_messaging:
+  firebase_remote_config:
+  firebase_storage:
+  firebase_performance:
 
-  google_sign_in: ^4.0.1
-  flutter_facebook_login: ^3.0.0
+  google_sign_in:
+  flutter_facebook_login:
 
   flutter:
     sdk: flutter
@@ -55,12 +54,12 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
 
-  intl_translation: ^0.17.3
-  mockito: ^3.0.0
-  pedantic: ^1.0.0
-  build_runner: ^1.10.0
-  built_value_generator: any
-  test: any
+  intl_translation:
+  mockito:
+  pedantic:
+  build_runner:
+  built_value_generator:
+  test:
 
 dependency_overrides:
 # Uncomment the following to override any dependency.
