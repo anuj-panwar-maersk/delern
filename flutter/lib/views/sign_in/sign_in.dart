@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 const _kDivider = Divider(
   height: 2,
@@ -207,18 +208,28 @@ class _SignInState extends State<SignIn> {
         },
       ),
       _kHeightBetweenWidgets,
-      AppleSignInButton(
-        onPressed: () {
-          logLoginEvent('apple');
-          _signInWithProvider(
-            provider: AuthProvider.apple,
-          );
-        },
+      FutureBuilder(
+        // TODO(dotdoom): make this and the order of button appearance depend on
+        //                credential_provider.credentialProviders list.
+        future: SignInWithApple.isAvailable(),
+        builder: (context, snapshot) => AppleSignInButton(
+          onPressed: snapshot.data == true
+              ? () {
+                  logLoginEvent('apple');
+                  _signInWithProvider(
+                    provider: AuthProvider.apple,
+                  );
+                }
+              : null,
+        ),
       ),
     ];
 
     if (Theme.of(context).platform == TargetPlatform.iOS) {
       return buttons.reversed;
+    } else {
+      // TODO(dotdoom): implement Apple Sign In on Android.
+      buttons.removeLast();
     }
 
     return buttons;
