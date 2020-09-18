@@ -108,21 +108,24 @@ class Auth {
     if (provider == null) {
       return fb_auth.FirebaseAuth.instance.signInAnonymously();
     }
-    final credential = await credentialProviders[provider]
+    final credentialWithMeta = await credentialProviders[provider]
         .getCredential(forceAccountPicker: forceAccountPicker);
 
     // Credential is unset, usually cancelled by user.
-    if (credential == null) {
+    if (credentialWithMeta == null) {
       return;
     }
 
     final user = (fb_auth.FirebaseAuth.instance.currentUser == null)
-        ? await _signInWithCredential(credential)
+        ? await _signInWithCredential(credentialWithMeta.credential)
         : (await fb_auth.FirebaseAuth.instance.currentUser
-                .linkWithCredential(credential))
+                .linkWithCredential(credentialWithMeta.credential))
             .user;
 
-    unawaited(_updateProfileFromProviders(user));
+    unawaited(_updateProfileFromProviders(
+      user,
+      fallbackDisplayName: credentialWithMeta.displayName,
+    ));
   }
 
   /// If user is already signed in, do nothing. If we have existing credential
@@ -132,15 +135,18 @@ class Auth {
     var firebaseUser = fb_auth.FirebaseAuth.instance.currentUser;
 
     if (firebaseUser == null) {
-      fb_auth.AuthCredential credential;
+      AuthCredentialWithMetadata credentialWithMetadata;
       for (final provider in credentialProviders.values) {
-        if ((credential = await provider.getCredential(silent: true)) != null) {
+        if ((credentialWithMetadata =
+                await provider.getCredential(silent: true)) !=
+            null) {
           break;
         }
       }
 
-      if (credential != null) {
-        firebaseUser = await _signInWithCredential(credential);
+      if (credentialWithMetadata != null) {
+        firebaseUser =
+            await _signInWithCredential(credentialWithMetadata.credential);
       }
     }
 
@@ -177,8 +183,12 @@ class Auth {
   Future<void> signOut() => fb_auth.FirebaseAuth.instance.signOut();
 
   /// Collect user facing information from providers and fill it into Firebase
-  /// if it was not already there.
-  static Future<void> _updateProfileFromProviders(fb_auth.User user) {
+  /// if it was not already there. [fallbackDisplayName] is taken into account
+  /// if nothing else works.
+  static Future<void> _updateProfileFromProviders(
+    fb_auth.User user, {
+    String fallbackDisplayName,
+  }) {
     var displayName = user.displayName, photoURL = user.photoURL;
     for (final providerData in user.providerData) {
       if (isBlank(displayName) && !isBlank(providerData.displayName)) {
@@ -192,6 +202,11 @@ class Auth {
             'Updating photoUrl from provider ${providerData.providerId}');
       }
     }
+
+    if (isBlank(displayName)) {
+      displayName = fallbackDisplayName;
+    }
+
     return user.updateProfile(displayName: displayName, photoURL: photoURL);
   }
 }

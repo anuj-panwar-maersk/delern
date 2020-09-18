@@ -1,5 +1,6 @@
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -17,7 +18,7 @@ abstract class CredentialProvider {
   /// The return Future should resolve to `null` if the user has cancelled login
   /// dialog, or an error if an unexpected condition was met (e.g. application
   /// misconfiguration, network connection issues).
-  Future<AuthCredential> getCredential({
+  Future<AuthCredentialWithMetadata> getCredential({
     bool silent = false,
     bool forceAccountPicker = false,
   });
@@ -39,6 +40,23 @@ AuthProvider providerFromID(String providerId) => credentialProviders.entries
         orElse: () => null)
     ?.key;
 
+/// Wrapper around [AuthCredential] and select metadata which some providers
+/// (e.g. Apple) only supply once at the first login, so it must be relayed
+/// upstream to be preserved there.
+@immutable
+class AuthCredentialWithMetadata {
+  /// Required credential.
+  final AuthCredential credential;
+
+  /// Given name + family name, optional.
+  final String displayName;
+
+  const AuthCredentialWithMetadata({
+    @required this.credential,
+    this.displayName,
+  }) : assert(credential != null);
+}
+
 class _GoogleCredentialProvider implements CredentialProvider {
   static final _googleSignIn = GoogleSignIn();
 
@@ -46,7 +64,7 @@ class _GoogleCredentialProvider implements CredentialProvider {
   final _providerId = GoogleAuthProvider.PROVIDER_ID;
 
   @override
-  Future<AuthCredential> getCredential({
+  Future<AuthCredentialWithMetadata> getCredential({
     bool silent = false,
     bool forceAccountPicker = false,
   }) async {
@@ -75,9 +93,11 @@ class _GoogleCredentialProvider implements CredentialProvider {
     //       structure without validation.
     //       Another solution is to always call `clearAuthCache()`, but what are
     //       the side effects of it?
-    return GoogleAuthProvider.credential(
-      accessToken: auth.accessToken,
-      idToken: auth.idToken,
+    return AuthCredentialWithMetadata(
+      credential: GoogleAuthProvider.credential(
+        accessToken: auth.accessToken,
+        idToken: auth.idToken,
+      ),
     );
   }
 }
@@ -89,7 +109,7 @@ class _FacebookCredentialProvider implements CredentialProvider {
   final _providerId = FacebookAuthProvider.PROVIDER_ID;
 
   @override
-  Future<AuthCredential> getCredential({
+  Future<AuthCredentialWithMetadata> getCredential({
     bool silent = false,
     bool forceAccountPicker = false,
   }) async {
@@ -109,7 +129,9 @@ class _FacebookCredentialProvider implements CredentialProvider {
     }
 
     if (accessToken != null && accessToken.isValid()) {
-      return FacebookAuthProvider.credential(accessToken.token);
+      return AuthCredentialWithMetadata(
+        credential: FacebookAuthProvider.credential(accessToken.token),
+      );
     }
     return null;
   }
