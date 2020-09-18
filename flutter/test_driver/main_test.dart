@@ -77,6 +77,7 @@ void main() {
     setUpAll(() async {
       driver = await FlutterDriver.connect();
       localizations = const AppLocalizations();
+      await driver.waitUntilFirstFrameRasterized();
     });
 
     tearDownAll(() async {
