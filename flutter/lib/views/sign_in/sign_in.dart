@@ -277,6 +277,12 @@ class _SignInState extends State<SignIn> {
             stackTrace: stackTrace,
           );
       }
+    } catch (e, stackTrace) {
+      UserMessages.showAndReportError(
+        () => _scaffoldKey.currentState,
+        e,
+        stackTrace: stackTrace,
+      );
     }
   }
 }
