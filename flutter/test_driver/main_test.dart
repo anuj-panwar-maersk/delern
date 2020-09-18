@@ -55,11 +55,24 @@ void main() {
       await driver.tap(find.byValueKey('backCardInput'),
           timeout: timeoutDuration);
       await driver.enterText(back);
-      await driver.tap(find.byTooltip(localizations.addCardTooltip),
-          timeout: timeoutDuration);
 
-      await driver.waitFor(find.text(localizations.cardAddedUserMessage),
-          timeout: timeoutDuration);
+      for (var saveAttempt = 0;; ++saveAttempt) {
+        await driver.tap(find.byTooltip(localizations.addCardTooltip),
+            timeout: timeoutDuration);
+
+        try {
+          await driver.waitFor(find.text(localizations.cardAddedUserMessage),
+              timeout: timeoutDuration);
+          break;
+        } catch (e) {
+          print('Save attempt $saveAttempt: $e');
+          if (saveAttempt < 3) {
+            print('Retrying...');
+          } else {
+            rethrow;
+          }
+        }
+      }
     }
 
     Future<void> answerCard({
