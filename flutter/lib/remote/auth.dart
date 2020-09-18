@@ -13,6 +13,7 @@ import 'package:quiver/strings.dart';
 enum AuthProvider {
   google,
   facebook,
+  apple,
 }
 
 /// An abstraction layer on top of FirebaseAuth.

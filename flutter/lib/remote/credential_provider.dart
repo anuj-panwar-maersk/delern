@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:quiver/strings.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 abstract class CredentialProvider {
   /// Get AuthCredential from user or provider-specific credential cache.
@@ -31,6 +33,7 @@ abstract class CredentialProvider {
 final credentialProviders = <AuthProvider, CredentialProvider>{
   AuthProvider.google: _GoogleCredentialProvider(),
   AuthProvider.facebook: _FacebookCredentialProvider(),
+  AuthProvider.apple: _AppleCredentialProvider(),
   // TODO(dotdoom): handle other providers here (ex.: Twitter) #944.
 };
 
@@ -134,5 +137,63 @@ class _FacebookCredentialProvider implements CredentialProvider {
       );
     }
     return null;
+  }
+}
+
+class _AppleCredentialProvider implements CredentialProvider {
+  static final _appleOAuth = OAuthProvider('apple.com');
+
+  @override
+  final _providerId = _appleOAuth.providerId;
+
+  @override
+  Future<AuthCredentialWithMetadata> getCredential({
+    bool silent = false,
+    bool forceAccountPicker = false,
+  }) async {
+    assert(!(silent && forceAccountPicker),
+        'Silent Sign In is meaningless if Sign Out is forced first');
+
+    if (silent) {
+      debugPrint('Silent Sign In was requested for Apple, but not supported');
+      return null;
+    }
+
+    if (!forceAccountPicker) {
+      debugPrint('Force Account Picker not requested for Apple, ignoring');
+    }
+
+    AuthorizationCredentialAppleID credential;
+    try {
+      credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+    } on SignInWithAppleAuthorizationException catch (e) {
+      if (e.code == AuthorizationErrorCode.canceled ||
+          // This happens when the account is not configured on the iOS device.
+          e.message.contains('error 1000')) {
+        // By the contract, and to avoid unnecessary UI interaction, we return
+        // null if the user cancelled the authentication flow.
+        debugPrint('Apple auth flow has been canceled (by user): $e');
+        return null;
+      }
+      rethrow;
+    }
+
+    return AuthCredentialWithMetadata(
+      credential: _appleOAuth.credential(
+        idToken: credential.identityToken,
+        accessToken: credential.authorizationCode,
+      ),
+      // https://developer.apple.com/forums/thread/121496.
+      displayName:
+          (isBlank(credential.givenName) && isBlank(credential.familyName))
+              ? null
+              : '${credential.givenName ?? ''} ${credential.familyName ?? ''}'
+                  .trim(),
+    );
   }
 }

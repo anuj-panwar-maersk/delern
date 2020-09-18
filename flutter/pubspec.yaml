@@ -40,6 +40,7 @@ dependencies:
 
   google_sign_in:
   flutter_facebook_login:
+  sign_in_with_apple:
 
   flutter:
     sdk: flutter

@@ -164,6 +164,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         backgroundColor = app_styles.kFacebookBlueColor;
         providerImageAsset = 'images/facebook_sign_in.webp';
         break;
+      case AuthProvider.apple:
+        backgroundColor = Colors.black;
+        providerImageAsset = 'images/apple_sign_in.webp';
+        break;
     }
 
     return Container(

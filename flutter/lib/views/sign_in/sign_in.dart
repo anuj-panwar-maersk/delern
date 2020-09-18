@@ -210,7 +210,9 @@ class _SignInState extends State<SignIn> {
       AppleSignInButton(
         onPressed: () {
           logLoginEvent('apple');
-          // TODO(dotdoom): implement logic
+          _signInWithProvider(
+            provider: AuthProvider.apple,
+          );
         },
       ),
     ];
