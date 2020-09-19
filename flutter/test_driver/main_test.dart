@@ -45,11 +45,14 @@ void main() {
 
     Future<void> fillInAndAddCard(String front, String back) async {
       // Wait until the message about card added disappears.
+      print('Waiting for message about Card Added to disappear...');
       await driver.waitForAbsent(find.text(localizations.cardAddedUserMessage),
           timeout: timeoutDuration);
 
       final frontInput = find.byValueKey('frontCardInput');
+      print('Waiting for "front" input...');
       await driver.waitFor(frontInput, timeout: timeoutDuration);
+      // Front input must be already focused, automatically, so we don't tap.
       await driver.enterText(front);
 
       await driver.tap(find.byValueKey('backCardInput'),
@@ -61,6 +64,7 @@ void main() {
             timeout: timeoutDuration);
 
         try {
+          print('Waiting for message about Card Added to appear...');
           await driver.waitFor(find.text(localizations.cardAddedUserMessage),
               timeout: timeoutDuration);
           break;
