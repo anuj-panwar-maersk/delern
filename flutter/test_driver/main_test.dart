@@ -265,5 +265,7 @@ void main() {
       await driver.waitFor(find.text(localizations.deckDeletedUserMessage));
       await driver.waitFor(find.text(localizations.emptyDecksList));
     });
-  });
+  },
+      // Some tests take a while to complete (e.g. because of retries).
+      timeout: const Timeout(Duration(minutes: 3)));
 }
