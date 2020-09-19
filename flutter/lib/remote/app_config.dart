@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
@@ -24,6 +25,25 @@ class AppConfig {
       _remoteValueOrNull('explicit_silent_sign_in_enabled')?.asBool() ?? false;
 
   static const _remoteConfigIsStaleKey = 'remote_config_is_stale';
+
+  bool get rescheduleUserNotifications =>
+      _remoteValueOrNull('reschedule_user_notifications')?.asBool() ?? true;
+  Map<String, List<String>> get notificationMessages {
+    final messagesString =
+        _remoteValueOrNull('notification_messages')?.asString() ?? '[]';
+    // ignore: avoid_as
+    final nMessages = json.decode(messagesString) as Map<String, dynamic>;
+    debugPrint(nMessages.toString());
+    final result = <String, List<String>>{};
+    nMessages.forEach((key, dynamic n) {
+      final notifications =
+          // ignore: avoid_as
+          (n as List)?.map((dynamic e) => e as String)?.toList();
+      result[key] = notifications;
+    });
+
+    return result;
+  }
 
   /// Shared Preference: whether remote config is stale and needs to be fetched
   /// soon.

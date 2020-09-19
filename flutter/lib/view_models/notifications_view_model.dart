@@ -4,6 +4,7 @@ import 'dart:core';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:delern_flutter/models/notification_payload.dart';
 import 'package:delern_flutter/models/notification_schedule.dart';
 import 'package:delern_flutter/models/serializers.dart';
 import 'package:delern_flutter/remote/app_config.dart';
@@ -22,16 +23,23 @@ var week = BuiltList<int>.build((l) => l.addAll([
     ])).toBuiltList();
 
 typedef NotificationReceivedCallback = void Function(
-    ReceivedNotification notification);
+    NotificationPayload notification);
 
-typedef NotificationPressedCallback = void Function(String payload);
+typedef NotificationPressedCallback = void Function(
+    NotificationPayload payload);
 
 class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   final NotificationReceivedCallback onNotificationReceived;
   final NotificationPressedCallback onNotificationPressed;
+  final List<String> messages;
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-  LocalNotifications(
-      {this.onNotificationReceived, this.onNotificationPressed}) {
+  LocalNotifications({
+    @required this.onNotificationReceived,
+    @required this.onNotificationPressed,
+    @required this.messages,
+    @required this.flutterLocalNotificationsPlugin,
+  }) {
     _init();
     _initUserScheduledNotifications();
   }
@@ -42,9 +50,6 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   NotificationScheduleBuilder _notificationsSchedule =
       NotificationScheduleBuilder()
         ..notificationSchedule[TimeOfDay.now()] = week;
-
-  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
 
   //NotificationAppLaunchDetails _notificationAppLaunchDetails;
 
@@ -60,14 +65,17 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
         requestBadgePermission: false,
         requestSoundPermission: false,
         onDidReceiveLocalNotification: (id, title, body, payload) async {
-          onNotificationReceived(ReceivedNotification(
-              id: id, title: title, body: body, payload: payload));
+          final payloadData = serializers.deserializeWith(
+              NotificationPayload.serializer, json.decode(payload));
+          onNotificationReceived(payloadData);
         });
     final initializationSettings = InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
-    await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (payload) async {
-      onNotificationPressed?.call(payload);
+      final payloadData = serializers.deserializeWith(
+          NotificationPayload.serializer, json.decode(payload));
+      onNotificationPressed?.call(payloadData);
     });
   }
 
@@ -129,24 +137,31 @@ Shows weekly notifications at ${time.hour}:${time.minute} on $day day of week'''
       androidPlatformChannelSpecifics,
       iOSPlatformChannelSpecifics,
     );
-    await _flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(
+    final title = messages[Random().nextInt(messages.length)];
+    final payloadBuilder = NotificationPayloadBuilder()
+      ..title = title
+      ..subtitle = ''
+      ..time = time
+      ..day = day;
+
+    await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(
         _calculateNotificationId(time, day),
-        'Practice makes perfect',
+        title,
         null,
         notificationDay,
         notificationTime,
         platformChannelSpecifics,
-        payload: 'Practice makes perfect');
+        payload: json.encode(serializers.serialize(payloadBuilder.build())));
   }
 
   void _cancelWeeklyNotification(TimeOfDay time, int day) {
-    _flutterLocalNotificationsPlugin.cancel(
+    flutterLocalNotificationsPlugin.cancel(
       _calculateNotificationId(time, day),
     );
   }
 
   void requestIOSPermissions() {
-    _flutterLocalNotificationsPlugin
+    flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
@@ -217,19 +232,5 @@ Shows weekly notifications at ${time.hour}:${time.minute} on $day day of week'''
   }
 
   Future<List<PendingNotificationRequest>> getPendingNotifications() async =>
-      _flutterLocalNotificationsPlugin.pendingNotificationRequests();
-}
-
-class ReceivedNotification {
-  final int id;
-  final String title;
-  final String body;
-  final String payload;
-
-  ReceivedNotification({
-    @required this.id,
-    @required this.title,
-    @required this.payload,
-    this.body,
-  });
+      flutterLocalNotificationsPlugin.pendingNotificationRequests();
 }

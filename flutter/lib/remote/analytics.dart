@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:delern_flutter/models/notification_payload.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:meta/meta.dart';
@@ -127,3 +128,15 @@ Future<void> logAddImageToCard({@required bool isFrontSide}) =>
     FirebaseAnalytics().logEvent(
         name: 'card_create_with_image',
         parameters: <String, dynamic>{'front': isFrontSide ? 1 : 0});
+
+Future<void> logLocalNotificationOpen(
+        {@required NotificationPayload payload}) =>
+    FirebaseAnalytics().logEvent(
+        name: 'local_notification_open',
+        parameters: <String, dynamic>{
+          'title': payload.title,
+          'subtitle': payload.subtitle,
+          'time': payload.time,
+          'day': payload.day,
+          'route': payload.route,
+        });

@@ -1,3 +1,4 @@
+import 'package:delern_flutter/remote/analytics.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/view_models/notifications_view_model.dart';
@@ -14,6 +15,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_sentry/flutter_sentry.dart';
 import 'package:pedantic/pedantic.dart';
@@ -68,14 +70,16 @@ class App extends StatelessWidget {
                 context,
                 ChangeNotifierProvider(
                   create: (_) => LocalNotifications(
-                    onNotificationReceived: (notification) {
-                      debugPrint(
-                          'Notification received: ${notification.title}');
-                    },
-                    onNotificationPressed: (payload) {
-                      debugPrint('Notification pressed: $payload');
-                    },
-                  ),
+                      onNotificationReceived: (payload) {
+                        logLocalNotificationOpen(payload: payload);
+                      },
+                      onNotificationPressed: (payload) {
+                        logLocalNotificationOpen(payload: payload);
+                      },
+                      flutterLocalNotificationsPlugin:
+                          FlutterLocalNotificationsPlugin(),
+                      messages: AppConfig.instance.notificationMessages[
+                          Localizations.localeOf(context).languageCode]),
                   lazy: false,
                   child: AuthWidget(
                     auth: auth,
