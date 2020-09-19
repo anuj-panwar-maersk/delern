@@ -45,21 +45,38 @@ void main() {
 
     Future<void> fillInAndAddCard(String front, String back) async {
       // Wait until the message about card added disappears.
+      print('Waiting for message about Card Added to disappear...');
       await driver.waitForAbsent(find.text(localizations.cardAddedUserMessage),
           timeout: timeoutDuration);
 
       final frontInput = find.byValueKey('frontCardInput');
+      print('Waiting for "front" input...');
       await driver.waitFor(frontInput, timeout: timeoutDuration);
+      // Front input must be already focused, automatically, so we don't tap.
       await driver.enterText(front);
 
       await driver.tap(find.byValueKey('backCardInput'),
           timeout: timeoutDuration);
       await driver.enterText(back);
-      await driver.tap(find.byTooltip(localizations.addCardTooltip),
-          timeout: timeoutDuration);
 
-      await driver.waitFor(find.text(localizations.cardAddedUserMessage),
-          timeout: timeoutDuration);
+      for (var saveAttempt = 0;; ++saveAttempt) {
+        await driver.tap(find.byTooltip(localizations.addCardTooltip),
+            timeout: timeoutDuration);
+
+        try {
+          print('Waiting for message about Card Added to appear...');
+          await driver.waitFor(find.text(localizations.cardAddedUserMessage),
+              timeout: timeoutDuration);
+          break;
+        } catch (e) {
+          print('Save attempt $saveAttempt: $e');
+          if (saveAttempt < 3) {
+            print('Retrying...');
+          } else {
+            rethrow;
+          }
+        }
+      }
     }
 
     Future<void> answerCard({
@@ -77,6 +94,7 @@ void main() {
     setUpAll(() async {
       driver = await FlutterDriver.connect();
       localizations = const AppLocalizations();
+      await driver.waitUntilFirstFrameRasterized();
     });
 
     tearDownAll(() async {

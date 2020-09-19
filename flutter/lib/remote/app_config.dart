@@ -23,7 +23,7 @@ class AppConfig {
 
   /// Remote Config: call silentSignIn() instead of relying on Firebase.
   bool get explicitSilentSignInEnabled =>
-      _remoteValueOrNull('explicit_silent_sign_in_enabled')?.asBool() ?? true;
+      _remoteValueOrNull('explicit_silent_sign_in_enabled')?.asBool() ?? false;
 
   static const _remoteConfigIsStaleKey = 'remote_config_is_stale';
 

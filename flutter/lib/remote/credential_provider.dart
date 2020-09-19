@@ -1,7 +1,10 @@
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:quiver/strings.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 abstract class CredentialProvider {
   /// Get AuthCredential from user or provider-specific credential cache.
@@ -17,7 +20,7 @@ abstract class CredentialProvider {
   /// The return Future should resolve to `null` if the user has cancelled login
   /// dialog, or an error if an unexpected condition was met (e.g. application
   /// misconfiguration, network connection issues).
-  Future<AuthCredential> getCredential({
+  Future<AuthCredentialWithMetadata> getCredential({
     bool silent = false,
     bool forceAccountPicker = false,
   });
@@ -30,6 +33,7 @@ abstract class CredentialProvider {
 final credentialProviders = <AuthProvider, CredentialProvider>{
   AuthProvider.google: _GoogleCredentialProvider(),
   AuthProvider.facebook: _FacebookCredentialProvider(),
+  AuthProvider.apple: _AppleCredentialProvider(),
   // TODO(dotdoom): handle other providers here (ex.: Twitter) #944.
 };
 
@@ -39,6 +43,23 @@ AuthProvider providerFromID(String providerId) => credentialProviders.entries
         orElse: () => null)
     ?.key;
 
+/// Wrapper around [AuthCredential] and select metadata which some providers
+/// (e.g. Apple) only supply once at the first login, so it must be relayed
+/// upstream to be preserved there.
+@immutable
+class AuthCredentialWithMetadata {
+  /// Required credential.
+  final AuthCredential credential;
+
+  /// Given name + family name, optional.
+  final String displayName;
+
+  const AuthCredentialWithMetadata({
+    @required this.credential,
+    this.displayName,
+  }) : assert(credential != null);
+}
+
 class _GoogleCredentialProvider implements CredentialProvider {
   static final _googleSignIn = GoogleSignIn();
 
@@ -46,7 +67,7 @@ class _GoogleCredentialProvider implements CredentialProvider {
   final _providerId = GoogleAuthProvider.PROVIDER_ID;
 
   @override
-  Future<AuthCredential> getCredential({
+  Future<AuthCredentialWithMetadata> getCredential({
     bool silent = false,
     bool forceAccountPicker = false,
   }) async {
@@ -75,9 +96,11 @@ class _GoogleCredentialProvider implements CredentialProvider {
     //       structure without validation.
     //       Another solution is to always call `clearAuthCache()`, but what are
     //       the side effects of it?
-    return GoogleAuthProvider.credential(
-      accessToken: auth.accessToken,
-      idToken: auth.idToken,
+    return AuthCredentialWithMetadata(
+      credential: GoogleAuthProvider.credential(
+        accessToken: auth.accessToken,
+        idToken: auth.idToken,
+      ),
     );
   }
 }
@@ -89,7 +112,7 @@ class _FacebookCredentialProvider implements CredentialProvider {
   final _providerId = FacebookAuthProvider.PROVIDER_ID;
 
   @override
-  Future<AuthCredential> getCredential({
+  Future<AuthCredentialWithMetadata> getCredential({
     bool silent = false,
     bool forceAccountPicker = false,
   }) async {
@@ -109,8 +132,68 @@ class _FacebookCredentialProvider implements CredentialProvider {
     }
 
     if (accessToken != null && accessToken.isValid()) {
-      return FacebookAuthProvider.credential(accessToken.token);
+      return AuthCredentialWithMetadata(
+        credential: FacebookAuthProvider.credential(accessToken.token),
+      );
     }
     return null;
+  }
+}
+
+class _AppleCredentialProvider implements CredentialProvider {
+  static final _appleOAuth = OAuthProvider('apple.com');
+
+  @override
+  final _providerId = _appleOAuth.providerId;
+
+  @override
+  Future<AuthCredentialWithMetadata> getCredential({
+    bool silent = false,
+    bool forceAccountPicker = false,
+  }) async {
+    assert(!(silent && forceAccountPicker),
+        'Silent Sign In is meaningless if Sign Out is forced first');
+
+    if (silent) {
+      debugPrint('Silent Sign In was requested for Apple, but not supported');
+      return null;
+    }
+
+    if (!forceAccountPicker) {
+      debugPrint('Force Account Picker not requested for Apple, ignoring');
+    }
+
+    AuthorizationCredentialAppleID credential;
+    try {
+      credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+    } on SignInWithAppleAuthorizationException catch (e) {
+      if (e.code == AuthorizationErrorCode.canceled ||
+          // This happens when the account is not configured on the iOS device.
+          e.message.contains('error 1000')) {
+        // By the contract, and to avoid unnecessary UI interaction, we return
+        // null if the user cancelled the authentication flow.
+        debugPrint('Apple auth flow has been canceled (by user): $e');
+        return null;
+      }
+      rethrow;
+    }
+
+    return AuthCredentialWithMetadata(
+      credential: _appleOAuth.credential(
+        idToken: credential.identityToken,
+        accessToken: credential.authorizationCode,
+      ),
+      // https://developer.apple.com/forums/thread/121496.
+      displayName:
+          (isBlank(credential.givenName) && isBlank(credential.familyName))
+              ? null
+              : '${credential.givenName ?? ''} ${credential.familyName ?? ''}'
+                  .trim(),
+    );
   }
 }

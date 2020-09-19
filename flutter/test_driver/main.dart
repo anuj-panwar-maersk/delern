@@ -9,7 +9,8 @@ import 'package:flutter_driver/driver_extension.dart';
 import 'commands.dart';
 
 Future<void> main() async {
-  // This line enables the extension
+  // This line enables the extension. It must go before WidgetsFlutterBinding is
+  // used.
   enableFlutterDriverExtension(handler: (command) async {
     if (command == kGetWindow) {
       final window = WidgetsFlutterBinding.ensureInitialized().window;
@@ -23,6 +24,7 @@ Future<void> main() async {
     return null;
   });
   // Sign out before running tests to clear cached data.
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseAuth.instance.signOut();
   // Call the `main()` of your app or call `runApp` with whatever widget
