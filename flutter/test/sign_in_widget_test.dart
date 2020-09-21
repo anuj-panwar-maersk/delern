@@ -49,7 +49,7 @@ void main() {
         ),
       ));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('GOOGLE'));
+      await tester.tap(find.text('Sign in with Google'));
 
       verify(auth.signIn(AuthProvider.google));
       verifyNoMoreInteractions(auth);
