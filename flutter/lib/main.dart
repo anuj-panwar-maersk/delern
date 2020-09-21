@@ -78,8 +78,14 @@ class App extends StatelessWidget {
                     },
                     flutterLocalNotificationsPlugin:
                         FlutterLocalNotificationsPlugin(),
-                    messages: AppConfig.instance.notificationMessages[
-                        Localizations.localeOf(context).languageCode],
+                    messages: AppConfig
+                            .instance
+                            .notificationMessages[
+                                Localizations.localeOf(context).languageCode]
+                            .isNotEmpty
+                        ? AppConfig.instance.notificationMessages[
+                            Localizations.localeOf(context).languageCode]
+                        : [context.l.defaultNotification],
                     isIOS: Theme.of(context).platform == TargetPlatform.iOS,
                   ),
                   lazy: false,

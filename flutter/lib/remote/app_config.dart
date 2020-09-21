@@ -26,8 +26,6 @@ class AppConfig {
 
   static const _remoteConfigIsStaleKey = 'remote_config_is_stale';
 
-  bool get rescheduleUserNotifications =>
-      _remoteValueOrNull('reschedule_user_notifications')?.asBool() ?? true;
   Map<String, List<String>> get notificationMessages {
     final messagesString =
         _remoteValueOrNull('notification_messages')?.asString() ?? '[]';

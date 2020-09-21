@@ -763,5 +763,12 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "defaultNotification": "Praktice makes perfect",
+  "@defaultNotification": {
+    "description": "Default notification message if case remote config was not loaded",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

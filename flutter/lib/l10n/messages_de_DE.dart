@@ -76,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deckType": MessageLookupByLibrary.simpleMessage("Lernset Typ"),
         "decksRefreshed":
             MessageLookupByLibrary.simpleMessage("Lernsets erneuert"),
+        "defaultNotification":
+            MessageLookupByLibrary.simpleMessage("Übung macht den Meister"),
         "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
         "deleteCardQuestion": MessageLookupByLibrary.simpleMessage(
             "Möchtest diese Karte löschen?"),

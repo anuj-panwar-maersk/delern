@@ -690,4 +690,11 @@ Twitter: https://twitter.com/dasdelern''',
         name: 'addReminder',
         desc: 'Add Reminder label in button',
       );
+
+  String get defaultNotification => Intl.message(
+        'Praktice makes perfect',
+        name: 'defaultNotification',
+        desc:
+            'Default notification message if case remote config was not loaded',
+      );
 }

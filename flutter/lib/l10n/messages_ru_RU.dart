@@ -78,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deckType": MessageLookupByLibrary.simpleMessage("Тип списка"),
         "decksRefreshed":
             MessageLookupByLibrary.simpleMessage("Списки обновлены"),
+        "defaultNotification":
+            MessageLookupByLibrary.simpleMessage("Время практиковать карточки"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "deleteCardQuestion": MessageLookupByLibrary.simpleMessage(
             "Вы хотите удалить эту карточку?"),

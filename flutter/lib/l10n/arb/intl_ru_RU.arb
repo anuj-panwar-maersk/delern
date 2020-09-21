@@ -762,5 +762,12 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "defaultNotification": "Время практиковать карточки",
+  "@defaultNotification": {
+    "description": "Default notification message if case remote config was not loaded",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

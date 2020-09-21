@@ -763,5 +763,12 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "defaultNotification": "Übung macht den Meister",
+  "@defaultNotification": {
+    "description": "Default notification message if case remote config was not loaded",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

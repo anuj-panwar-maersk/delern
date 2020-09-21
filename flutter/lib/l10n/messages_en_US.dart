@@ -72,6 +72,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deckType": MessageLookupByLibrary.simpleMessage("Deck Type"),
         "decksRefreshed":
             MessageLookupByLibrary.simpleMessage("Decks refreshed"),
+        "defaultNotification":
+            MessageLookupByLibrary.simpleMessage("Praktice makes perfect"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteCardQuestion": MessageLookupByLibrary.simpleMessage(
             "Do you want to delete this card?"),
