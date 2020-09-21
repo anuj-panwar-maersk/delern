@@ -102,7 +102,7 @@ jobs:
         run: git clean -f -x -d
       - name: >
           Upload snapshot of source code.
-          To copy over: 'cd delern/flutter && unzip -o ~/Downloads/flutter.zip'
+          To copy over: 'cd project/flutter && unzip -o ~/Downloads/flutter.zip'
         if: failure() && runner.os != 'Windows'
         uses: actions/upload-artifact@v1
         with:
