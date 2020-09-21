@@ -28,7 +28,7 @@
     "placeholders": {
     }
   },
-  "signInWithGoogle": "Google",
+  "signInWithGoogle": "Войти с Google",
   "@signInWithGoogle": {
     "description": "Sign in with Google Button",
     "type": "text",
@@ -651,7 +651,7 @@
     "placeholders": {
     }
   },
-  "signInWithFacebook": "Facebook",
+  "signInWithFacebook": "Войти с Facebook",
   "@signInWithFacebook": {
     "description": "Sign in with Facebook Button",
     "type": "text",
@@ -742,7 +742,7 @@
     "placeholders": {
     }
   },
-  "signInWithApple": "Apple",
+  "signInWithApple": "Войти с Apple",
   "@signInWithApple": {
     "description": "Sign in with Apple Button",
     "type": "text",

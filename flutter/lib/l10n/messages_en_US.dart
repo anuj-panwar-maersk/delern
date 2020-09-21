@@ -177,9 +177,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "signInCredentialAlreadyInUseWarning": MessageLookupByLibrary.simpleMessage(
             "The account you have chosen is already registered with the application. If you continue with sign in, all data that you have created anonymously will be lost. Would you like to continue?"),
         "signInScreenOr": MessageLookupByLibrary.simpleMessage("or"),
-        "signInWithApple": MessageLookupByLibrary.simpleMessage("Apple"),
-        "signInWithFacebook": MessageLookupByLibrary.simpleMessage("Facebook"),
-        "signInWithGoogle": MessageLookupByLibrary.simpleMessage("Google"),
+        "signInWithApple":
+            MessageLookupByLibrary.simpleMessage("Sign in with Apple"),
+        "signInWithFacebook":
+            MessageLookupByLibrary.simpleMessage("Sign in with Facebook"),
+        "signInWithGoogle":
+            MessageLookupByLibrary.simpleMessage("Sign in with Google"),
         "signInWithLabel":
             MessageLookupByLibrary.simpleMessage("Sign in with:"),
         "splashScreenFeatures": MessageLookupByLibrary.simpleMessage(

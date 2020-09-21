@@ -107,7 +107,7 @@ class _SignInState extends State<SignIn> {
                                     .textTheme
                                     .headline6
                                     .copyWith(
-                                      fontSize: 30,
+                                      fontSize: 28,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),

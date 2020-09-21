@@ -16,35 +16,34 @@ class GoogleSignInButton extends StatelessWidget {
           child: Stack(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Text(
-                      context.l.signInWithGoogle.toUpperCase(),
-                      style: app_styles.signInTextButton,
-                      overflow: TextOverflow.ellipsis,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 2),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: FractionallySizedBox(
+                        heightFactor: 0.95,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Image.asset('images/google_sign_in.png'),
+                          ),
+                        ),
+                      ),
                     ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    context.l.signInWithGoogle,
+                    style: app_styles.signInTextButton,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 2),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: FractionallySizedBox(
-                    heightFactor: 0.95,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Image.asset('images/google_sign_in.png'),
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),
@@ -62,26 +61,21 @@ class AppleSignInButton extends StatelessWidget {
         onTap: onPressed,
         child: SignInButtonContainer(
           color: Colors.black,
-          child: Stack(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Text(
-                      context.l.signInWithApple.toUpperCase(),
-                      style: app_styles.signInTextButton,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
               Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Image.asset('images/apple_sign_in.webp'),
                 ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                context.l.signInWithApple,
+                style: app_styles.signInTextButton,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -102,31 +96,30 @@ class FacebookSignInButton extends StatelessWidget {
           child: Stack(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Text(
-                      context.l.signInWithFacebook.toUpperCase(),
-                      style: app_styles.signInTextButton,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 1.5),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: FractionallySizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Image.asset(
-                        'images/facebook_sign_in.webp',
-                        fit: BoxFit.fill,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 1.5),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: FractionallySizedBox(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Image.asset(
+                            'images/facebook_sign_in.webp',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(width: 4),
+                  Text(
+                    context.l.signInWithFacebook,
+                    style: app_styles.signInTextButton,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ],
           ),
