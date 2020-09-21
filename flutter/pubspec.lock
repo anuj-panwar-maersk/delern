@@ -513,7 +513,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.7+8"
+    version: "0.6.7+9"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -688,7 +688,7 @@ packages:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.3"
   pedantic:
     dependency: "direct dev"
     description:
@@ -1092,7 +1092,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.1"
+    version: "1.7.3"
   xdg_directories:
     dependency: transitive
     description:
