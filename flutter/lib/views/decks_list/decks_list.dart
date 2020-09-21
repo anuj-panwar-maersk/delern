@@ -5,6 +5,7 @@ import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/remote/analytics.dart';
 import 'package:delern_flutter/view_models/decks_list_bloc.dart';
+import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/decks_list/create_deck_widget.dart';
 import 'package:delern_flutter/views/decks_list/deck_menu.dart';
 import 'package:delern_flutter/views/decks_list/learning_method_widget.dart';
@@ -26,6 +27,7 @@ import 'package:delern_flutter/views/helpers/user_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
 class DecksList extends StatefulWidget {
   const DecksList();
@@ -45,7 +47,23 @@ class _DecksListState extends State<DecksList> {
       _bloc?.dispose();
       _bloc = DecksListBloc(user: user);
     }
+
+    // It might ask for permission iOS users
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scheduleNotifications();
+    });
     super.didChangeDependencies();
+  }
+
+  Future<void> _scheduleNotifications() async {
+    final user = CurrentUserWidget.of(context).user;
+
+    if (!context.read<LocalNotifications>().isNotificationScheduled) {
+      await user.decks.updates.skipWhile((element) => element.isEmpty).first;
+
+      unawaited(
+          context.read<LocalNotifications>().scheduleDefaultNotifications());
+    }
   }
 
   @override

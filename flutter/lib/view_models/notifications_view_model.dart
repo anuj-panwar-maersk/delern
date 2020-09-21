@@ -7,10 +7,12 @@ import 'package:built_collection/built_collection.dart';
 import 'package:delern_flutter/models/notification_payload.dart';
 import 'package:delern_flutter/models/notification_schedule.dart';
 import 'package:delern_flutter/models/serializers.dart';
+import 'package:delern_flutter/remote/analytics.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pedantic/pedantic.dart';
 
 var week = BuiltList<int>.build((l) => l.addAll([
       DateTime.monday,
@@ -33,13 +35,19 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   final NotificationPressedCallback onNotificationPressed;
   final List<String> messages;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  bool _isNotificationScheduled = false;
+  bool _iosPermissionGranted = false;
+  final bool _isIOS;
+
+  bool get isNotificationScheduled => _isNotificationScheduled;
 
   LocalNotifications({
     @required this.onNotificationReceived,
     @required this.onNotificationPressed,
     @required this.messages,
     @required this.flutterLocalNotificationsPlugin,
-  }) {
+    @required bool isIOS,
+  }) : _isIOS = isIOS {
     _init();
     _initUserScheduledNotifications();
   }
@@ -48,15 +56,9 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
       _notificationsSchedule.notificationSchedule.build();
 
   NotificationScheduleBuilder _notificationsSchedule =
-      NotificationScheduleBuilder()
-        ..notificationSchedule[TimeOfDay.now()] = week;
-
-  //NotificationAppLaunchDetails _notificationAppLaunchDetails;
+      NotificationScheduleBuilder();
 
   Future<void> _init() async {
-    // _notificationAppLaunchDetails = await _flutterLocalNotificationsPlugin
-    //     .getNotificationAppLaunchDetails();
-
     const initializationSettingsAndroid =
         AndroidInitializationSettings('delern');
     // Notification permissions are not requested to be able to ask it later.
@@ -86,16 +88,31 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   }
 
   Future<void> _initUserScheduledNotifications() async {
-    if (AppConfig.instance.isNotificationsSet &&
-        (await getPendingNotifications()).isNotEmpty) {
+    if (AppConfig.instance.isNotificationsSet) {
       final notificationScheduleFromAppSettings = serializers.deserializeWith(
           NotificationSchedule.serializer,
           json.decode(AppConfig.instance.notificationSchedule));
       _notificationsSchedule = notificationScheduleFromAppSettings.toBuilder();
-    } else {
-      // If notifications weren't setup, set default value
-      _saveNotificationsToAppSettings();
+      _isNotificationScheduled = true;
     }
+  }
+
+  Future<bool> _checkPermissions() async {
+    if (_isIOS && !_iosPermissionGranted) {
+      _iosPermissionGranted = await _requestIOSPermissions();
+      unawaited(
+          logIosNotificationPermissions(isGranted: _iosPermissionGranted));
+    }
+    if (_isIOS) {
+      return _iosPermissionGranted;
+    } else {
+      return true;
+    }
+  }
+
+  Future<void> scheduleDefaultNotifications() async {
+    await addNewReminderRule();
+    _saveNotificationsToAppSettings();
   }
 
   Future<void> _scheduleWeeklyNotification(TimeOfDay time, int day) async {
@@ -160,16 +177,14 @@ Shows weekly notifications at ${time.hour}:${time.minute} on $day day of week'''
     );
   }
 
-  void requestIOSPermissions() {
-    flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-  }
+  Future<bool> _requestIOSPermissions() => flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          IOSFlutterLocalNotificationsPlugin>()
+      ?.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
 
   int _calculateNotificationId(TimeOfDay time, int day) =>
       (time.hashCode + day.hashCode).hashCode;
@@ -204,22 +219,25 @@ Shows weekly notifications at ${time.hour}:${time.minute} on $day day of week'''
     notifyListeners();
   }
 
-  void addNewReminderRule() {
-    var now = TimeOfDay.now();
+  Future<void> addNewReminderRule() async {
+    if (await _checkPermissions()) {
+      var now = TimeOfDay.now();
+      if (_notificationsSchedule.notificationSchedule
+          .build()
+          .containsKey(now)) {
+        final randomNumber = Random().nextInt(10) + 1;
+        now = TimeOfDay(
+            hour: TimeOfDay.now().hour,
+            minute: TimeOfDay.now().minute + randomNumber);
+      }
 
-    if (_notificationsSchedule.notificationSchedule.build().containsKey(now)) {
-      final randomNumber = Random().nextInt(10) + 1;
-      now = TimeOfDay(
-          hour: TimeOfDay.now().hour,
-          minute: TimeOfDay.now().minute + randomNumber);
+      _notificationsSchedule.notificationSchedule[now] = week;
+      for (final day in week) {
+        await _scheduleWeeklyNotification(now, day);
+      }
+      _saveNotificationsToAppSettings();
+      notifyListeners();
     }
-
-    _notificationsSchedule.notificationSchedule[now] = week;
-    for (final day in week) {
-      _scheduleWeeklyNotification(now, day);
-    }
-    _saveNotificationsToAppSettings();
-    notifyListeners();
   }
 
   void deleteReminderRule(TimeOfDay time) {

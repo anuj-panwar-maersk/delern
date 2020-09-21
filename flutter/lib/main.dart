@@ -70,16 +70,18 @@ class App extends StatelessWidget {
                 context,
                 ChangeNotifierProvider(
                   create: (_) => LocalNotifications(
-                      onNotificationReceived: (payload) {
-                        logLocalNotificationOpen(payload: payload);
-                      },
-                      onNotificationPressed: (payload) {
-                        logLocalNotificationOpen(payload: payload);
-                      },
-                      flutterLocalNotificationsPlugin:
-                          FlutterLocalNotificationsPlugin(),
-                      messages: AppConfig.instance.notificationMessages[
-                          Localizations.localeOf(context).languageCode]),
+                    onNotificationReceived: (payload) {
+                      logLocalNotificationOpen(payload: payload);
+                    },
+                    onNotificationPressed: (payload) {
+                      logLocalNotificationOpen(payload: payload);
+                    },
+                    flutterLocalNotificationsPlugin:
+                        FlutterLocalNotificationsPlugin(),
+                    messages: AppConfig.instance.notificationMessages[
+                        Localizations.localeOf(context).languageCode],
+                    isIOS: Theme.of(context).platform == TargetPlatform.iOS,
+                  ),
                   lazy: false,
                   child: AuthWidget(
                     auth: auth,

@@ -140,3 +140,9 @@ Future<void> logLocalNotificationOpen(
           'day': payload.day,
           'route': payload.route,
         });
+
+Future<void> logIosNotificationPermissions({@required bool isGranted}) =>
+    FirebaseAnalytics()
+        .logEvent(name: 'ios_notification', parameters: <String, dynamic>{
+      'granted': isGranted,
+    });
