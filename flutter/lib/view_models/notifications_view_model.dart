@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:math';
 
+import 'package:app_settings/app_settings.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:delern_flutter/models/notification_payload.dart';
 import 'package:delern_flutter/models/notification_schedule.dart';
@@ -111,7 +112,7 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   }
 
   Future<void> scheduleDefaultNotifications() async {
-    await addNewReminderRule();
+    await addNewReminderRule(isDefaultRule: true);
     _saveNotificationsToAppSettings();
   }
 
@@ -219,7 +220,7 @@ Shows weekly notifications at ${time.hour}:${time.minute} on $day day of week'''
     notifyListeners();
   }
 
-  Future<void> addNewReminderRule() async {
+  Future<void> addNewReminderRule({bool isDefaultRule = false}) async {
     if (await _checkPermissions()) {
       var now = TimeOfDay.now();
       if (_notificationsSchedule.notificationSchedule
@@ -230,13 +231,14 @@ Shows weekly notifications at ${time.hour}:${time.minute} on $day day of week'''
             hour: TimeOfDay.now().hour,
             minute: TimeOfDay.now().minute + randomNumber);
       }
-
       _notificationsSchedule.notificationSchedule[now] = week;
       for (final day in week) {
         await _scheduleWeeklyNotification(now, day);
       }
       _saveNotificationsToAppSettings();
       notifyListeners();
+    } else if (!isDefaultRule) {
+      await AppSettings.openLocationSettings();
     }
   }
 
