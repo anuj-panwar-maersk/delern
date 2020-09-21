@@ -160,6 +160,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         backgroundColor = Colors.white;
         providerImageAsset = 'images/google_sign_in.png';
         break;
+
       case AuthProvider.facebook:
         backgroundColor = app_styles.kFacebookBlueColor;
         providerImageAsset = 'images/facebook_sign_in.webp';
@@ -167,7 +168,13 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       case AuthProvider.apple:
         backgroundColor = Colors.black;
         providerImageAsset = 'images/apple_sign_in.webp';
-        break;
+        return Container(
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: const BorderRadius.all(Radius.circular(2)),
+          ),
+          child: Image.asset(providerImageAsset, height: 34),
+        );
     }
 
     return Container(

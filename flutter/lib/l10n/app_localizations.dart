@@ -42,13 +42,13 @@ class AppLocalizations {
       );
 
   String get signInWithGoogle => Intl.message(
-        'Google',
+        'Sign in with Google',
         name: 'signInWithGoogle',
         desc: 'Sign in with Google Button',
       );
 
   String get signInWithApple => Intl.message(
-        'Apple',
+        'Sign in with Apple',
         name: 'signInWithApple',
         desc: 'Sign in with Apple Button',
       );
@@ -60,7 +60,7 @@ class AppLocalizations {
       );
 
   String get signInWithFacebook => Intl.message(
-        'Facebook',
+        'Sign in with Facebook',
         name: 'signInWithFacebook',
         desc: 'Sign in with Facebook Button',
       );

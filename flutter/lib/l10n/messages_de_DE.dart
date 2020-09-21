@@ -189,9 +189,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "signInCredentialAlreadyInUseWarning": MessageLookupByLibrary.simpleMessage(
             "Das von dir gewählte Konto ist bereits bei der Anmeldung registriert. Wenn du mit der Anmeldung weitermachst, gehen alle Daten, die du anonym erstellt hast, verloren. Möchtest du fortfahren?"),
         "signInScreenOr": MessageLookupByLibrary.simpleMessage("oder"),
-        "signInWithApple": MessageLookupByLibrary.simpleMessage("Apple"),
-        "signInWithFacebook": MessageLookupByLibrary.simpleMessage("Facebook"),
-        "signInWithGoogle": MessageLookupByLibrary.simpleMessage("Google"),
+        "signInWithApple":
+            MessageLookupByLibrary.simpleMessage("Anmelde mit Apple"),
+        "signInWithFacebook":
+            MessageLookupByLibrary.simpleMessage("Anmelde mit Facebook"),
+        "signInWithGoogle":
+            MessageLookupByLibrary.simpleMessage("Anmelde mit Google"),
         "signInWithLabel": MessageLookupByLibrary.simpleMessage("Anmelde mit:"),
         "splashScreenFeatures": MessageLookupByLibrary.simpleMessage(
             "Alle Daten werden in der Cloud gespeichert und über alle Ihre Geräte hinweg synchronisiert. Du kannst Karten auch mit deinen Freunden und Kollegen teilen."),

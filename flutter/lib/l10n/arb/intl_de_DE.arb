@@ -29,7 +29,7 @@
     "placeholders": {
     }
   },
-  "signInWithGoogle": "Google",
+  "signInWithGoogle": "Anmelde mit Google",
   "@signInWithGoogle": {
     "description": "Sign in with Google Button",
     "type": "text",
@@ -43,7 +43,7 @@
     "placeholders": {
     }
   },
-  "signInWithFacebook": "Facebook",
+  "signInWithFacebook": "Anmelde mit Facebook",
   "@signInWithFacebook": {
     "description": "Sign in with Facebook Button",
     "type": "text",
@@ -743,7 +743,7 @@
     "placeholders": {
     }
   },
-  "signInWithApple": "Apple",
+  "signInWithApple": "Anmelde mit Apple",
   "@signInWithApple": {
     "description": "Sign in with Apple Button",
     "type": "text",
