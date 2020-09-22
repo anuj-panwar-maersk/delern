@@ -1,11 +1,11 @@
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/card_create_update/card_create_update.dart';
+import 'package:delern_flutter/views/card_list/card_list.dart';
 import 'package:delern_flutter/views/card_preview/card_preview.dart';
 import 'package:delern_flutter/views/cards_interval_learning/cards_interval_learning.dart';
 import 'package:delern_flutter/views/cards_view_learning/cards_view_learning.dart';
 import 'package:delern_flutter/views/deck_sharing/deck_sharing.dart';
-import 'package:delern_flutter/views/edit_deck/edit_deck.dart';
 import 'package:delern_flutter/views/notifications/notification_settings.dart';
 import 'package:delern_flutter/views/sign_in/sign_in.dart';
 import 'package:flutter/material.dart';
