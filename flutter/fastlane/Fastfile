@@ -167,7 +167,11 @@ platform :android do
   desc 'Build a release AAB and publish it (including Store artifacts).'
   desc 'Set "release" lane key to non-empty value to upload to "alpha" track.'
   lane :publish do |options|
-    aab = flutter_build(build: 'appbundle')
+    # Occasionally build may fail due to a network error.
+    aab = retry_on_exception do
+      flutter_build(build: 'appbundle')
+    end
+
     retry_on_exception do
       supply(
         track: lane_context[SharedValues::PROMOTE_RELEASE] ? 'alpha'
