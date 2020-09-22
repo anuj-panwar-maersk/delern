@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:delern_flutter/models/base/stream_with_value.dart';
+import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/remote/analytics.dart';
@@ -49,9 +51,7 @@ class _DecksListState extends State<DecksList> {
     }
 
     // It might ask for permission iOS users
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scheduleNotifications();
-    });
+    _scheduleNotifications();
     super.didChangeDependencies();
   }
 
@@ -59,10 +59,18 @@ class _DecksListState extends State<DecksList> {
     final user = CurrentUserWidget.of(context).user;
 
     if (!context.read<LocalNotifications>().isNotificationScheduled) {
-      await user.decks.updates.skipWhile((element) => element.isEmpty).first;
+      // [iOS] Interupt user with notifications permissions only
+      // if 5 cards are created
+      final decks = await user.decks.valueWithUpdates.first;
 
-      unawaited(
-          context.read<LocalNotifications>().scheduleDefaultNotifications());
+      final totalCards = await Stream<BuiltList<CardModel>>.fromFutures(
+              decks.map((d) => d.cards.valueWithUpdates.first))
+          .fold<int>(0, (previous, element) => previous + element.length);
+
+      if (totalCards > 5) {
+        unawaited(
+            context.read<LocalNotifications>().scheduleDefaultNotifications());
+      }
     }
   }
 
