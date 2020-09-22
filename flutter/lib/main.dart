@@ -1,3 +1,4 @@
+import 'package:delern_flutter/models/local_notification.dart';
 import 'package:delern_flutter/remote/analytics.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/auth.dart';
@@ -85,7 +86,11 @@ class App extends StatelessWidget {
                             .isNotEmpty
                         ? AppConfig.instance.notificationMessages[
                             Localizations.localeOf(context).languageCode]
-                        : [context.l.defaultNotification],
+                        : <LocalNotification>[
+                            (LocalNotificationBuilder()
+                                  ..title = context.l.defaultNotification)
+                                .build()
+                          ],
                     isIOS: Theme.of(context).platform == TargetPlatform.iOS,
                   ),
                   lazy: false,

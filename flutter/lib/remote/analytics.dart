@@ -135,10 +135,10 @@ Future<void> logLocalNotificationOpen(
         name: 'local_notification_open',
         parameters: <String, dynamic>{
           'title': payload.title,
-          'subtitle': payload.subtitle,
-          'time': payload.time,
+          'body': payload.body ?? '',
+          'time': '${payload.time.hour}:${payload.time.minute}',
           'day': payload.day,
-          'route': payload.route,
+          'route': payload.route ?? '',
         });
 
 Future<void> logIosNotificationPermissions({@required bool isGranted}) =>

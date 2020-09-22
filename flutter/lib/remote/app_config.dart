@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:delern_flutter/models/local_notification.dart';
+import 'package:delern_flutter/models/serializers.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,17 +28,19 @@ class AppConfig {
 
   static const _remoteConfigIsStaleKey = 'remote_config_is_stale';
 
-  Map<String, List<String>> get notificationMessages {
+  Map<String, List<LocalNotification>> get notificationMessages {
     final messagesString =
         _remoteValueOrNull('notification_messages')?.asString() ?? '[]';
     // ignore: avoid_as
     final nMessages = json.decode(messagesString) as Map<String, dynamic>;
-    debugPrint(nMessages.toString());
-    final result = <String, List<String>>{};
+    final result = <String, List<LocalNotification>>{};
     nMessages.forEach((key, dynamic n) {
       final notifications =
           // ignore: avoid_as
-          (n as List)?.map((dynamic e) => e as String)?.toList();
+          (n as List)
+              ?.map((dynamic e) =>
+                  serializers.deserializeWith(LocalNotification.serializer, e))
+              ?.toList();
       result[key] = notifications;
     });
 

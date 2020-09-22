@@ -6,6 +6,7 @@ import 'package:built_value/standard_json_plugin.dart';
 import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
+import 'package:delern_flutter/models/local_notification.dart';
 import 'package:delern_flutter/models/notification_payload.dart';
 import 'package:delern_flutter/models/notification_schedule.dart';
 import 'package:delern_flutter/models/scheduled_card_model.dart';
@@ -65,6 +66,7 @@ class TimeOfDaySerializer implements PrimitiveSerializer<TimeOfDay> {
   ScheduledCardModel,
   NotificationSchedule,
   NotificationPayload,
+  LocalNotification,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())

@@ -27,9 +27,8 @@ class _$NotificationPayloadSerializer
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
-      'subtitle',
-      serializers.serialize(object.subtitle,
-          specifiedType: const FullType(String)),
+      'body',
+      serializers.serialize(object.body, specifiedType: const FullType(String)),
       'day',
       serializers.serialize(object.day, specifiedType: const FullType(int)),
       'time',
@@ -65,8 +64,8 @@ class _$NotificationPayloadSerializer
           result.title = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'subtitle':
-          result.subtitle = serializers.deserialize(value,
+        case 'body':
+          result.body = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'day':
@@ -91,7 +90,7 @@ class _$NotificationPayload extends NotificationPayload {
   @override
   final String title;
   @override
-  final String subtitle;
+  final String body;
   @override
   final int day;
   @override
@@ -102,13 +101,13 @@ class _$NotificationPayload extends NotificationPayload {
       (new NotificationPayloadBuilder()..update(updates)).build();
 
   _$NotificationPayload._(
-      {this.route, this.title, this.subtitle, this.day, this.time})
+      {this.route, this.title, this.body, this.day, this.time})
       : super._() {
     if (title == null) {
       throw new BuiltValueNullFieldError('NotificationPayload', 'title');
     }
-    if (subtitle == null) {
-      throw new BuiltValueNullFieldError('NotificationPayload', 'subtitle');
+    if (body == null) {
+      throw new BuiltValueNullFieldError('NotificationPayload', 'body');
     }
     if (day == null) {
       throw new BuiltValueNullFieldError('NotificationPayload', 'day');
@@ -133,7 +132,7 @@ class _$NotificationPayload extends NotificationPayload {
     return other is NotificationPayload &&
         route == other.route &&
         title == other.title &&
-        subtitle == other.subtitle &&
+        body == other.body &&
         day == other.day &&
         time == other.time;
   }
@@ -141,7 +140,7 @@ class _$NotificationPayload extends NotificationPayload {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, route.hashCode), title.hashCode), subtitle.hashCode),
+        $jc($jc($jc($jc(0, route.hashCode), title.hashCode), body.hashCode),
             day.hashCode),
         time.hashCode));
   }
@@ -151,7 +150,7 @@ class _$NotificationPayload extends NotificationPayload {
     return (newBuiltValueToStringHelper('NotificationPayload')
           ..add('route', route)
           ..add('title', title)
-          ..add('subtitle', subtitle)
+          ..add('body', body)
           ..add('day', day)
           ..add('time', time))
         .toString();
@@ -170,9 +169,9 @@ class NotificationPayloadBuilder
   String get title => _$this._title;
   set title(String title) => _$this._title = title;
 
-  String _subtitle;
-  String get subtitle => _$this._subtitle;
-  set subtitle(String subtitle) => _$this._subtitle = subtitle;
+  String _body;
+  String get body => _$this._body;
+  set body(String body) => _$this._body = body;
 
   int _day;
   int get day => _$this._day;
@@ -188,7 +187,7 @@ class NotificationPayloadBuilder
     if (_$v != null) {
       _route = _$v.route;
       _title = _$v.title;
-      _subtitle = _$v.subtitle;
+      _body = _$v.body;
       _day = _$v.day;
       _time = _$v.time;
       _$v = null;
@@ -213,11 +212,7 @@ class NotificationPayloadBuilder
   _$NotificationPayload build() {
     final _$result = _$v ??
         new _$NotificationPayload._(
-            route: route,
-            title: title,
-            subtitle: subtitle,
-            day: day,
-            time: time);
+            route: route, title: title, body: body, day: day, time: time);
     replace(_$result);
     return _$result;
   }

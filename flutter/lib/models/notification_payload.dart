@@ -11,7 +11,7 @@ abstract class NotificationPayload
   @nullable
   String get route;
   String get title;
-  String get subtitle;
+  String get body;
   int get day;
   flutter_material.TimeOfDay get time;
 

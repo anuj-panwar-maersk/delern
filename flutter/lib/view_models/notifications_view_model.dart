@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:app_settings/app_settings.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:delern_flutter/models/local_notification.dart';
 import 'package:delern_flutter/models/notification_payload.dart';
 import 'package:delern_flutter/models/notification_schedule.dart';
 import 'package:delern_flutter/models/serializers.dart';
@@ -34,7 +35,7 @@ typedef NotificationPressedCallback = void Function(
 class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   final NotificationReceivedCallback onNotificationReceived;
   final NotificationPressedCallback onNotificationPressed;
-  final List<String> messages;
+  final List<LocalNotification> messages;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   bool _isNotificationScheduled = false;
   bool _iosPermissionGranted = false;
@@ -155,17 +156,18 @@ Shows weekly notifications at ${time.hour}:${time.minute} on $day day of week'''
       androidPlatformChannelSpecifics,
       iOSPlatformChannelSpecifics,
     );
-    final title = messages[Random().nextInt(messages.length)];
+    final title = messages[Random().nextInt(messages.length)].title;
+    final body = messages[Random().nextInt(messages.length)].body;
     final payloadBuilder = NotificationPayloadBuilder()
       ..title = title
-      ..subtitle = ''
+      ..body = body ?? ''
       ..time = time
       ..day = day;
 
     await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(
         _calculateNotificationId(time, day),
         title,
-        null,
+        body,
         notificationDay,
         notificationTime,
         platformChannelSpecifics,
