@@ -3,6 +3,25 @@ import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+const _buttonHeight = 48.0;
+
+@immutable
+class LogoWidget extends StatelessWidget {
+  final Widget child;
+
+  const LogoWidget({@required this.child}) : assert(child != null);
+
+  @override
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.only(right: 8),
+        child: SizedBox(
+          height: _buttonHeight,
+          width: _buttonHeight,
+          child: Center(child: child),
+        ),
+      );
+}
+
 @immutable
 class GoogleSignInButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -18,26 +37,21 @@ class GoogleSignInButton extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 2),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: FractionallySizedBox(
-                        heightFactor: 0.95,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(2),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Image.asset('images/google_sign_in.png'),
-                          ),
+                  LogoWidget(
+                    child: FractionallySizedBox(
+                      heightFactor: 0.95,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Image.asset('images/google_sign_in.png'),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
                   Text(
                     context.l.signInWithGoogle,
                     style: app_styles.signInTextButton,
@@ -64,14 +78,9 @@ class AppleSignInButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Image.asset('images/apple_sign_in.webp'),
-                ),
+              LogoWidget(
+                child: Image.asset('images/apple_sign_in.webp'),
               ),
-              const SizedBox(width: 4),
               Text(
                 context.l.signInWithApple,
                 style: app_styles.signInTextButton,
@@ -98,22 +107,17 @@ class FacebookSignInButton extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 1.5),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: FractionallySizedBox(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Image.asset(
-                            'images/facebook_sign_in.webp',
-                            fit: BoxFit.fill,
-                          ),
+                  LogoWidget(
+                    child: FractionallySizedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Image.asset(
+                          'images/facebook_sign_in.webp',
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 4),
                   Text(
                     context.l.signInWithFacebook,
                     style: app_styles.signInTextButton,
@@ -149,8 +153,6 @@ class AnonymousSignInButton extends StatelessWidget {
 
 @immutable
 class SignInButtonContainer extends StatelessWidget {
-  static const _buttonHeight = 48.0;
-
   final Widget child;
   final Color color;
 
