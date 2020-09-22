@@ -11,7 +11,6 @@ import 'package:delern_flutter/view_models/decks_list_bloc.dart';
 import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/decks_list/create_deck_widget.dart';
 import 'package:delern_flutter/views/decks_list/deck_menu.dart';
-import 'package:delern_flutter/views/decks_list/learning_method_widget.dart';
 import 'package:delern_flutter/views/decks_list/navigation_drawer.dart';
 import 'package:delern_flutter/views/helpers/arrow_to_fab_widget.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
@@ -19,13 +18,11 @@ import 'package:delern_flutter/views/helpers/edit_delete_dismissible_widget.dart
 import 'package:delern_flutter/views/helpers/empty_list_message_widget.dart';
 import 'package:delern_flutter/views/helpers/list_accessor_widget.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
-import 'package:delern_flutter/views/helpers/progress_indicator_widget.dart';
 import 'package:delern_flutter/views/helpers/routes.dart';
 import 'package:delern_flutter/views/helpers/save_updates_dialog.dart';
 import 'package:delern_flutter/views/helpers/search_bar_widget.dart';
 import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
-import 'package:delern_flutter/views/helpers/tags_widget.dart';
 import 'package:delern_flutter/views/helpers/user_messages.dart';
 import 'package:delern_flutter/views/notifications/notification_schedule_dialog.dart';
 import 'package:flutter/material.dart';
@@ -256,7 +253,7 @@ class DeckListItemWidget extends StatelessWidget {
               color: app_styles.kDeckItemColor,
               elevation: app_styles.kItemElevation,
               child: InkWell(
-                onTap: () => _showLearningDialog(context),
+                onTap: () => _showListOfCards(context),
                 child: Row(
                   children: <Widget>[
                     _buildLeading(iconSize),
@@ -273,93 +270,13 @@ class DeckListItemWidget extends StatelessWidget {
     );
   }
 
-  Future<void> _showLearningDialog(BuildContext context) async {
+  Future<void> _showListOfCards(BuildContext context) async {
     if (deck.cards.value.isEmpty) {
       // If deck is empty, open a screen with adding cards
       return openNewCardScreen(context, deckKey: deck.key);
+    } else {
+      return openEditDeckScreen(context, deckKey: deck.key);
     }
-
-    final tagSelection = ValueNotifier<BuiltSet<String>>(
-      deck.latestTagSelection?.isEmpty == false
-          ? deck.latestTagSelection
-          : BuiltSet<String>(),
-    );
-    return showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (context) => Dialog(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      context.l.learning(deck.name),
-                      // TODO(ksheremet): fix this to use non-deprecated value.
-                      // ignore: deprecated_member_use
-                      style: Theme.of(context).textTheme.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  buildStreamBuilderWithValue<BuiltSet<String>>(
-                    streamWithValue: deck.tags,
-                    builder: (_, snapshot) => snapshot.hasData
-                        ? TagsWidget(
-                            tags: snapshot.data,
-                            selection: tagSelection,
-                          )
-                        : const ProgressIndicatorWidget(),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        LearningMethodWidget(
-                          name: context.l.intervalLearning,
-                          tooltip: context.l.intervalLearningTooltip,
-                          icon: Icons.autorenew,
-                          onTap: () {
-                            final updatedDeck = deck.rebuild((builder) {
-                              builder.latestTagSelection
-                                  .replace(tagSelection.value);
-                            });
-                            if (updatedDeck != deck) {
-                              bloc.user.updateDeck(deck: updatedDeck);
-                            }
-
-                            // Close dialog
-                            Navigator.pop(context);
-                            openLearnCardIntervalScreen(
-                              context,
-                              deckKey: deck.key,
-                              tags: tagSelection.value,
-                            );
-                          },
-                        ),
-                        LearningMethodWidget(
-                          name: context.l.viewLearning,
-                          tooltip: context.l.viewLearningTooltip,
-                          icon: Icons.remove_red_eye,
-                          onTap: () {
-                            // Close dialog
-                            Navigator.pop(context);
-                            openLearnCardViewScreen(
-                              context,
-                              deckKey: deck.key,
-                              tags: tagSelection.value,
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ));
   }
 
   Widget _buildContent(BuildContext context) {

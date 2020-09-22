@@ -7,6 +7,7 @@ import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/view_models/edit_deck_bloc.dart';
 import 'package:delern_flutter/views/base/screen_bloc_view.dart';
 import 'package:delern_flutter/views/card_list/deck_settings_widget.dart';
+import 'package:delern_flutter/views/card_list/learning_section/learning_buttons_section.dart';
 import 'package:delern_flutter/views/card_list/scroll_to_beginning_list_widget.dart';
 import 'package:delern_flutter/views/helpers/arrow_to_fab_widget.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
@@ -25,7 +26,7 @@ import 'package:flutter/material.dart';
 const int _kUpButtonVisibleRow = 20;
 const double _kDividerPadding = 12;
 
-class EditDeck extends StatefulWidget {
+class CardList extends StatefulWidget {
   static const routeName = '/cards';
 
   static Map<String, String> buildArguments({
@@ -35,13 +36,13 @@ class EditDeck extends StatefulWidget {
         'deckKey': deckKey,
       };
 
-  const EditDeck() : super();
+  const CardList() : super();
 
   @override
-  _EditDeckState createState() => _EditDeckState();
+  _CardListState createState() => _CardListState();
 }
 
-class _EditDeckState extends State<EditDeck> {
+class _CardListState extends State<CardList> {
   final TextEditingController _deckNameController = TextEditingController();
   DeckModel _currentDeckState;
   GlobalKey fabKey = GlobalKey();
@@ -98,6 +99,7 @@ class _EditDeckState extends State<EditDeck> {
           const Padding(
             padding: EdgeInsets.only(bottom: _kDividerPadding),
           ),
+          LearningButtonsSection(deck: _currentDeckState),
           const Divider(
             height: 0,
           ),

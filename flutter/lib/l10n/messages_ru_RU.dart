@@ -128,7 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "installEmailApp": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста установите приложение Электронной Почты"),
         "intervalLearning":
-            MessageLookupByLibrary.simpleMessage("Интервальное"),
+            MessageLookupByLibrary.simpleMessage("Интервальное изучение"),
         "intervalLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Начать изучение карточек в порядке интервального обучения"),
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
@@ -221,7 +221,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Условия Использования"),
         "unknownDeckType": MessageLookupByLibrary.simpleMessage("Неизвестный"),
-        "viewLearning": MessageLookupByLibrary.simpleMessage("Просмотр"),
+        "viewLearning":
+            MessageLookupByLibrary.simpleMessage("Учить друг за другом"),
         "viewLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Начать изучение всех карточек в любом порядке"),
         "whoHasAccessLabel":

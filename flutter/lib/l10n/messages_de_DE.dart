@@ -123,7 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Fehler beim Laden des Bildes. Bitte versuche es später."),
         "installEmailApp": MessageLookupByLibrary.simpleMessage(
             "Bitte installiere die E-Mail-App"),
-        "intervalLearning": MessageLookupByLibrary.simpleMessage("Intervall"),
+        "intervalLearning":
+            MessageLookupByLibrary.simpleMessage("Intervall-Lernen"),
         "intervalLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Für das Intervall-Lernen bestellte Lernkarten starten"),
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
@@ -221,7 +222,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
         "unknownDeckType": MessageLookupByLibrary.simpleMessage("Unbekannt"),
-        "viewLearning": MessageLookupByLibrary.simpleMessage("Ansehen"),
+        "viewLearning":
+            MessageLookupByLibrary.simpleMessage("Nacheinander lernen"),
         "viewLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Lerne alle Karten in beliebiger Reihenfolge zu"),
         "whoHasAccessLabel":

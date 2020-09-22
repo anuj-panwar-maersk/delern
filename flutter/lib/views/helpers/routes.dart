@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 //   take them to list of decks page ("/" named route).
 
 final routes = <String, Widget Function(BuildContext)>{
-  EditDeck.routeName: (_) => const EditDeck(),
+  CardList.routeName: (_) => const CardList(),
   CardCreateUpdate.routeNameNew: (_) => const CardCreateUpdate(),
   CardCreateUpdate.routeNameEdit: (_) => const CardCreateUpdate(),
   CardPreview.routeName: (_) => const CardPreview(),
@@ -37,8 +37,8 @@ Future<void> openEditDeckScreen(
 }) =>
     Navigator.pushNamed(
       context,
-      EditDeck.routeName,
-      arguments: EditDeck.buildArguments(deckKey: deckKey),
+      CardList.routeName,
+      arguments: CardList.buildArguments(deckKey: deckKey),
     );
 
 Future<void> openLearnCardIntervalScreen(

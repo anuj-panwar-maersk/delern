@@ -495,14 +495,14 @@
     "placeholders": {
     }
   },
-  "intervalLearning": "Интервальное",
+  "intervalLearning": "Интервальное изучение",
   "@intervalLearning": {
     "description": "Interval Learning Label",
     "type": "text",
     "placeholders": {
     }
   },
-  "viewLearning": "Просмотр",
+  "viewLearning": "Учить друг за другом",
   "@viewLearning": {
     "description": "View Learning Label",
     "type": "text",

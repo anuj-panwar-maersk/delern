@@ -116,7 +116,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Error during loading the image. Please try it later."),
         "installEmailApp":
             MessageLookupByLibrary.simpleMessage("Please install Email App"),
-        "intervalLearning": MessageLookupByLibrary.simpleMessage("Interval"),
+        "intervalLearning":
+            MessageLookupByLibrary.simpleMessage("Interval Learning"),
         "intervalLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Start learning cards ordered for interval learning"),
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
@@ -208,7 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "unknownDeckType": MessageLookupByLibrary.simpleMessage("Unknown"),
-        "viewLearning": MessageLookupByLibrary.simpleMessage("View"),
+        "viewLearning":
+            MessageLookupByLibrary.simpleMessage("One after another"),
         "viewLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Start learning all cards in any order"),
         "whoHasAccessLabel":

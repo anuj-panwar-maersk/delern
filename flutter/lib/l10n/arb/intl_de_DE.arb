@@ -547,7 +547,7 @@
       }
     }
   },
-  "intervalLearning": "Intervall",
+  "intervalLearning": "Intervall-Lernen",
   "@intervalLearning": {
     "description": "Interval Learning Label",
     "type": "text",
@@ -561,7 +561,7 @@
     "placeholders": {
     }
   },
-  "viewLearning": "Ansehen",
+  "viewLearning": "Nacheinander lernen",
   "@viewLearning": {
     "description": "View Learning Label",
     "type": "text",

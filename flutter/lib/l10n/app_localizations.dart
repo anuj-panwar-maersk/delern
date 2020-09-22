@@ -512,7 +512,7 @@ Twitter: https://twitter.com/dasdelern''',
       );
 
   String get intervalLearning => Intl.message(
-        'Interval',
+        'Interval Learning',
         name: 'intervalLearning',
         desc: 'Interval Learning Label',
       );
@@ -524,7 +524,7 @@ Twitter: https://twitter.com/dasdelern''',
       );
 
   String get viewLearning => Intl.message(
-        'View',
+        'One after another',
         name: 'viewLearning',
         desc: 'View Learning Label',
       );

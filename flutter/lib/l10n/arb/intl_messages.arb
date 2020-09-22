@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-09-28T18:32:17.284242",
+  "@@last_modified": "2020-10-01T11:13:07.405331",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -554,7 +554,7 @@
       }
     }
   },
-  "intervalLearning": "Interval",
+  "intervalLearning": "Interval Learning",
   "@intervalLearning": {
     "description": "Interval Learning Label",
     "type": "text",
@@ -568,7 +568,7 @@
     "placeholders": {
     }
   },
-  "viewLearning": "View",
+  "viewLearning": "One after another",
   "@viewLearning": {
     "description": "View Learning Label",
     "type": "text",
