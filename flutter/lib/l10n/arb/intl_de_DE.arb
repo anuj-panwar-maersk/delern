@@ -129,7 +129,7 @@
     "placeholders": {
     }
   },
-  "frontSideHint": "Frontseite:",
+  "frontSideHint": "Vorderseite:",
   "@frontSideHint": {
     "description": "front side",
     "type": "text",

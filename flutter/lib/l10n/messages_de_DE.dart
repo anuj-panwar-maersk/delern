@@ -105,7 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "featureNotAvailableUserMessage": MessageLookupByLibrary.simpleMessage(
             "Diese Funktion ist derzeit nicht verfügbar. Bitte versuche es später."),
         "flip": MessageLookupByLibrary.simpleMessage("flip"),
-        "frontSideHint": MessageLookupByLibrary.simpleMessage("Frontseite:"),
+        "frontSideHint": MessageLookupByLibrary.simpleMessage("Vorderseite:"),
         "germanDeckType": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "imageFromGalleryLabel":
             MessageLookupByLibrary.simpleMessage("Von Galerie"),
