@@ -36,11 +36,7 @@ class _CopyableListTile extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               TextSpan(
-                text: value == null
-                    ? 'null'
-                    : value == ''
-                        ? 'blank'
-                        : value,
+                text: value == null ? 'null' : value == '' ? 'blank' : value,
                 style: isBlank(value)
                     ? const TextStyle(fontStyle: FontStyle.italic)
                     : null,
