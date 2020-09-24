@@ -3,9 +3,13 @@ import 'dart:convert';
 
 import 'package:delern_flutter/models/local_notification.dart';
 import 'package:delern_flutter/models/serializers.dart';
+import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+const _fetchTimeout = Duration(seconds: 8);
 
 class AppConfig {
   static final AppConfig _instance = AppConfig._();
@@ -26,8 +30,6 @@ class AppConfig {
   bool get explicitSilentSignInEnabled =>
       _remoteValueOrNull('explicit_silent_sign_in_enabled')?.asBool() ?? false;
 
-  static const _remoteConfigIsStaleKey = 'remote_config_is_stale';
-
   Map<String, List<LocalNotification>> get notificationMessages {
     final messagesString =
         _remoteValueOrNull('notification_messages')?.asString();
@@ -35,28 +37,23 @@ class AppConfig {
     if (messagesString == null) {
       return {};
     }
-
-    // ignore: avoid_as
-    final nMessages = json.decode(messagesString) as Map<String, dynamic>;
     final result = <String, List<LocalNotification>>{};
-    nMessages.forEach((key, dynamic n) {
-      final notifications =
-          // ignore: avoid_as
-          (n as List)
-              ?.map((dynamic e) =>
-                  serializers.deserializeWith(LocalNotification.serializer, e))
-              ?.toList();
-      result[key] = notifications;
-    });
+    try {
+      (json.decode(messagesString) as Map<String, dynamic>) // ignore: avoid_as
+          .forEach((lang, dynamic notificationList) {
+        final notifications = (notificationList as List) // ignore: avoid_as
+            ?.map((dynamic notification) => serializers.deserializeWith(
+                LocalNotification.serializer, notification))
+            ?.toList();
+        result[lang] = notifications;
+      });
+    } catch (e, stackTrace) {
+      unawaited(error_reporting.report(e, stackTrace: stackTrace));
+      return {};
+    }
 
     return result;
   }
-
-  /// Shared Preference: whether remote config is stale and needs to be fetched
-  /// soon.
-  // TODO(dotdoom): remove this as it is merely an example and is unused.
-  bool get remoteConfigIsStale =>
-      _sharedPreferences?.getBool(_remoteConfigIsStaleKey) ?? false;
 
   /// Returns [RemoteConfigValue] if the source is remote storage, otherwise
   /// `null` (if the value comes from defaults or is unitialized).
@@ -77,9 +74,12 @@ class AppConfig {
         debugMode: kDebugMode,
       ));
 
-      await _remoteConfig.fetch(
-        expiration: kDebugMode ? const Duration() : const Duration(hours: 5),
-      );
+      await _remoteConfig
+          .fetch(
+            expiration:
+                kDebugMode ? const Duration() : const Duration(hours: 5),
+          )
+          .timeout(_fetchTimeout);
       if (await _remoteConfig.activateFetched()) {
         debugPrint('Fetched Remote Config from the server and it has changed');
       }

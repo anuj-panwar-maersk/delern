@@ -70,26 +70,27 @@ class App extends StatelessWidget {
             DevicePreview.appBuilder(
                 context,
                 ChangeNotifierProvider(
-                  create: (_) => LocalNotifications(
-                    onNotificationPressed: (payload) {
-                      logLocalNotificationOpen(payload: payload);
-                    },
-                    flutterLocalNotificationsPlugin:
-                        FlutterLocalNotificationsPlugin(),
-                    messages: AppConfig
-                            .instance
-                            .notificationMessages[
-                                Localizations.localeOf(context).languageCode]
-                            .isNotEmpty
-                        ? AppConfig.instance.notificationMessages[
-                            Localizations.localeOf(context).languageCode]
-                        : <LocalNotification>[
-                            (LocalNotificationBuilder()
-                                  ..title = context.l.defaultNotification)
-                                .build()
-                          ],
-                    isIOS: Theme.of(context).platform == TargetPlatform.iOS,
-                  ),
+                  create: (_) {
+                    final localizedNotifications =
+                        AppConfig.instance.notificationMessages[
+                                Localizations.localeOf(context).languageCode] ??
+                            [];
+                    return LocalNotifications(
+                      onNotificationPressed: (payload) {
+                        logLocalNotificationOpen(payload: payload);
+                      },
+                      flutterLocalNotificationsPlugin:
+                          FlutterLocalNotificationsPlugin(),
+                      messages: localizedNotifications.isNotEmpty
+                          ? localizedNotifications
+                          : <LocalNotification>[
+                              (LocalNotificationBuilder()
+                                    ..title = context.l.defaultNotification)
+                                  .build()
+                            ],
+                      isIOS: Theme.of(context).platform == TargetPlatform.iOS,
+                    );
+                  },
                   lazy: false,
                   child: AuthWidget(
                     auth: auth,
