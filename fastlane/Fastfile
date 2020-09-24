@@ -24,7 +24,7 @@ lane :update do
     Dir.chdir('flutter') do
       # This will automatically upgrade flutter, if necessary. It won't run
       # "flutter update-packages", but we don't need it.
-      flutter_root = flutter_bootstrap
+      flutter_root = flutter_bootstrap(flutter_channel: 'stable')
 
       # Copy over .gitignore from official templates.
       FileUtils.cp(
