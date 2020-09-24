@@ -71,9 +71,6 @@ class App extends StatelessWidget {
                 context,
                 ChangeNotifierProvider(
                   create: (_) => LocalNotifications(
-                    onNotificationReceived: (payload) {
-                      logLocalNotificationOpen(payload: payload);
-                    },
                     onNotificationPressed: (payload) {
                       logLocalNotificationOpen(payload: payload);
                     },

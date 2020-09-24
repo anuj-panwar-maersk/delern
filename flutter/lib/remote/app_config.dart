@@ -30,7 +30,12 @@ class AppConfig {
 
   Map<String, List<LocalNotification>> get notificationMessages {
     final messagesString =
-        _remoteValueOrNull('notification_messages')?.asString() ?? '[]';
+        _remoteValueOrNull('notification_messages')?.asString();
+
+    if (messagesString == null) {
+      return {};
+    }
+
     // ignore: avoid_as
     final nMessages = json.decode(messagesString) as Map<String, dynamic>;
     final result = <String, List<LocalNotification>>{};

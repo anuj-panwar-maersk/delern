@@ -16,24 +16,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pedantic/pedantic.dart';
 
-var week = BuiltList<int>.build((l) => l.addAll([
-      DateTime.monday,
-      DateTime.tuesday,
-      DateTime.wednesday,
-      DateTime.thursday,
-      DateTime.friday,
-      DateTime.saturday,
-      DateTime.sunday,
-    ])).toBuiltList();
-
-typedef NotificationReceivedCallback = void Function(
-    NotificationPayload notification);
+var week = BuiltList<int>(<int>[
+  DateTime.monday,
+  DateTime.tuesday,
+  DateTime.wednesday,
+  DateTime.thursday,
+  DateTime.friday,
+  DateTime.saturday,
+  DateTime.sunday,
+]);
 
 typedef NotificationPressedCallback = void Function(
     NotificationPayload payload);
 
 class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
-  final NotificationReceivedCallback onNotificationReceived;
   final NotificationPressedCallback onNotificationPressed;
   final List<LocalNotification> messages;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -44,7 +40,6 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   bool get isNotificationScheduled => _isNotificationScheduled;
 
   LocalNotifications({
-    @required this.onNotificationReceived,
     @required this.onNotificationPressed,
     @required this.messages,
     @required this.flutterLocalNotificationsPlugin,
@@ -64,16 +59,11 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
     const initializationSettingsAndroid =
         AndroidInitializationSettings('delern');
     // Notification permissions are not requested to be able to ask it later.
-    final initializationSettingsIOS = IOSInitializationSettings(
+    const initializationSettingsIOS = IOSInitializationSettings(
         requestAlertPermission: false,
         requestBadgePermission: false,
-        requestSoundPermission: false,
-        onDidReceiveLocalNotification: (id, title, body, payload) async {
-          final payloadData = serializers.deserializeWith(
-              NotificationPayload.serializer, json.decode(payload));
-          onNotificationReceived(payloadData);
-        });
-    final initializationSettings = InitializationSettings(
+        requestSoundPermission: false);
+    const initializationSettings = InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (payload) async {

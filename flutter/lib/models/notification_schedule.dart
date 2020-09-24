@@ -9,6 +9,7 @@ part 'notification_schedule.g.dart';
 
 abstract class NotificationSchedule
     implements Built<NotificationSchedule, NotificationScheduleBuilder> {
+  // int is used to save day of week, for Monday it is 1, Tuesday -2, etc
   BuiltMap<flutter_material.TimeOfDay, BuiltList<int>> get notificationSchedule;
 
   static Serializer<NotificationSchedule> get serializer =>

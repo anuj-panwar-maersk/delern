@@ -67,7 +67,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         },
       ),
       ListTile(
-        leading: const Icon(Icons.mail_outline_rounded),
+        leading: const Icon(Icons.mail),
         title: Text(context.l.notifications),
         onTap: () {
           Navigator.pop(context);

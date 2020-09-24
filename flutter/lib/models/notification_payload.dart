@@ -8,6 +8,8 @@ part 'notification_payload.g.dart';
 
 abstract class NotificationPayload
     implements Built<NotificationPayload, NotificationPayloadBuilder> {
+  // Route is a param for future implementations of a case when user presses
+  // on notification and goes to a different route than main
   @nullable
   String get route;
   String get title;
