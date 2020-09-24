@@ -136,7 +136,8 @@ Future<void> logLocalNotificationOpen(
         parameters: <String, dynamic>{
           'title': payload.title,
           'body': payload.body ?? '',
-          'time': '${payload.time.hour}:${payload.time.minute}',
+          'hour': payload.time.hour,
+          'minute': payload.time.minute,
           'day': payload.day,
           'route': payload.route ?? '',
         });
@@ -144,5 +145,5 @@ Future<void> logLocalNotificationOpen(
 Future<void> logIosNotificationPermissions({@required bool isGranted}) =>
     FirebaseAnalytics()
         .logEvent(name: 'ios_notification', parameters: <String, dynamic>{
-      'granted': isGranted,
+      'granted': isGranted ? 1 : 0,
     });
