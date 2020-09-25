@@ -28,6 +28,7 @@ final routes = <String, Widget Function(BuildContext)>{
   CardPreview.routeName: (_) => const CardPreview(),
   CardsIntervalLearning.routeName: (_) => const CardsIntervalLearning(),
   CardsViewLearning.routeName: (_) => const CardsViewLearning(),
+  NotificationSettings.routeName: (_) => const NotificationSettings(),
 };
 
 Future<void> openEditDeckScreen(
@@ -129,10 +130,7 @@ Future<void> openLinkAccountScreen(
         ));
 
 Future<void> openNotificationSettingsScreen(BuildContext context) =>
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        settings: const RouteSettings(name: NotificationSettings.routeName),
-        builder: (_) => const NotificationSettings(),
-      ),
+      NotificationSettings.routeName,
     );
