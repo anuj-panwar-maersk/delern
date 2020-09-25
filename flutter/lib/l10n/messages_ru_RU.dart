@@ -79,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "decksRefreshed":
             MessageLookupByLibrary.simpleMessage("Списки обновлены"),
         "defaultNotification":
-            MessageLookupByLibrary.simpleMessage("Время практиковать карточки"),
+            MessageLookupByLibrary.simpleMessage("Praktice makes perfect"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "deleteCardQuestion": MessageLookupByLibrary.simpleMessage(
             "Вы хотите удалить эту карточку?"),
@@ -160,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "noSharingAccessUserMessage": MessageLookupByLibrary.simpleMessage(
             "Только владелец может поделиться списком."),
         "noUpdates": MessageLookupByLibrary.simpleMessage("Нет обновлений"),
+        "notificationPurpose": MessageLookupByLibrary.simpleMessage(
+            "Уведомления для учебных карточек"),
         "notifications": MessageLookupByLibrary.simpleMessage("Уведомления"),
         "numberOfCards": m5,
         "offlineProfileTooltip":

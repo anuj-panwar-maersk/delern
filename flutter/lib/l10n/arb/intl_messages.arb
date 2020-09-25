@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-09-21T11:33:45.268369",
+  "@@last_modified": "2020-09-24T18:52:46.579774",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -767,6 +767,13 @@
   "defaultNotification": "Praktice makes perfect",
   "@defaultNotification": {
     "description": "Default notification message if case remote config was not loaded",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "notificationPurpose": "Notifications for learning cards",
+  "@notificationPurpose": {
+    "description": "Description for notifications in app settings",
     "type": "text",
     "placeholders": {
     }

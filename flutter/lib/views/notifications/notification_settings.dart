@@ -42,7 +42,7 @@ class NotificationSettings extends StatelessWidget {
                                 onTimeChanged: (newTime) {
                                   context
                                       .read<LocalNotifications>()
-                                      .changeTime(e.key, newTime);
+                                      .changedTime(e.key, newTime);
                                 },
                               ),
                             )

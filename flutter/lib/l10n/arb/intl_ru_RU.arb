@@ -763,9 +763,16 @@
     "placeholders": {
     }
   },
-  "defaultNotification": "Время практиковать карточки",
+  "defaultNotification": "Praktice makes perfect",
   "@defaultNotification": {
     "description": "Default notification message if case remote config was not loaded",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "notificationPurpose": "Уведомления для учебных карточек",
+  "@notificationPurpose": {
+    "description": "Description for notifications in app settings",
     "type": "text",
     "placeholders": {
     }

@@ -770,5 +770,12 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "notificationPurpose": "Benachrichtigungen für Lernkarten",
+  "@notificationPurpose": {
+    "description": "Description for notifications in app settings",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

@@ -158,6 +158,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nur der Besitzer eines Lernsets kann es teilen."),
         "noUpdates":
             MessageLookupByLibrary.simpleMessage("Keine Aktualisierungen"),
+        "notificationPurpose": MessageLookupByLibrary.simpleMessage(
+            "Benachrichtigungen für Lernkarten"),
         "notifications":
             MessageLookupByLibrary.simpleMessage("Benachrichtigungen"),
         "numberOfCards": m5,

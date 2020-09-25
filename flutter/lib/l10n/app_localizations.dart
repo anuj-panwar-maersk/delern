@@ -697,4 +697,10 @@ Twitter: https://twitter.com/dasdelern''',
         desc:
             'Default notification message if case remote config was not loaded',
       );
+
+  String get notificationPurpose => Intl.message(
+        'Notifications for learning cards',
+        name: 'notificationPurpose',
+        desc: 'Description for notifications in app settings',
+      );
 }

@@ -88,7 +88,7 @@ class App extends StatelessWidget {
                                     ..title = context.l.defaultNotification)
                                   .build()
                             ],
-                      isIOS: Theme.of(context).platform == TargetPlatform.iOS,
+                      notificationPurpose: context.l.notificationPurpose,
                     );
                   },
                   lazy: false,

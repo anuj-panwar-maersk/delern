@@ -23,6 +23,7 @@ dependencies:
   device_preview:
   flutter_local_notifications:
   provider:
+  intl:
 
   flutter_sentry:
   # Needed for the User context type, version is bound by flutter_sentry.
@@ -58,7 +59,6 @@ dev_dependencies:
     sdk: flutter
 
   intl_translation:
-  intl:
   mockito:
   pedantic:
   built_value_generator:
