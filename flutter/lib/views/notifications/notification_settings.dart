@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -29,37 +30,124 @@ class NotificationSettings extends StatelessWidget {
                               (e) => NotificationCard(
                                 time: e.key,
                                 days: e.value,
-                                onDayPressed: (weekDay) {
-                                  context
-                                      .read<LocalNotifications>()
-                                      .changedWeekDaysForTime(e.key, weekDay);
-                                },
-                                onDeleted: () {
-                                  context
-                                      .read<LocalNotifications>()
-                                      .deleteReminderRule(e.key);
-                                },
-                                onTimeChanged: (newTime) {
-                                  context
-                                      .read<LocalNotifications>()
-                                      .changedTime(e.key, newTime);
-                                },
+                                onDayPressed: (weekDay) => context
+                                    .read<LocalNotifications>()
+                                    .changedWeekDaysForTime(e.key, weekDay),
+                                onDeleted: () => context
+                                    .read<LocalNotifications>()
+                                    .deleteReminderRule(e.key),
+                                onTimeChanged: (newTime) => context
+                                    .read<LocalNotifications>()
+                                    .changedTime(e.key, newTime),
                               ),
                             )
                             .toList())),
               ),
               const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: FloatingActionButton.extended(
-                    // To turn off animation with previous screen
-                    heroTag: 'Add Reminder',
-                    icon: const Icon(Icons.add),
-                    onPressed: () {
-                      context.read<LocalNotifications>().addNewReminderRule();
-                    },
-                    label: Text(context.l.addReminder)),
+            ],
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+            // To turn off animation with previous screen
+            heroTag: 'Add Reminder',
+            icon: const Icon(Icons.add),
+            onPressed: () async {
+              var newTime = DateTime.now();
+              do {
+                newTime = await showDialog(
+                  context: context,
+                  builder: (context) => TimePickerDialog(
+                    initialDateTime: newTime,
+                    showErrorLabel: context
+                        .watch<LocalNotifications>()
+                        .isTimeAlreadyScheduled(
+                            TimeOfDay.fromDateTime(newTime)),
+                  ),
+                );
+              } while (newTime != null &&
+                  context
+                      .read<LocalNotifications>()
+                      .isTimeAlreadyScheduled(TimeOfDay.fromDateTime(newTime)));
+              // Null returned when user dismissed dialog
+              if (newTime != null) {
+                await context
+                    .read<LocalNotifications>()
+                    .addNewReminderRule(time: TimeOfDay.fromDateTime(newTime));
+              }
+            },
+            label: Text(context.l.addReminder)),
+      );
+}
+
+class TimePickerDialog extends StatefulWidget {
+  final DateTime initialDateTime;
+  final bool showErrorLabel;
+
+  const TimePickerDialog(
+      {@required this.initialDateTime, this.showErrorLabel = false});
+  @override
+  _TimePickerDialogState createState() => _TimePickerDialogState();
+}
+
+class _TimePickerDialogState extends State<TimePickerDialog> {
+  DateTime _dateTime;
+
+  @override
+  void initState() {
+    _dateTime = widget.initialDateTime;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) => Dialog(
+        insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                context.l.chooseTimeOfDayLabel,
+                style: Theme.of(context).textTheme.headline6,
               ),
+              const SizedBox(height: 8),
+              SizedBox(
+                height: 200,
+                child: CupertinoDatePicker(
+                  // Show 24h format only for russian audience
+                  use24hFormat:
+                      Localizations.localeOf(context).languageCode == 'ru',
+                  mode: CupertinoDatePickerMode.time,
+                  initialDateTime: widget.initialDateTime,
+                  onDateTimeChanged: (newDateTime) => _dateTime = newDateTime,
+                ),
+              ),
+              const SizedBox(height: 8),
+              FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                color: Theme.of(context).accentColor,
+                onPressed: () => Navigator.of(context).pop(_dateTime),
+                child: Text(
+                  context.l.ok.toUpperCase(),
+                  style: const TextStyle(color: app_styles.kButtonTextColor),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Visibility(
+                  visible: widget.showErrorLabel,
+                  child: Text(
+                    context.l.chosenTimeExistsError,
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption
+                        .copyWith(color: app_styles.kErrorLabelColor),
+                  ),
+                ),
+              )
             ],
           ),
         ),
@@ -103,9 +191,33 @@ class NotificationCard extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 16),
                   child: GestureDetector(
                     onTap: () async {
-                      final newTime = await showTimePicker(
-                          context: context, initialTime: TimeOfDay.now());
-                      onTimeChanged(newTime);
+                      var newTime = DateTime.now();
+                      do {
+                        newTime = await showDialog(
+                          context: context,
+                          builder: (context) => TimePickerDialog(
+                            initialDateTime: newTime,
+                            showErrorLabel: context
+                                .watch<LocalNotifications>()
+                                .isTimeAlreadyScheduled(
+                                    TimeOfDay.fromDateTime(newTime)),
+                          ),
+                        );
+                      } while (newTime != null &&
+                          TimeOfDay.fromDateTime(newTime) != time &&
+                          context
+                              .read<LocalNotifications>()
+                              .isTimeAlreadyScheduled(
+                                  TimeOfDay.fromDateTime(newTime)));
+                      // Null returned when user dismissed dialog
+                      if (newTime != null &&
+                          TimeOfDay.fromDateTime(newTime) != time) {
+                        await context
+                            .read<LocalNotifications>()
+                            .addNewReminderRule(
+                                time: TimeOfDay.fromDateTime(newTime));
+                        onTimeChanged(TimeOfDay.fromDateTime(newTime));
+                      }
                     },
                     child: Text(
                       time.format(context),

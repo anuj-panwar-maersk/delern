@@ -115,9 +115,12 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   }
 
   Future<void> scheduleDefaultNotifications() async {
-    await addNewReminderRule(isDefaultRule: true);
+    await addNewReminderRule(time: TimeOfDay.now(), isDefaultRule: true);
     _saveNotificationsToAppSettings();
   }
+
+  bool isTimeAlreadyScheduled(TimeOfDay time) =>
+      _notificationsSchedule.build().notificationSchedule.containsKey(time);
 
   Future<void> _scheduleWeeklyNotification(TimeOfDay time, int day) async {
     final notificationTime = Time(time.hour, time.minute);
@@ -201,20 +204,12 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
     notifyListeners();
   }
 
-  Future<void> addNewReminderRule({bool isDefaultRule = false}) async {
+  Future<void> addNewReminderRule(
+      {@required TimeOfDay time, bool isDefaultRule = false}) async {
     if (await _checkPermissions()) {
-      var now = TimeOfDay.now();
-      if (_notificationsSchedule.notificationSchedule
-          .build()
-          .containsKey(now)) {
-        final randomNumber = Random().nextInt(10) + 1;
-        now = TimeOfDay(
-            hour: TimeOfDay.now().hour,
-            minute: TimeOfDay.now().minute + randomNumber);
-      }
-      _notificationsSchedule.notificationSchedule[now] = _week;
+      _notificationsSchedule.notificationSchedule[time] = _week;
       for (final day in _week) {
-        await _scheduleWeeklyNotification(now, day);
+        await _scheduleWeeklyNotification(time, day);
       }
       _saveNotificationsToAppSettings();
       notifyListeners();

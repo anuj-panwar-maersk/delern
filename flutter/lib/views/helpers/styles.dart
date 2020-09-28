@@ -23,6 +23,8 @@ const kFacebookBlueColor = Color(0xFF4267B2);
 const kSignInSectionSeparationColor = Color(0xFFC1C0C0);
 const kGoogleSignInButtonColor = Color(0xFF4285F4);
 const kSignInTextColor = Color(0xFF1A1A1A);
+const kErrorLabelColor = Colors.red;
+const kButtonTextColor = Colors.white;
 
 const double kMinItemHeight = 48;
 const double kMinIconHeight = 24;

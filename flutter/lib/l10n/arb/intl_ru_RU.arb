@@ -776,5 +776,26 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "chooseTimeOfDayLabel": "Выберите время дня",
+  "@chooseTimeOfDayLabel": {
+    "description": "Title in time picker dialog for notifications",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "ok": "ok",
+  "@ok": {
+    "description": "ok text that is used for buttons",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "chosenTimeExistsError": "Выбранное время уже существует.",
+  "@chosenTimeExistsError": {
+    "description": "Error label when user has chosen already existed time",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

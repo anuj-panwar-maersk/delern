@@ -703,4 +703,22 @@ Twitter: https://twitter.com/dasdelern''',
         name: 'notificationPurpose',
         desc: 'Description for notifications in app settings',
       );
+
+  String get chooseTimeOfDayLabel => Intl.message(
+        'Choose time of day',
+        name: 'chooseTimeOfDayLabel',
+        desc: 'Title in time picker dialog for notifications',
+      );
+
+  String get ok => Intl.message(
+        'ok',
+        name: 'ok',
+        desc: 'ok text that is used for buttons',
+      );
+
+  String get chosenTimeExistsError => Intl.message(
+        'Chosen time already exists.',
+        name: 'chosenTimeExistsError',
+        desc: 'Error label when user has chosen already existed time',
+      );
 }

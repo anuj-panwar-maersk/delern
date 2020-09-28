@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-09-24T18:52:46.579774",
+  "@@last_modified": "2020-09-28T11:13:37.951612",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -774,6 +774,27 @@
   "notificationPurpose": "Notifications for learning cards",
   "@notificationPurpose": {
     "description": "Description for notifications in app settings",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "chooseTimeOfDayLabel": "Choose time of day",
+  "@chooseTimeOfDayLabel": {
+    "description": "Title in time picker dialog for notifications",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "ok": "ok",
+  "@ok": {
+    "description": "ok text that is used for buttons",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "chosenTimeExistsError": "Chosen time already exists.",
+  "@chosenTimeExistsError": {
+    "description": "Error label when user has chosen already existed time",
     "type": "text",
     "placeholders": {
     }

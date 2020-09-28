@@ -60,6 +60,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "cardDeletedUserMessage":
             MessageLookupByLibrary.simpleMessage("Karte wurde gelöscht"),
         "cardsToLearnLabel": m1,
+        "chooseTimeOfDayLabel":
+            MessageLookupByLibrary.simpleMessage("Tageszeit wählen"),
+        "chosenTimeExistsError": MessageLookupByLibrary.simpleMessage(
+            "Die gewählte Zeit existiert bereits."),
         "continueAnonymously":
             MessageLookupByLibrary.simpleMessage("Als Gast fortfahren"),
         "continueEditingQuestion": MessageLookupByLibrary.simpleMessage(
@@ -167,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Profil (du bist offline)"),
         "offlineUserMessage": MessageLookupByLibrary.simpleMessage(
             "Du bist offline, bitte versuche es später"),
+        "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "other": MessageLookupByLibrary.simpleMessage("andere"),
         "owner": MessageLookupByLibrary.simpleMessage("Besitzer"),
         "peopleLabel": MessageLookupByLibrary.simpleMessage("Personen"),

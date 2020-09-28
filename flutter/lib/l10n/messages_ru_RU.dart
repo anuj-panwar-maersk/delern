@@ -62,6 +62,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "cardDeletedUserMessage":
             MessageLookupByLibrary.simpleMessage("Карточка удалена"),
         "cardsToLearnLabel": m1,
+        "chooseTimeOfDayLabel":
+            MessageLookupByLibrary.simpleMessage("Выберите время дня"),
+        "chosenTimeExistsError": MessageLookupByLibrary.simpleMessage(
+            "Выбранное время уже существует."),
         "continueAnonymously":
             MessageLookupByLibrary.simpleMessage("Продолжить как гость"),
         "continueEditingQuestion": MessageLookupByLibrary.simpleMessage(
@@ -168,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Профиль (Вы не в сети)"),
         "offlineUserMessage": MessageLookupByLibrary.simpleMessage(
             "Нет сети, пожалуйста, попробуйте позже"),
+        "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "other": MessageLookupByLibrary.simpleMessage("другие"),
         "owner": MessageLookupByLibrary.simpleMessage("Владелец"),
         "peopleLabel": MessageLookupByLibrary.simpleMessage("Люди"),

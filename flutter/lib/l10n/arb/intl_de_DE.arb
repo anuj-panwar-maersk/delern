@@ -777,5 +777,26 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "chooseTimeOfDayLabel": "Tageszeit wählen",
+  "@chooseTimeOfDayLabel": {
+    "description": "Title in time picker dialog for notifications",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "ok": "ok",
+  "@ok": {
+    "description": "ok text that is used for buttons",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "chosenTimeExistsError": "Die gewählte Zeit existiert bereits.",
+  "@chosenTimeExistsError": {
+    "description": "Error label when user has chosen already existed time",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }
