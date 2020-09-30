@@ -132,7 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "later": MessageLookupByLibrary.simpleMessage("Später"),
         "learnCardsNotificationSuggestion":
             MessageLookupByLibrary.simpleMessage(
-                "Would you like to schedule notifications to learn cards?"),
+                "Möchtest du Benachrichtigungen für Lernkarten planen?"),
         "learning": m4,
         "legacyAcceptanceLabel": MessageLookupByLibrary.simpleMessage(
             "Mit der Benutzung dieser App akzeptierst du die "),
@@ -167,7 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noUpdates":
             MessageLookupByLibrary.simpleMessage("Keine Aktualisierungen"),
         "notificationInSettingsSchedule": MessageLookupByLibrary.simpleMessage(
-            "You can also do it later in app settings."),
+            "Du kannst dies auch später in den App-Einstellungen tun."),
         "notificationPurpose": MessageLookupByLibrary.simpleMessage(
             "Benachrichtigungen für Lernkarten"),
         "notifications":

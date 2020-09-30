@@ -135,9 +135,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Я приглашаю Вас установить Delern, систему интервального изучения, которая позволяет изучать быстро и легко!\n\nПройдите по ссылке чтобы установить из\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nПосле установки, следите за последними новостями Delern:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
         "knowCardTooltip": MessageLookupByLibrary.simpleMessage("Я знаю"),
         "later": MessageLookupByLibrary.simpleMessage("Позже"),
-        "learnCardsNotificationSuggestion":
-            MessageLookupByLibrary.simpleMessage(
-                "Would you like to schedule notifications to learn cards?"),
+        "learnCardsNotificationSuggestion": MessageLookupByLibrary.simpleMessage(
+            "Хотели бы Вы запланировать уведомления для изучения карточек?"),
         "learning": m4,
         "legacyAcceptanceLabel": MessageLookupByLibrary.simpleMessage(
             "При использовании приложения Вы соглашаетесь с  "),
@@ -169,7 +168,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Только владелец может поделиться списком."),
         "noUpdates": MessageLookupByLibrary.simpleMessage("Нет обновлений"),
         "notificationInSettingsSchedule": MessageLookupByLibrary.simpleMessage(
-            "You can also do it later in app settings."),
+            "Вы также можете сделать это позже в настройках приложения."),
         "notificationPurpose": MessageLookupByLibrary.simpleMessage(
             "Уведомления для учебных карточек"),
         "notifications": MessageLookupByLibrary.simpleMessage("Уведомления"),
