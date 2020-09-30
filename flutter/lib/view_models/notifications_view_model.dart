@@ -85,10 +85,16 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
     });
   }
 
+  void showNotificationSuggestion() {
+    _isNotificationScheduled = true;
+    AppConfig.instance.isNotificationsSet = true;
+  }
+
   void _saveNotificationsToAppSettings() {
     AppConfig.instance.isNotificationsSet = true;
     AppConfig.instance.notificationSchedule =
         json.encode(serializers.serialize(_notificationsSchedule.build()));
+    _isNotificationScheduled = true;
   }
 
   Future<void> _initUserScheduledNotifications() async {

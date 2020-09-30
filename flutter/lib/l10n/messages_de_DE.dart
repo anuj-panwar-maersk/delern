@@ -129,6 +129,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
             "Ich lade dich ein, Delern zu installieren, eine App für das Lernen mit Intervallwiederholungen, die es dir ermöglicht, schnell und einfach zu lernen!\n\nInstalliere es von:\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nNach der Installation folge den neuesten Nachrichten von Delern auf:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
         "knowCardTooltip": MessageLookupByLibrary.simpleMessage("Ich weiß"),
+        "later": MessageLookupByLibrary.simpleMessage("Später"),
+        "learnCardsNotificationSuggestion":
+            MessageLookupByLibrary.simpleMessage(
+                "Would you like to schedule notifications to learn cards?"),
         "learning": m4,
         "legacyAcceptanceLabel": MessageLookupByLibrary.simpleMessage(
             "Mit der Benutzung dieser App akzeptierst du die "),
@@ -162,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nur der Besitzer eines Lernsets kann es teilen."),
         "noUpdates":
             MessageLookupByLibrary.simpleMessage("Keine Aktualisierungen"),
+        "notificationInSettingsSchedule": MessageLookupByLibrary.simpleMessage(
+            "You can also do it later in app settings."),
         "notificationPurpose": MessageLookupByLibrary.simpleMessage(
             "Benachrichtigungen für Lernkarten"),
         "notifications":

@@ -147,3 +147,11 @@ Future<void> logIosNotificationPermissions({@required bool isGranted}) =>
         .logEvent(name: 'ios_notification', parameters: <String, dynamic>{
       'granted': isGranted ? 1 : 0,
     });
+
+Future<void> logScheduleNotifications(
+        {@required bool isScheduled, @required int totalCards}) =>
+    FirebaseAnalytics()
+        .logEvent(name: 'notification_popup', parameters: <String, dynamic>{
+      'cards': totalCards,
+      'scheduled': isScheduled ? 1 : 0,
+    });

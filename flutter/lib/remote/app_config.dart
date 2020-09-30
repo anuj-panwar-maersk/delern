@@ -30,6 +30,9 @@ class AppConfig {
   bool get explicitSilentSignInEnabled =>
       _remoteValueOrNull('explicit_silent_sign_in_enabled')?.asBool() ?? false;
 
+  int get totalCardsForNotificationSchedule =>
+      _remoteValueOrNull('total_cards_for_notification_schedule')?.asInt() ?? 5;
+
   Map<String, List<LocalNotification>> get notificationMessages {
     final messagesString =
         _remoteValueOrNull('notification_messages')?.asString();

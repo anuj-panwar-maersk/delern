@@ -721,4 +721,22 @@ Twitter: https://twitter.com/dasdelern''',
         name: 'chosenTimeExistsError',
         desc: 'Error label when user has chosen already existed time',
       );
+
+  String get later => Intl.message(
+        'Later',
+        name: 'later',
+        desc: 'Label for buttons',
+      );
+
+  String get learnCardsNotificationSuggestion => Intl.message(
+        'Would you like to schedule notifications to learn cards?',
+        name: 'learnCardsNotificationSuggestion',
+        desc: 'Suggestion to user to schedule cards',
+      );
+
+  String get notificationInSettingsSchedule => Intl.message(
+        'You can also do it later in app settings.',
+        name: 'notificationInSettingsSchedule',
+        desc: 'Schedule notification later in settings label',
+      );
 }

@@ -798,5 +798,26 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "later": "Später",
+  "@later": {
+    "description": "Label for buttons",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "learnCardsNotificationSuggestion": "Möchtest du Benachrichtigungen für Lernkarten planen?",
+  "@learnCardsNotificationSuggestion": {
+    "description": "Suggestion to user to schedule cards",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "notificationInSettingsSchedule": "Du kannst dies auch später in den App-Einstellungen tun.",
+  "@notificationInSettingsSchedule": {
+    "description": "Schedule notification later in settings label",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

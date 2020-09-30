@@ -797,5 +797,26 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "later": "Позже",
+  "@later": {
+    "description": "Label for buttons",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "learnCardsNotificationSuggestion": "Хотели бы Вы запланировать уведомления для изучения карточек?",
+  "@learnCardsNotificationSuggestion": {
+    "description": "Suggestion to user to schedule cards",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "notificationInSettingsSchedule": "Вы также можете сделать это позже в настройках приложения.",
+  "@notificationInSettingsSchedule": {
+    "description": "Schedule notification later in settings label",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }
