@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m4(deckName) => "Lernen: ${deckName}";
 
-  static m5(number) => "Karten im Lernset: ${number}";
+  static m5(number) => "Lernkarten in diesem Ordner: ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{

@@ -40,7 +40,7 @@ class LearningButtonsSection extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.23,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
@@ -68,6 +68,7 @@ class LearningButtonsSection extends StatelessWidget {
                       },
                     ),
                   ),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: LearningMethodWidget(
                       name: context.l.viewLearning,

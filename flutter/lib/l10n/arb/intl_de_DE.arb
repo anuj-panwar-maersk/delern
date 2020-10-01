@@ -71,7 +71,7 @@
     "placeholders": {
     }
   },
-  "numberOfCards": "Karten im Lernset: {number}",
+  "numberOfCards": "Lernkarten in diesem Ordner: {number}",
   "@numberOfCards": {
     "description": "Card in the deck",
     "type": "text",

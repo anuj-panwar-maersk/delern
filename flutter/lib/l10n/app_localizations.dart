@@ -84,7 +84,7 @@ class AppLocalizations {
       );
 
   String numberOfCards(int number) => Intl.message(
-        'Cards in the deck: $number',
+        'Cards in this folder: $number',
         name: 'numberOfCards',
         args: [number],
         desc: 'Card in the deck',

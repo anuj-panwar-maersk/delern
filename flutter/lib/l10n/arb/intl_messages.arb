@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-10-01T11:13:07.405331",
+  "@@last_modified": "2020-10-01T13:52:55.697553",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -78,7 +78,7 @@
     "placeholders": {
     }
   },
-  "numberOfCards": "Cards in the deck: {number}",
+  "numberOfCards": "Cards in this folder: {number}",
   "@numberOfCards": {
     "description": "Card in the deck",
     "type": "text",

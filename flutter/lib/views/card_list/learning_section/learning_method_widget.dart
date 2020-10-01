@@ -33,6 +33,7 @@ class LearningMethodWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 6),
               child: Card(
+                margin: const EdgeInsets.all(0),
                 child: Padding(
                   padding: const EdgeInsets.all(_kPadding),
                   child: Column(
@@ -76,6 +77,7 @@ class _LerningBackgroundWidget extends StatelessWidget {
               children: const <Widget>[
                 Expanded(
                   child: Card(
+                    margin: EdgeInsets.all(0),
                     color: Colors.blue,
                     child: SizedBox(
                       width: 10,

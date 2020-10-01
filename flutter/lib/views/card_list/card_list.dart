@@ -95,13 +95,14 @@ class _CardListState extends State<CardList> {
       bodyBuilder: (bloc) => Column(
         children: <Widget>[
           _buildEditDeck(bloc),
-          _buildCardsInDeck(bloc),
           const Padding(
             padding: EdgeInsets.only(bottom: _kDividerPadding),
           ),
-          LearningButtonsSection(deck: _currentDeckState),
+          SymmetricHorizontalPadding(
+              child: LearningButtonsSection(deck: _currentDeckState)),
+          SymmetricHorizontalPadding(child: CardsInFolderWidget(bloc: bloc)),
           const Divider(
-            height: 0,
+            height: 2,
           ),
           Expanded(child: _buildCardList(bloc)),
         ],
@@ -145,19 +146,6 @@ class _CardListState extends State<CardList> {
         style: app_styles.editDeckText,
         onChanged: bloc.onDeckName.add,
       );
-
-  Widget _buildCardsInDeck(EditDeckBloc bloc) =>
-      buildStreamBuilderWithValue<BuiltList<CardModel>>(
-          streamWithValue: bloc.list,
-          builder: (context, snapshot) => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    context.l.numberOfCards(snapshot.data.length),
-                    style: app_styles.secondaryText,
-                  ),
-                ],
-              ));
 
   Widget _buildCardList(EditDeckBloc bloc) {
     final cardVerticalPadding =
@@ -318,4 +306,40 @@ class CardItemWidget extends StatelessWidget {
       ],
     );
   }
+}
+
+@immutable
+class SymmetricHorizontalPadding extends StatelessWidget {
+  final Widget child;
+
+  const SymmetricHorizontalPadding({@required this.child});
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.025),
+        child: child,
+      );
+}
+
+class CardsInFolderWidget extends StatelessWidget {
+  final EditDeckBloc bloc;
+
+  const CardsInFolderWidget({@required this.bloc});
+
+  @override
+  Widget build(BuildContext context) =>
+      buildStreamBuilderWithValue<BuiltList<CardModel>>(
+          streamWithValue: bloc.list,
+          builder: (context, snapshot) => Row(
+                children: <Widget>[
+                  Text(
+                    context.l.numberOfCards(snapshot.data.length),
+                    style: app_styles.secondaryText.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ));
 }

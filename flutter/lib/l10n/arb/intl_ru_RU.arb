@@ -56,7 +56,7 @@
     "placeholders": {
     }
   },
-  "numberOfCards": "Карточек в списке: {number}",
+  "numberOfCards": "Карточек в папке: {number}",
   "@numberOfCards": {
     "description": "Number of cards",
     "type": "text",
