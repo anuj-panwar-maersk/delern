@@ -88,7 +88,7 @@ class _CardListState extends State<CardList> {
         return bloc;
       },
       appBarBuilder: (bloc) => SearchBarWidget(
-        title: context.l.edit,
+        title: bloc.deck.name,
         search: (input) => _searchTextChanged(bloc, input),
         actions: _buildActions(bloc),
       ),

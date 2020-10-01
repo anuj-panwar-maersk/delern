@@ -66,7 +66,10 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
             hintStyle: app_styles.searchBarText),
       );
     } else {
-      appBarTitle = Text(widget.title);
+      appBarTitle = Text(
+        widget.title,
+        overflow: TextOverflow.ellipsis,
+      );
       actionIcon = const Icon(Icons.search);
     }
 
