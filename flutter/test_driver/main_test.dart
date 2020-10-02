@@ -178,6 +178,9 @@ void main() {
       );
       // At this point the learning screen should automatically close because
       // there are no more cards to learn.
+
+      // Return to screen with decks
+      await driver.tap(find.pageBack());
     });
 
     test('Delete 2 cards', () async {
@@ -188,7 +191,7 @@ void main() {
         0,
         const Duration(milliseconds: 500),
       );
-      await driver.tap(find.text('front3'));
+      await driver.tap(find.text('back3'));
       await driver.tap(find.byTooltip(localizations.deleteCardTooltip));
       await tapDialogButton(localizations.delete);
       await driver.tap(find.pageBack());
@@ -225,6 +228,9 @@ void main() {
       await driver.tap(find.byType('Card'));
 
       await expectCard('front1', 'back1');
+      // Go to list of cards and learning methods
+      await driver.tap(find.pageBack());
+      // Go to list of decks
       await driver.tap(find.pageBack());
     });
 
@@ -250,7 +256,9 @@ void main() {
         knows: false,
       );
       // At this point the learning screen should automatically close because
-      // there are no more cards to learn.
+      // there are no more cards to learn. It will be at the screen with cards.
+      // Press back to return to screen with decks
+      await driver.tap(find.pageBack());
     });
 
     test('Delete deck', () async {

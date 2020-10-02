@@ -45,43 +45,51 @@ class LearningButtonsSection extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Expanded(
-                    child: LearningMethodWidget(
-                      name: context.l.intervalLearning,
-                      tooltip: context.l.intervalLearningTooltip,
-                      image: Image.asset('images/interval_learning_image.webp'),
-                      onTap: () {
-                        final updatedDeck = deck.rebuild((builder) {
-                          builder.latestTagSelection
-                              .replace(_tagSelection.value);
-                        });
-                        if (updatedDeck != deck) {
-                          CurrentUserWidget.of(context)
-                              .user
-                              .updateDeck(deck: updatedDeck);
-                        }
-                        unawaited(logIntervalLearningEvent());
-                        openLearnCardIntervalScreen(
-                          context,
-                          deckKey: deck.key,
-                          tags: _tagSelection.value,
-                        );
-                      },
+                    child: Tooltip(
+                      message: context.l.intervalLearningTooltip,
+                      child: LearningMethodWidget(
+                        name: context.l.intervalLearning,
+                        tooltip: context.l.intervalLearningTooltip,
+                        image:
+                            Image.asset('images/interval_learning_image.webp'),
+                        onTap: () {
+                          final updatedDeck = deck.rebuild((builder) {
+                            builder.latestTagSelection
+                                .replace(_tagSelection.value);
+                          });
+                          if (updatedDeck != deck) {
+                            CurrentUserWidget.of(context)
+                                .user
+                                .updateDeck(deck: updatedDeck);
+                          }
+                          unawaited(logIntervalLearningEvent());
+                          openLearnCardIntervalScreen(
+                            context,
+                            deckKey: deck.key,
+                            tags: _tagSelection.value,
+                          );
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: LearningMethodWidget(
-                      name: context.l.viewLearning,
-                      tooltip: context.l.viewLearningTooltip,
-                      image: Image.asset('images/viewing_learning_image.webp'),
-                      onTap: () {
-                        unawaited(logViewLearningEvent());
-                        openLearnCardViewScreen(
-                          context,
-                          deckKey: deck.key,
-                          tags: _tagSelection.value,
-                        );
-                      },
+                    child: Tooltip(
+                      message: context.l.viewLearningTooltip,
+                      child: LearningMethodWidget(
+                        name: context.l.viewLearning,
+                        tooltip: context.l.viewLearningTooltip,
+                        image:
+                            Image.asset('images/viewing_learning_image.webp'),
+                        onTap: () {
+                          unawaited(logViewLearningEvent());
+                          openLearnCardViewScreen(
+                            context,
+                            deckKey: deck.key,
+                            tags: _tagSelection.value,
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
