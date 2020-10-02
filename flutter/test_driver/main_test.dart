@@ -191,7 +191,7 @@ void main() {
         0,
         const Duration(milliseconds: 500),
       );
-      await driver.tap(find.text('back3'));
+      await driver.tap(find.text('front3'));
       await driver.tap(find.byTooltip(localizations.deleteCardTooltip));
       await tapDialogButton(localizations.delete);
       await driver.tap(find.pageBack());
@@ -230,6 +230,18 @@ void main() {
       await expectCard('front1', 'back1');
       // Go to list of cards and learning methods
       await driver.tap(find.pageBack());
+    });
+
+    test('Rename deck', () async {
+      // Menu does not have text, use tooltip to find it.
+      await driver.tap(find.byTooltip(localizations.menuTooltip));
+      await driver.tap(find.text(localizations.renameDeck));
+
+      final rename = find.text(localizations.rename.toUpperCase());
+      await driver.waitFor(rename);
+      await driver.enterText('My Test Deck2');
+      await driver.waitFor(find.text('My Test Deck2'));
+      await driver.tap(rename, timeout: timeoutDuration);
       // Go to list of decks
       await driver.tap(find.pageBack());
     });
@@ -246,7 +258,7 @@ void main() {
     });
 
     test('Learn last card', () async {
-      await driver.tap(find.text('My Test Deck'));
+      await driver.tap(find.text('My Test Deck2'));
       // Remove the tag selection, which should reveal the 4th card.
       await driver.tap(find.text('#all-cards'));
       await driver.tap(find.byTooltip(localizations.intervalLearningTooltip));
@@ -264,7 +276,7 @@ void main() {
     test('Delete deck', () async {
       // Swipe right.
       await driver.scroll(
-        find.text('My Test Deck'),
+        find.text('My Test Deck2'),
         -(await driver.getWindow()).width / 2,
         0,
         const Duration(milliseconds: 500),

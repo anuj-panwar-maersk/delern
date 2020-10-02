@@ -15,6 +15,7 @@ class CardListPopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => PopupMenuButton<_CardListMenu>(
+        tooltip: context.l.menuTooltip,
         onSelected: (result) async {
           switch (result) {
             case _CardListMenu.deckType:

@@ -247,7 +247,7 @@ class CardItemWidget extends StatelessWidget {
                               imageUrl: card.frontImagesUri.isNotEmpty
                                   ? card.frontImagesUri[0]
                                   : null,
-                              text: card.front,
+                              text: card.frontWithoutTags,
                             ),
                             const Divider(),
                             const SizedBox(height: _kFrontBackTextPadding),
