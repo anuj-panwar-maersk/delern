@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
@@ -93,13 +94,18 @@ class _CardListState extends State<CardList> {
       ),
       bodyBuilder: (bloc) => Column(
         children: <Widget>[
-          SymmetricHorizontalPadding(
+          _SymmetricHorizontalPadding(
               child: LearningButtonsSection(deck: _currentDeckState)),
-          SymmetricHorizontalPadding(child: CardsInFolderWidget(bloc: bloc)),
+          _SymmetricHorizontalPadding(child: _CardsInFolderWidget(bloc: bloc)),
+          const SizedBox(height: 4),
           const Divider(
-            height: 2,
+            height: 0,
           ),
-          Expanded(child: _buildCardList(bloc)),
+          Expanded(
+            child: _SymmetricHorizontalPadding(
+              child: _buildCardList(bloc),
+            ),
+          ),
         ],
       ),
       floatingActionButtonBuilder: _buildAddCard,
@@ -200,33 +206,20 @@ class CardItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emptyExpanded = Expanded(
-      child: Container(
-        color: Colors.transparent,
-      ),
-    );
-
     final minHeight = max(
         MediaQuery.of(context).size.height * app_styles.kItemListHeightRatio,
         app_styles.kMinItemHeight);
-    final primaryFontSize =
-        max(minHeight * 0.25, app_styles.kMinPrimaryTextSize);
-    final primaryTextStyle =
-        app_styles.editCardPrimaryText.copyWith(fontSize: primaryFontSize);
-    final secondaryTextStyle = app_styles.editCardSecondaryText
-        .copyWith(fontSize: primaryFontSize / 1.5);
     final iconSize = max(minHeight * 0.5, app_styles.kMinIconHeight);
     return Row(
       children: <Widget>[
-        emptyExpanded,
         Expanded(
-          flex: 8,
           child: EditDeleteDismissible(
             key: Key(card.key),
             iconSize: iconSize,
             onEdit: (_) => bloc.onEditCardIntention.add(card),
             child: Material(
               elevation: app_styles.kItemElevation,
+              borderRadius: BorderRadius.circular(4),
               child: InkWell(
                 splashColor: Theme.of(context).splashColor,
                 onTap: () => openPreviewCardScreen(
@@ -236,8 +229,12 @@ class CardItemWidget extends StatelessWidget {
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(_kCardBorderPadding),
-                  color:
-                      specifyCardColors(deck.type, card.back).defaultBackground,
+                  decoration: BoxDecoration(
+                    color: specifyCardColors(deck.type, card.back)
+                        .defaultBackground,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+
                   // Use row to expand content to all available space
                   child: Row(
                     children: <Widget>[
@@ -246,17 +243,19 @@ class CardItemWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            TextOverflowEllipsisWidget(
-                              textDetails: card.frontWithoutTags,
-                              textStyle: primaryTextStyle,
+                            CardSideWidget(
+                              imageUrl: card.frontImagesUri.isNotEmpty
+                                  ? card.frontImagesUri[0]
+                                  : null,
+                              text: card.front,
                             ),
-                            Container(
-                              padding: const EdgeInsets.only(
-                                  top: _kFrontBackTextPadding),
-                              child: TextOverflowEllipsisWidget(
-                                textDetails: card.back ?? '',
-                                textStyle: secondaryTextStyle,
-                              ),
+                            const Divider(),
+                            const SizedBox(height: _kFrontBackTextPadding),
+                            CardSideWidget(
+                              imageUrl: card.backImagesUri.isNotEmpty
+                                  ? card.backImagesUri[0]
+                                  : null,
+                              text: card.back,
                             ),
                           ],
                         ),
@@ -268,17 +267,50 @@ class CardItemWidget extends StatelessWidget {
             ),
           ),
         ),
-        emptyExpanded,
       ],
     );
   }
 }
 
 @immutable
-class SymmetricHorizontalPadding extends StatelessWidget {
+class CardSideWidget extends StatelessWidget {
+  final String imageUrl;
+  final String text;
+
+  const CardSideWidget({@required this.imageUrl, @required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    final minHeight = max(
+        MediaQuery.of(context).size.height * app_styles.kItemListHeightRatio,
+        app_styles.kMinItemHeight);
+    final primaryFontSize =
+        max(minHeight * 0.25, app_styles.kMinPrimaryTextSize);
+    final primaryTextStyle =
+        app_styles.editCardPrimaryText.copyWith(fontSize: primaryFontSize);
+    return Row(
+      children: [
+        if (imageUrl != null)
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: CachedNetworkImage(
+                height: MediaQuery.of(context).size.height * 0.08,
+                imageUrl: imageUrl),
+          ),
+        TextOverflowEllipsisWidget(
+          textDetails: text ?? '',
+          textStyle: primaryTextStyle,
+        ),
+      ],
+    );
+  }
+}
+
+@immutable
+class _SymmetricHorizontalPadding extends StatelessWidget {
   final Widget child;
 
-  const SymmetricHorizontalPadding({@required this.child});
+  const _SymmetricHorizontalPadding({@required this.child});
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -288,10 +320,10 @@ class SymmetricHorizontalPadding extends StatelessWidget {
       );
 }
 
-class CardsInFolderWidget extends StatelessWidget {
+class _CardsInFolderWidget extends StatelessWidget {
   final EditDeckBloc bloc;
 
-  const CardsInFolderWidget({@required this.bloc});
+  const _CardsInFolderWidget({@required this.bloc});
 
   @override
   Widget build(BuildContext context) =>
