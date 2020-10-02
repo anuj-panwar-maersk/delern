@@ -37,7 +37,8 @@ class CreateDeckWidget extends StatelessWidget {
               );
               return;
             }
-            unawaited(openNewCardScreen(context, deckKey: newDeck.key));
+            unawaited(openNewCardScreen(context,
+                deckKey: newDeck.key, isDecksScreen: true));
           }
         },
         child: const Icon(Icons.add),

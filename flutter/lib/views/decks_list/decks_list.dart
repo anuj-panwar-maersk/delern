@@ -247,7 +247,7 @@ class DeckListItemWidget extends StatelessWidget {
             onDelete: _confirmAndDeleteDeck,
             onEdit: (context) {
               unawaited(logDeckEditSwipe(deck.key));
-              unawaited(openEditDeckScreen(context, deckKey: deck.key));
+              unawaited(openLearnDeckScreen(context, deckKey: deck.key));
             },
             child: Material(
               color: app_styles.kDeckItemColor,
@@ -273,9 +273,9 @@ class DeckListItemWidget extends StatelessWidget {
   Future<void> _showListOfCards(BuildContext context) async {
     if (deck.cards.value.isEmpty) {
       // If deck is empty, open a screen with adding cards
-      return openNewCardScreen(context, deckKey: deck.key);
+      return openNewCardScreen(context, deckKey: deck.key, isDecksScreen: true);
     } else {
-      return openEditDeckScreen(context, deckKey: deck.key);
+      return openLearnDeckScreen(context, deckKey: deck.key);
     }
   }
 

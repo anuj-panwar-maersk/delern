@@ -31,7 +31,7 @@ final routes = <String, Widget Function(BuildContext)>{
   NotificationSettings.routeName: (_) => const NotificationSettings(),
 };
 
-Future<void> openEditDeckScreen(
+Future<void> openLearnDeckScreen(
   BuildContext context, {
   @required String deckKey,
 }) =>
@@ -72,12 +72,18 @@ Future<void> openLearnCardViewScreen(
 Future<void> openNewCardScreen(
   BuildContext context, {
   @required String deckKey,
-}) =>
-    Navigator.pushNamed(
-      context,
-      CardCreateUpdate.routeNameNew,
-      arguments: CardCreateUpdate.buildArguments(deckKey: deckKey),
-    );
+  bool isDecksScreen = false,
+}) {
+  // After adding cards make sure that user is at learning cards screen
+  if (isDecksScreen) {
+    openLearnDeckScreen(context, deckKey: deckKey);
+  }
+  return Navigator.pushNamed(
+    context,
+    CardCreateUpdate.routeNameNew,
+    arguments: CardCreateUpdate.buildArguments(deckKey: deckKey),
+  );
+}
 
 Future<void> openEditCardScreen(
   BuildContext context, {
