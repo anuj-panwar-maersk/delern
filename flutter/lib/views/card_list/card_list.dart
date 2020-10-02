@@ -6,7 +6,7 @@ import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/view_models/edit_deck_bloc.dart';
 import 'package:delern_flutter/views/base/screen_bloc_view.dart';
-import 'package:delern_flutter/views/card_list/deck_settings_widget.dart';
+import 'package:delern_flutter/views/card_list/card_list_menu.dart';
 import 'package:delern_flutter/views/card_list/learning_section/learning_buttons_section.dart';
 import 'package:delern_flutter/views/card_list/scroll_to_beginning_list_widget.dart';
 import 'package:delern_flutter/views/helpers/arrow_to_fab_widget.dart';
@@ -24,7 +24,6 @@ import 'package:delern_flutter/views/helpers/user_messages.dart';
 import 'package:flutter/material.dart';
 
 const int _kUpButtonVisibleRow = 20;
-const double _kDividerPadding = 12;
 
 class CardList extends StatefulWidget {
   static const routeName = '/cards';
@@ -94,10 +93,6 @@ class _CardListState extends State<CardList> {
       ),
       bodyBuilder: (bloc) => Column(
         children: <Widget>[
-          _buildEditDeck(bloc),
-          const Padding(
-            padding: EdgeInsets.only(bottom: _kDividerPadding),
-          ),
           SymmetricHorizontalPadding(
               child: LearningButtonsSection(deck: _currentDeckState)),
           SymmetricHorizontalPadding(child: CardsInFolderWidget(bloc: bloc)),
@@ -111,41 +106,12 @@ class _CardListState extends State<CardList> {
     );
   }
 
-  List<Widget> _buildActions(EditDeckBloc bloc) {
-    final menuAction = IconButton(
-      tooltip: context.l.deckSettingsTooltip,
-      icon: const Icon(Icons.more_vert),
-      onPressed: () {
-        showDialog<void>(
-          context: context,
-          builder: (context) => Dialog(
-              child: DeckSettingsWidget(deck: _currentDeckState, bloc: bloc)),
-        );
-      },
-    );
-
-    return <Widget>[menuAction];
-  }
-
-  Widget _buildEditDeck(EditDeckBloc bloc) => TextField(
-        textAlign: TextAlign.center,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          suffixIcon: const Icon(Icons.edit),
-          // We'd like to center text. Because of suffixIcon, the text
-          // is placed a little bit to the left. To fix this problem, we
-          // add an empty Container with size of Icon to the left.
-          prefixIcon: SizedBox(
-            height: IconTheme.of(context).size,
-            width: IconTheme.of(context).size,
-          ),
-        ),
-        maxLines: null,
-        keyboardType: TextInputType.multiline,
-        controller: _deckNameController,
-        style: app_styles.editDeckText,
-        onChanged: bloc.onDeckName.add,
-      );
+  List<Widget> _buildActions(EditDeckBloc bloc) => <Widget>[
+        CardListPopupMenu(
+          bloc: bloc,
+          deck: _currentDeckState,
+        )
+      ];
 
   Widget _buildCardList(EditDeckBloc bloc) {
     final cardVerticalPadding =

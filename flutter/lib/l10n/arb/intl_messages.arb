@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-10-01T13:52:55.697553",
+  "@@last_modified": "2020-10-06T08:51:11.908936",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -816,6 +816,27 @@
   "notificationInSettingsSchedule": "You can also do it later in app settings.",
   "@notificationInSettingsSchedule": {
     "description": "Schedule notification later in settings label",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "renameDeck": "Rename folder",
+  "@renameDeck": {
+    "description": "Label to rename decks that is used in buttons or menu",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "newName": "New name",
+  "@newName": {
+    "description": "New name label in case user renames something",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "rename": "Rename",
+  "@rename": {
+    "description": "Rename label for buttons and menu",
     "type": "text",
     "placeholders": {
     }

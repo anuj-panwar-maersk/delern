@@ -739,4 +739,22 @@ Twitter: https://twitter.com/dasdelern''',
         name: 'notificationInSettingsSchedule',
         desc: 'Schedule notification later in settings label',
       );
+
+  String get renameDeck => Intl.message(
+        'Rename folder',
+        name: 'renameDeck',
+        desc: 'Label to rename decks that is used in buttons or menu',
+      );
+
+  String get newName => Intl.message(
+        'New name',
+        name: 'newName',
+        desc: 'New name label in case user renames something',
+      );
+
+  String get rename => Intl.message(
+        'Rename',
+        name: 'rename',
+        desc: 'Rename label for buttons and menu',
+      );
 }

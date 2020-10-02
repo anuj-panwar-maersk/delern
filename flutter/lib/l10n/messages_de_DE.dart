@@ -152,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Anmelden"),
         "navigationDrawerSignOut":
             MessageLookupByLibrary.simpleMessage("Abmelden"),
+        "newName": MessageLookupByLibrary.simpleMessage("Neuer Name"),
         "no": MessageLookupByLibrary.simpleMessage("nein"),
         "noAccess": MessageLookupByLibrary.simpleMessage("Kein Zugang"),
         "noAddingWithReadAccessUserMessage":
@@ -185,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
         "profileTooltip": MessageLookupByLibrary.simpleMessage("Profil"),
+        "rename": MessageLookupByLibrary.simpleMessage("Umbenennen"),
+        "renameDeck": MessageLookupByLibrary.simpleMessage("Ordner umbenennen"),
         "reversedCardLabel": MessageLookupByLibrary.simpleMessage(
             "Eine umgekehrte Kopie dieser Karte hinzufügen"),
         "save": MessageLookupByLibrary.simpleMessage("Speichern"),

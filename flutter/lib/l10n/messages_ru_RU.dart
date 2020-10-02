@@ -153,6 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationDrawerSignIn": MessageLookupByLibrary.simpleMessage("Войти"),
         "navigationDrawerSignOut":
             MessageLookupByLibrary.simpleMessage("Выход"),
+        "newName": MessageLookupByLibrary.simpleMessage("Новое имя"),
         "no": MessageLookupByLibrary.simpleMessage("нет"),
         "noAccess": MessageLookupByLibrary.simpleMessage("Нет доступа"),
         "noAddingWithReadAccessUserMessage":
@@ -184,6 +185,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Политика Конфиденциальности"),
         "profileTooltip": MessageLookupByLibrary.simpleMessage("Профиль"),
+        "rename": MessageLookupByLibrary.simpleMessage("Переименовать"),
+        "renameDeck":
+            MessageLookupByLibrary.simpleMessage("Переименовать папку"),
         "reversedCardLabel": MessageLookupByLibrary.simpleMessage(
             "Добавить обратную копию этой карточки"),
         "save": MessageLookupByLibrary.simpleMessage("Сохранить"),

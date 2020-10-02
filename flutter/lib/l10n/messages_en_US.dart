@@ -144,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign In"),
         "navigationDrawerSignOut":
             MessageLookupByLibrary.simpleMessage("Sign Out"),
+        "newName": MessageLookupByLibrary.simpleMessage("New name"),
         "no": MessageLookupByLibrary.simpleMessage("no"),
         "noAccess": MessageLookupByLibrary.simpleMessage("No access"),
         "noAddingWithReadAccessUserMessage":
@@ -174,6 +175,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "peopleLabel": MessageLookupByLibrary.simpleMessage("People"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "profileTooltip": MessageLookupByLibrary.simpleMessage("Profile"),
+        "rename": MessageLookupByLibrary.simpleMessage("Rename"),
+        "renameDeck": MessageLookupByLibrary.simpleMessage("Rename folder"),
         "reversedCardLabel": MessageLookupByLibrary.simpleMessage(
             "Add a reversed copy of this card"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
