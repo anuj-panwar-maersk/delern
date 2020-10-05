@@ -134,3 +134,7 @@ Future<void> openNotificationSettingsScreen(BuildContext context) =>
       context,
       NotificationSettings.routeName,
     );
+
+// Observer that notifies RouteAware routes about the changes
+RouteObserver<PageRoute<dynamic>> routeObserver =
+    RouteObserver<PageRoute<dynamic>>();

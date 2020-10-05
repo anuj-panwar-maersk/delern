@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class NotificationSettings extends StatelessWidget {
-  static const routeName = 'notificationSettings';
+  static const routeName = '/notification_settings';
   const NotificationSettings();
 
   @override

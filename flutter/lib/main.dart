@@ -23,9 +23,6 @@ import 'package:flutter_sentry/flutter_sentry.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 
-RouteObserver<PageRoute<dynamic>> routeObserver =
-    RouteObserver<PageRoute<dynamic>>();
-
 @immutable
 class App extends StatelessWidget {
   static final _analyticsNavigatorObserver =
