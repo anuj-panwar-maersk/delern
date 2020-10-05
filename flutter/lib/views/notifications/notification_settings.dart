@@ -116,9 +116,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
               SizedBox(
                 height: 200,
                 child: CupertinoDatePicker(
-                  // Show 24h format only for russian audience
-                  use24hFormat:
-                      Localizations.localeOf(context).languageCode == 'ru',
+                  use24hFormat: MediaQuery.of(context).alwaysUse24HourFormat,
                   mode: CupertinoDatePickerMode.time,
                   initialDateTime: widget.initialDateTime,
                   onDateTimeChanged: (newDateTime) => _dateTime = newDateTime,
