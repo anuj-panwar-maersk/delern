@@ -220,7 +220,7 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
       _saveNotificationsToAppSettings();
       notifyListeners();
     } else if (!isDefaultRule) {
-      await AppSettings.openLocationSettings();
+      await AppSettings.openNotificationSettings();
     }
   }
 
