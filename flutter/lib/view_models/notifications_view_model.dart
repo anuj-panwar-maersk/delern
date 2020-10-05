@@ -178,7 +178,7 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
       );
 
   int _calculateNotificationId(TimeOfDay time, int day) =>
-      (time.hashCode + day.hashCode).hashCode;
+      time.hour * 60 + time.minute + day * 24 * 60;
 
   void changedWeekDaysForTime(TimeOfDay time, int weekDay) {
     final weekSchedule = _notificationsSchedule.notificationSchedule[time];
