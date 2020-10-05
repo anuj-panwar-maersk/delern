@@ -12,6 +12,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(DeckAccessModel.serializer)
       ..add(DeckModel.serializer)
       ..add(DeckType.serializer)
+      ..add(LocalNotification.serializer)
+      ..add(NotificationPayload.serializer)
+      ..add(NotificationSchedule.serializer)
       ..add(ScheduledCardModel.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
@@ -19,6 +22,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltMap, const [
+            const FullType(TimeOfDay),
+            const FullType(BuiltList, const [const FullType(int)])
+          ]),
+          () => new MapBuilder<TimeOfDay, BuiltList<int>>())
       ..addBuilderFactory(
           const FullType(BuiltSet, const [const FullType(String)]),
           () => new SetBuilder<String>()))

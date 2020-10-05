@@ -6,6 +6,7 @@ import 'package:delern_flutter/views/cards_interval_learning/cards_interval_lear
 import 'package:delern_flutter/views/cards_view_learning/cards_view_learning.dart';
 import 'package:delern_flutter/views/deck_sharing/deck_sharing.dart';
 import 'package:delern_flutter/views/edit_deck/edit_deck.dart';
+import 'package:delern_flutter/views/notifications/notification_settings.dart';
 import 'package:delern_flutter/views/sign_in/sign_in.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +28,7 @@ final routes = <String, Widget Function(BuildContext)>{
   CardPreview.routeName: (_) => const CardPreview(),
   CardsIntervalLearning.routeName: (_) => const CardsIntervalLearning(),
   CardsViewLearning.routeName: (_) => const CardsViewLearning(),
+  NotificationSettings.routeName: (_) => const NotificationSettings(),
 };
 
 Future<void> openEditDeckScreen(
@@ -126,3 +128,13 @@ Future<void> openLinkAccountScreen(
             auth: auth,
           ),
         ));
+
+Future<void> openNotificationSettingsScreen(BuildContext context) =>
+    Navigator.pushNamed(
+      context,
+      NotificationSettings.routeName,
+    );
+
+// Observer that notifies RouteAware routes about the changes
+RouteObserver<PageRoute<dynamic>> routeObserver =
+    RouteObserver<PageRoute<dynamic>>();

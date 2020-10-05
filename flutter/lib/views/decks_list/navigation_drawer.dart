@@ -66,6 +66,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           await launchEmail(context);
         },
       ),
+      ListTile(
+        leading: const Icon(Icons.notifications),
+        title: Text(context.l.notifications),
+        onTap: () {
+          Navigator.pop(context);
+          openNotificationSettingsScreen(context);
+        },
+      ),
       const Divider(height: 1),
       AboutListTile(
         icon: const Icon(Icons.perm_device_information),

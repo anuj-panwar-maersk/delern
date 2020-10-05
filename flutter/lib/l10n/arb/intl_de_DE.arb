@@ -749,5 +749,75 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "notifications": "Benachrichtigungen",
+  "@notifications": {
+    "description": "Notifications label that is showed in settings",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "addReminder": "Erinnerung hinzufügen",
+  "@addReminder": {
+    "description": "Add Reminder label in button",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "defaultNotification": "Übung macht den Meister",
+  "@defaultNotification": {
+    "description": "Default notification message if case remote config was not loaded",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "notificationPurpose": "Benachrichtigungen für Lernkarten",
+  "@notificationPurpose": {
+    "description": "Description for notifications in app settings",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "chooseTimeOfDayLabel": "Tageszeit wählen",
+  "@chooseTimeOfDayLabel": {
+    "description": "Title in time picker dialog for notifications",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "ok": "ok",
+  "@ok": {
+    "description": "ok text that is used for buttons",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "chosenTimeExistsError": "Die gewählte Zeit existiert bereits.",
+  "@chosenTimeExistsError": {
+    "description": "Error label when user has chosen already existed time",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "later": "Später",
+  "@later": {
+    "description": "Label for buttons",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "learnCardsNotificationSuggestion": "Möchtest du Benachrichtigungen für Lernkarten planen?",
+  "@learnCardsNotificationSuggestion": {
+    "description": "Suggestion to user to schedule cards",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "notificationInSettingsSchedule": "Du kannst dies auch später in den App-Einstellungen tun.",
+  "@notificationInSettingsSchedule": {
+    "description": "Schedule notification later in settings label",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

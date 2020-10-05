@@ -1,10 +1,14 @@
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:delern_flutter/models/base/stream_with_value.dart';
+import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/view_models/decks_list_bloc.dart';
+import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/decks_list/create_deck_widget.dart';
 import 'package:delern_flutter/views/decks_list/deck_menu.dart';
 import 'package:delern_flutter/views/decks_list/learning_method_widget.dart';
@@ -23,9 +27,11 @@ import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/tags_widget.dart';
 import 'package:delern_flutter/views/helpers/user_messages.dart';
+import 'package:delern_flutter/views/notifications/notification_schedule_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
 class DecksList extends StatefulWidget {
   const DecksList();
@@ -34,12 +40,32 @@ class DecksList extends StatefulWidget {
   _DecksListState createState() => _DecksListState();
 }
 
-class _DecksListState extends State<DecksList> {
+// Example taken from documentation:
+// ignore: prefer_mixin
+class _DecksListState extends State<DecksList> with RouteAware {
   // TODO(ksheremet): use ScreenBlocView to handle this bloc.
   DecksListBloc _bloc;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didPopNext() {
+    // When user returned from adding cards or editing cards, check whether
+    // user has enough cards to schedule notifications.
+    _scheduleNotifications();
+  }
+
+  @override
   void didChangeDependencies() {
+    // didChangeDependencies might be called many times. Unsubscribe in case
+    // it was subscribed before
+    routeObserver?.unsubscribe(this);
+    // ignore: avoid_as
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+
     final user = CurrentUserWidget.of(context).user;
     if (_bloc?.user != user) {
       _bloc?.dispose();
@@ -48,9 +74,41 @@ class _DecksListState extends State<DecksList> {
     super.didChangeDependencies();
   }
 
+  Future<void> _scheduleNotifications() async {
+    final user = CurrentUserWidget.of(context).user;
+
+    if (!context.read<LocalNotifications>().isNotificationScheduled) {
+      // Show screen to schedule notifications if cards are created
+      final decks = await user.decks.valueWithUpdates.first;
+
+      final totalCards = await Stream<BuiltList<CardModel>>.fromFutures(
+              decks.map((d) => d.cards.valueWithUpdates.first))
+          .fold<int>(0, (previous, element) => previous + element.length);
+
+      if (totalCards > AppConfig.instance.totalCardsForNotificationSchedule) {
+        final toSchedule = await showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => NotificationScheduleDialog(),
+        );
+        if (toSchedule == true) {
+          await context
+              .read<LocalNotifications>()
+              .scheduleDefaultNotifications();
+        }
+        context.read<LocalNotifications>().showNotificationSuggestion();
+        unawaited(logScheduleNotifications(
+          totalCards: totalCards,
+          isScheduled: toSchedule,
+        ));
+      }
+    }
+  }
+
   @override
   void dispose() {
     _bloc?.dispose();
+    routeObserver.unsubscribe(this);
     super.dispose();
   }
 

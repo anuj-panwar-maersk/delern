@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Karten hinzufügen"),
         "addDeckTooltip":
             MessageLookupByLibrary.simpleMessage("Lernset hinzufügen"),
+        "addReminder":
+            MessageLookupByLibrary.simpleMessage("Erinnerung hinzufügen"),
         "anonymous": MessageLookupByLibrary.simpleMessage("Anonymous"),
         "answeredCards": m0,
         "appNotInstalledSharingDeck": MessageLookupByLibrary.simpleMessage(
@@ -58,6 +60,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "cardDeletedUserMessage":
             MessageLookupByLibrary.simpleMessage("Karte wurde gelöscht"),
         "cardsToLearnLabel": m1,
+        "chooseTimeOfDayLabel":
+            MessageLookupByLibrary.simpleMessage("Tageszeit wählen"),
+        "chosenTimeExistsError": MessageLookupByLibrary.simpleMessage(
+            "Die gewählte Zeit existiert bereits."),
         "continueAnonymously":
             MessageLookupByLibrary.simpleMessage("Als Gast fortfahren"),
         "continueEditingQuestion": MessageLookupByLibrary.simpleMessage(
@@ -74,6 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deckType": MessageLookupByLibrary.simpleMessage("Lernset Typ"),
         "decksRefreshed":
             MessageLookupByLibrary.simpleMessage("Lernsets erneuert"),
+        "defaultNotification":
+            MessageLookupByLibrary.simpleMessage("Übung macht den Meister"),
         "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
         "deleteCardQuestion": MessageLookupByLibrary.simpleMessage(
             "Möchtest diese Karte löschen?"),
@@ -121,6 +129,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
             "Ich lade dich ein, Delern zu installieren, eine App für das Lernen mit Intervallwiederholungen, die es dir ermöglicht, schnell und einfach zu lernen!\n\nInstalliere es von:\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nNach der Installation folge den neuesten Nachrichten von Delern auf:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
         "knowCardTooltip": MessageLookupByLibrary.simpleMessage("Ich weiß"),
+        "later": MessageLookupByLibrary.simpleMessage("Später"),
+        "learnCardsNotificationSuggestion":
+            MessageLookupByLibrary.simpleMessage(
+                "Möchtest du Benachrichtigungen für Lernkarten planen?"),
         "learning": m4,
         "legacyAcceptanceLabel": MessageLookupByLibrary.simpleMessage(
             "Mit der Benutzung dieser App akzeptierst du die "),
@@ -154,11 +166,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nur der Besitzer eines Lernsets kann es teilen."),
         "noUpdates":
             MessageLookupByLibrary.simpleMessage("Keine Aktualisierungen"),
+        "notificationInSettingsSchedule": MessageLookupByLibrary.simpleMessage(
+            "Du kannst dies auch später in den App-Einstellungen tun."),
+        "notificationPurpose": MessageLookupByLibrary.simpleMessage(
+            "Benachrichtigungen für Lernkarten"),
+        "notifications":
+            MessageLookupByLibrary.simpleMessage("Benachrichtigungen"),
         "numberOfCards": m5,
         "offlineProfileTooltip":
             MessageLookupByLibrary.simpleMessage("Profil (du bist offline)"),
         "offlineUserMessage": MessageLookupByLibrary.simpleMessage(
             "Du bist offline, bitte versuche es später"),
+        "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "other": MessageLookupByLibrary.simpleMessage("andere"),
         "owner": MessageLookupByLibrary.simpleMessage("Besitzer"),
         "peopleLabel": MessageLookupByLibrary.simpleMessage("Personen"),

@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Добавить карточки"),
         "addDeckTooltip":
             MessageLookupByLibrary.simpleMessage("Добавить список"),
+        "addReminder":
+            MessageLookupByLibrary.simpleMessage("Добавить напоминание"),
         "anonymous":
             MessageLookupByLibrary.simpleMessage("Анонимный пользователь"),
         "answeredCards": m0,
@@ -60,6 +62,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "cardDeletedUserMessage":
             MessageLookupByLibrary.simpleMessage("Карточка удалена"),
         "cardsToLearnLabel": m1,
+        "chooseTimeOfDayLabel":
+            MessageLookupByLibrary.simpleMessage("Выберите время дня"),
+        "chosenTimeExistsError": MessageLookupByLibrary.simpleMessage(
+            "Выбранное время уже существует."),
         "continueAnonymously":
             MessageLookupByLibrary.simpleMessage("Продолжить как гость"),
         "continueEditingQuestion": MessageLookupByLibrary.simpleMessage(
@@ -76,6 +82,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deckType": MessageLookupByLibrary.simpleMessage("Тип списка"),
         "decksRefreshed":
             MessageLookupByLibrary.simpleMessage("Списки обновлены"),
+        "defaultNotification":
+            MessageLookupByLibrary.simpleMessage("Praktice makes perfect"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "deleteCardQuestion": MessageLookupByLibrary.simpleMessage(
             "Вы хотите удалить эту карточку?"),
@@ -126,6 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
             "Я приглашаю Вас установить Delern, систему интервального изучения, которая позволяет изучать быстро и легко!\n\nПройдите по ссылке чтобы установить из\nGoogle Play: https://play.google.com/store/apps/details?id=org.dasfoo.delern\nApp Store: https://itunes.apple.com/us/app/delern/id1435734822\n\nПосле установки, следите за последними новостями Delern:\nFacebook: https://fb.me/das.delern\nLinkedIn: https://www.linkedin.com/company/delern\nVK: https://vk.com/delern\nTwitter: https://twitter.com/dasdelern"),
         "knowCardTooltip": MessageLookupByLibrary.simpleMessage("Я знаю"),
+        "later": MessageLookupByLibrary.simpleMessage("Позже"),
+        "learnCardsNotificationSuggestion": MessageLookupByLibrary.simpleMessage(
+            "Хотели бы Вы запланировать уведомления для изучения карточек?"),
         "learning": m4,
         "legacyAcceptanceLabel": MessageLookupByLibrary.simpleMessage(
             "При использовании приложения Вы соглашаетесь с  "),
@@ -156,11 +167,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "noSharingAccessUserMessage": MessageLookupByLibrary.simpleMessage(
             "Только владелец может поделиться списком."),
         "noUpdates": MessageLookupByLibrary.simpleMessage("Нет обновлений"),
+        "notificationInSettingsSchedule": MessageLookupByLibrary.simpleMessage(
+            "Вы также можете сделать это позже в настройках приложения."),
+        "notificationPurpose": MessageLookupByLibrary.simpleMessage(
+            "Уведомления для учебных карточек"),
+        "notifications": MessageLookupByLibrary.simpleMessage("Уведомления"),
         "numberOfCards": m5,
         "offlineProfileTooltip":
             MessageLookupByLibrary.simpleMessage("Профиль (Вы не в сети)"),
         "offlineUserMessage": MessageLookupByLibrary.simpleMessage(
             "Нет сети, пожалуйста, попробуйте позже"),
+        "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "other": MessageLookupByLibrary.simpleMessage("другие"),
         "owner": MessageLookupByLibrary.simpleMessage("Владелец"),
         "peopleLabel": MessageLookupByLibrary.simpleMessage("Люди"),

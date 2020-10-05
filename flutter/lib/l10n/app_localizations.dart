@@ -679,4 +679,64 @@ Twitter: https://twitter.com/dasdelern''',
         name: 'noUpdates',
         desc: 'The user pulled down on decks list but no updates were found',
       );
+
+  String get notifications => Intl.message(
+        'Notifications',
+        name: 'notifications',
+        desc: 'Notifications label that is showed in settings',
+      );
+  String get addReminder => Intl.message(
+        'Add Reminder',
+        name: 'addReminder',
+        desc: 'Add Reminder label in button',
+      );
+
+  String get defaultNotification => Intl.message(
+        'Praktice makes perfect',
+        name: 'defaultNotification',
+        desc:
+            'Default notification message if case remote config was not loaded',
+      );
+
+  String get notificationPurpose => Intl.message(
+        'Notifications for learning cards',
+        name: 'notificationPurpose',
+        desc: 'Description for notifications in app settings',
+      );
+
+  String get chooseTimeOfDayLabel => Intl.message(
+        'Choose time of day',
+        name: 'chooseTimeOfDayLabel',
+        desc: 'Title in time picker dialog for notifications',
+      );
+
+  String get ok => Intl.message(
+        'ok',
+        name: 'ok',
+        desc: 'ok text that is used for buttons',
+      );
+
+  String get chosenTimeExistsError => Intl.message(
+        'Chosen time already exists.',
+        name: 'chosenTimeExistsError',
+        desc: 'Error label when user has chosen already existed time',
+      );
+
+  String get later => Intl.message(
+        'Later',
+        name: 'later',
+        desc: 'Label for buttons',
+      );
+
+  String get learnCardsNotificationSuggestion => Intl.message(
+        'Would you like to schedule notifications to learn cards?',
+        name: 'learnCardsNotificationSuggestion',
+        desc: 'Suggestion to user to schedule cards',
+      );
+
+  String get notificationInSettingsSchedule => Intl.message(
+        'You can also do it later in app settings.',
+        name: 'notificationInSettingsSchedule',
+        desc: 'Schedule notification later in settings label',
+      );
 }

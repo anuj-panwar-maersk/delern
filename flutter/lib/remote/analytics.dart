@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:delern_flutter/models/notification_payload.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:meta/meta.dart';
@@ -127,3 +128,30 @@ Future<void> logAddImageToCard({@required bool isFrontSide}) =>
     FirebaseAnalytics().logEvent(
         name: 'card_create_with_image',
         parameters: <String, dynamic>{'front': isFrontSide ? 1 : 0});
+
+Future<void> logLocalNotificationOpen(
+        {@required NotificationPayload payload}) =>
+    FirebaseAnalytics().logEvent(
+        name: 'local_notification_open',
+        parameters: <String, dynamic>{
+          'title': payload.title,
+          'body': payload.body ?? '',
+          'hour': payload.time.hour,
+          'minute': payload.time.minute,
+          'day': payload.day,
+          'route': payload.route ?? '',
+        });
+
+Future<void> logIosNotificationPermissions({@required bool isGranted}) =>
+    FirebaseAnalytics()
+        .logEvent(name: 'ios_notification', parameters: <String, dynamic>{
+      'granted': isGranted ? 1 : 0,
+    });
+
+Future<void> logScheduleNotifications(
+        {@required bool isScheduled, @required int totalCards}) =>
+    FirebaseAnalytics()
+        .logEvent(name: 'notification_popup', parameters: <String, dynamic>{
+      'cards': totalCards,
+      'scheduled': isScheduled ? 1 : 0,
+    });
