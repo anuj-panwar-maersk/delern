@@ -24,28 +24,14 @@ void main() {
               ],
               notificationPurpose: 'Test',
               onNotificationPressed: (payload) {
-                debugPrint(payload.toString());
+                debugPrint(
+                    'Notification pressed with payload:${payload.toString()}');
               }),
-          child: MaterialApp(
-            localizationsDelegates: const [
+          child: const MaterialApp(
+            localizationsDelegates: [
               AppLocalizationsDelegate(),
             ],
-            builder: (context, child) =>
-                ChangeNotifierProvider<LocalNotifications>(
-              create: (context) => LocalNotifications(
-                  flutterLocalNotificationsPlugin:
-                      MockFlutterLocalNotificationsPlugin(),
-                  messages: [
-                    (LocalNotificationBuilder()..title = 'Test notification')
-                        .build()
-                  ],
-                  notificationPurpose: 'Test',
-                  onNotificationPressed: (payload) {
-                    debugPrint(payload.toString());
-                  }),
-              child: child,
-            ),
-            home: const NotificationSettings(),
+            home: NotificationSettings(),
           ),
         ),
       );
@@ -74,16 +60,14 @@ Future<void> addNotificationSchedule(WidgetTester tester) async {
 
 Future<void> disableNotificationsForMonday(WidgetTester tester) async {
   final mondayActionChip =
-      // ignore: avoid_as
-      tester.widget(find.widgetWithText(ActionChip, 'Mon')) as ActionChip;
+      tester.widget<ActionChip>(find.widgetWithText(ActionChip, 'Mon'));
   expect(mondayActionChip.backgroundColor,
       app_styles.kNotificationByDayEnabledColor);
 
   await tester.tap(find.widgetWithText(ActionChip, 'Mon'));
   await tester.pumpAndSettle();
   final mondayActionChipDisabled =
-      // ignore: avoid_as
-      tester.widget(find.widgetWithText(ActionChip, 'Mon')) as ActionChip;
+      tester.widget<ActionChip>(find.widgetWithText(ActionChip, 'Mon'));
   expect(mondayActionChipDisabled.backgroundColor,
       app_styles.kNotificationByDayDisabledColor);
 }

@@ -91,7 +91,7 @@ class _DecksListState extends State<DecksList> with RouteAware {
           barrierDismissible: false,
           builder: (_) => NotificationScheduleDialog(),
         );
-        if (toSchedule) {
+        if (toSchedule == true) {
           await context
               .read<LocalNotifications>()
               .scheduleDefaultNotifications();
