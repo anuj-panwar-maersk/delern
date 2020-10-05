@@ -43,7 +43,7 @@ class NotificationSettings extends StatelessWidget {
                             )
                             .toList())),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 60),
             ],
           ),
         ),

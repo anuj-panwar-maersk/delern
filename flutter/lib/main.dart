@@ -74,6 +74,7 @@ class App extends StatelessWidget {
                 context,
                 ChangeNotifierProvider(
                   create: (_) {
+                    // TODO(ksheremet): Change notifications with locale change
                     final localizedNotifications =
                         AppConfig.instance.notificationMessages[
                                 Localizations.localeOf(context).languageCode] ??
