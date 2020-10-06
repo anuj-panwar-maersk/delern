@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:delern_flutter/models/user.dart';
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/decks_list/developer_menu.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
 @immutable
 class NavigationDrawer extends StatefulWidget {
@@ -199,7 +200,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     BuildContext context,
     User user,
   ) async {
-    unawaited(logPromoteAnonymous());
+    unawaited(context.read<Analytics>().logPromoteAnonymous());
     return openLinkAccountScreen(context, auth: user.auth);
   }
 }

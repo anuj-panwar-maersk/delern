@@ -30,6 +30,8 @@ dependencies:
   # Needed for the User context type, version is bound by flutter_sentry.
   sentry:
 
+  amplitude_flutter:
+
   image_picker:
   cached_network_image:
   app_settings:

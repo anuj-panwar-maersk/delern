@@ -1,9 +1,13 @@
 import 'dart:math';
 
+import 'package:built_collection/built_collection.dart';
+import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
+import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/view_models/decks_list_bloc.dart';
+import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/decks_list/create_deck_widget.dart';
 import 'package:delern_flutter/views/decks_list/deck_menu.dart';
 import 'package:delern_flutter/views/decks_list/navigation_drawer.dart';
@@ -19,9 +23,11 @@ import 'package:delern_flutter/views/helpers/search_bar_widget.dart';
 import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/user_messages.dart';
+import 'package:delern_flutter/views/notifications/notification_schedule_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
 class DecksList extends StatefulWidget {
   const DecksList();
@@ -44,9 +50,44 @@ class _DecksListState extends State<DecksList> {
     final user = CurrentUserWidget.of(context).user;
     if (_bloc?.user != user) {
       _bloc?.dispose();
-      _bloc = DecksListBloc(user: user);
+      _bloc = DecksListBloc(
+        user: user,
+        analytics: context.read<Analytics>(),
+      );
     }
     super.didChangeDependencies();
+  }
+
+  Future<void> _scheduleNotifications() async {
+    final user = CurrentUserWidget.of(context).user;
+
+    if (context.read<LocalNotifications>().isNotificationScheduled == null &&
+        !context.read<LocalNotifications>().isNotificationScheduled) {
+      // Show screen to schedule notifications if cards are created
+      final decks = await user.decks.valueWithUpdates.first;
+
+      final totalCards = await Stream<BuiltList<CardModel>>.fromFutures(
+              decks.map((d) => d.cards.valueWithUpdates.first))
+          .fold<int>(0, (previous, element) => previous + element.length);
+
+      if (totalCards > AppConfig.instance.totalCardsForNotificationSchedule) {
+        final toSchedule = await showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => NotificationScheduleDialog(),
+        );
+        if (toSchedule == true) {
+          await context
+              .read<LocalNotifications>()
+              .scheduleDefaultNotifications();
+        }
+        context.read<LocalNotifications>().showNotificationSuggestion();
+        unawaited(context.read<Analytics>().logScheduleNotifications(
+              totalCards: totalCards,
+              isScheduled: toSchedule,
+            ));
+      }
+    }
   }
 
   @override
@@ -192,7 +233,7 @@ class DeckListItemWidget extends StatelessWidget {
             iconSize: iconSize,
             onDelete: _confirmAndDeleteDeck,
             onEdit: (context) {
-              unawaited(logDeckEditSwipe(deck.key));
+              unawaited(context.read<Analytics>().logDeckEditSwipe(deck.key));
               unawaited(openLearnDeckScreen(context, deckKey: deck.key));
             },
             child: Material(
@@ -292,7 +333,7 @@ class DeckListItemWidget extends StatelessWidget {
       return false;
     }
 
-    unawaited(logDeckDelete(deck.key));
+    unawaited(context.read<Analytics>().logDeckDelete(deck.key));
 
     // Don't wait for deck deletion to finish caller animation; if item is
     // removed from the list faster than Dismissible finishes animating, it

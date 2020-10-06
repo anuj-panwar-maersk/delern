@@ -1,4 +1,4 @@
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/helpers/legal.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 const _kDivider = Divider(
@@ -192,7 +193,7 @@ class _SignInState extends State<SignIn> {
     final buttons = <Widget>[
       GoogleSignInButton(
         onPressed: () {
-          logLoginEvent('google');
+          context.read<Analytics>().logLoginEvent('google');
           _signInWithProvider(
             provider: AuthProvider.google,
           );
@@ -201,7 +202,7 @@ class _SignInState extends State<SignIn> {
       _kHeightBetweenWidgets,
       FacebookSignInButton(
         onPressed: () {
-          logLoginEvent('facebook');
+          context.read<Analytics>().logLoginEvent('facebook');
           _signInWithProvider(
             provider: AuthProvider.facebook,
           );
@@ -215,7 +216,7 @@ class _SignInState extends State<SignIn> {
         builder: (context, snapshot) => AppleSignInButton(
           onPressed: snapshot.data == true
               ? () {
-                  logLoginEvent('apple');
+                  context.read<Analytics>().logLoginEvent('apple');
                   _signInWithProvider(
                     provider: AuthProvider.apple,
                   );

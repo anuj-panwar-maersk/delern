@@ -1,6 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:delern_flutter/models/deck_model.dart';
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/view_models/card_create_update_bloc.dart';
 import 'package:delern_flutter/views/base/screen_bloc_view.dart';
 import 'package:delern_flutter/views/card_create_update/card_side_input_widget.dart';
@@ -12,6 +12,7 @@ import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/text_overflow_ellipsis_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CardCreateUpdate extends StatefulWidget {
   static const routeNameNew = '/cards/new';
@@ -78,6 +79,7 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
           deckKey: arguments['deckKey'],
           cardKey: arguments['cardKey'],
           user: user,
+          analytics: context.read<Analytics>(),
         );
         bloc.doFrontSideTextController
             .listen((text) => _frontTextController.text = text);
@@ -147,7 +149,7 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
         onImageSelected: (file) {
           bloc.onFrontImageAdded.add(file);
           _isChanged = true;
-          logAddImageToCard(isFrontSide: true);
+          context.read<Analytics>().logAddImageToCard(isFrontSide: true);
         },
         imageList: DisplayImageListWidget(
           addImageStream: bloc.doFrontImageAdded,
@@ -173,7 +175,7 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
         onImageSelected: (file) {
           bloc.onBackImageAdded.add(file);
           _isChanged = true;
-          logAddImageToCard(isFrontSide: false);
+          context.read<Analytics>().logAddImageToCard(isFrontSide: false);
         },
         imageList: DisplayImageListWidget(
           addImageStream: bloc.doBackImageAdded,
