@@ -63,6 +63,7 @@ class LearningButtonsSection extends StatelessWidget {
                                 .updateDeck(deck: updatedDeck);
                           }
                           unawaited(logIntervalLearningEvent());
+                          unawaited(logStartLearning(deck.key));
                           openLearnCardIntervalScreen(
                             context,
                             deckKey: deck.key,
@@ -83,6 +84,7 @@ class LearningButtonsSection extends StatelessWidget {
                             Image.asset('images/viewing_learning_image.webp'),
                         onTap: () {
                           unawaited(logViewLearningEvent());
+                          unawaited(logStartLearning(deck.key));
                           openLearnCardViewScreen(
                             context,
                             deckKey: deck.key,
