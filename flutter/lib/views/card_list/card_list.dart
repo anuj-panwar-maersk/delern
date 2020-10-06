@@ -96,7 +96,8 @@ class _CardListState extends State<CardList> {
         children: <Widget>[
           _SymmetricHorizontalPadding(
               child: LearningButtonsSection(deck: _currentDeckState)),
-          _SymmetricHorizontalPadding(child: _CardsInFolderWidget(bloc: bloc)),
+          _SymmetricHorizontalPadding(
+              child: _CardsInDeckCounterWidget(bloc: bloc)),
           const SizedBox(height: 4),
           const Divider(
             height: 0,
@@ -320,10 +321,10 @@ class _SymmetricHorizontalPadding extends StatelessWidget {
       );
 }
 
-class _CardsInFolderWidget extends StatelessWidget {
+class _CardsInDeckCounterWidget extends StatelessWidget {
   final EditDeckBloc bloc;
 
-  const _CardsInFolderWidget({@required this.bloc});
+  const _CardsInDeckCounterWidget({@required this.bloc});
 
   @override
   Widget build(BuildContext context) =>
