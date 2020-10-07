@@ -37,7 +37,7 @@ class CardListPopupMenu extends StatelessWidget {
         },
         itemBuilder: (context) => _CardListMenu.values
             .map((e) => PopupMenuItem<_CardListMenu>(
-                  value: _CardListMenu.values[e.index],
+                  value: e,
                   child:
                       Text(_buildMenu(context)[_CardListMenu.values[e.index]]),
                 ))
