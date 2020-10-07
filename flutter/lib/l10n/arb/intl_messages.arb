@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-09-28T18:32:17.284242",
+  "@@last_modified": "2020-10-06T08:51:11.908936",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -78,7 +78,7 @@
     "placeholders": {
     }
   },
-  "numberOfCards": "Cards in the deck: {number}",
+  "numberOfCards": "Cards in this folder: {number}",
   "@numberOfCards": {
     "description": "Card in the deck",
     "type": "text",
@@ -554,7 +554,7 @@
       }
     }
   },
-  "intervalLearning": "Interval",
+  "intervalLearning": "Interval Learning",
   "@intervalLearning": {
     "description": "Interval Learning Label",
     "type": "text",
@@ -568,7 +568,7 @@
     "placeholders": {
     }
   },
-  "viewLearning": "View",
+  "viewLearning": "One after another",
   "@viewLearning": {
     "description": "View Learning Label",
     "type": "text",
@@ -816,6 +816,27 @@
   "notificationInSettingsSchedule": "You can also do it later in app settings.",
   "@notificationInSettingsSchedule": {
     "description": "Schedule notification later in settings label",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "renameDeck": "Rename folder",
+  "@renameDeck": {
+    "description": "Label to rename decks that is used in buttons or menu",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "newName": "New name",
+  "@newName": {
+    "description": "New name label in case user renames something",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "rename": "Rename",
+  "@rename": {
+    "description": "Rename label for buttons and menu",
     "type": "text",
     "placeholders": {
     }

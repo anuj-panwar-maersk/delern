@@ -1,13 +1,11 @@
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
-import 'package:delern_flutter/remote/analytics.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/helpers/routes.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/user_messages.dart';
 import 'package:flutter/material.dart';
-import 'package:pedantic/pedantic.dart';
 
 const double _kMenuExpandedSize = 225;
 const _kAnimationDuration = Duration(milliseconds: 250);
@@ -77,10 +75,6 @@ class _DeckMenuState extends State<DeckMenu>
               context.l.noAddingWithReadAccessUserMessage);
         }
         break;
-      case _DeckMenuItemType.edit:
-        unawaited(logDeckEditMenu(widget.deck.key));
-        openEditDeckScreen(context, deckKey: widget.deck.key);
-        break;
       case _DeckMenuItemType.share:
         if (widget.deck.access == AccessType.owner) {
           openShareDeckScreen(context, widget.deck);
@@ -96,11 +90,10 @@ class _DeckMenuState extends State<DeckMenu>
   }
 }
 
-enum _DeckMenuItemType { add, edit, share, delete }
+enum _DeckMenuItemType { add, share, delete }
 
 Map<_DeckMenuItemType, String> _buildMenu(BuildContext context) => {
       _DeckMenuItemType.add: context.l.addCardsDeckMenu,
-      _DeckMenuItemType.edit: context.l.editCardsDeckMenu,
       if (!CurrentUserWidget.of(context).user.isAnonymous)
         _DeckMenuItemType.share: context.l.shareDeckMenu,
       _DeckMenuItemType.delete: context.l.delete,

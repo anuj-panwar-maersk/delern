@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m4(deckName) => "Изучение: ${deckName}";
 
-  static m5(number) => "Карточек в списке: ${number}";
+  static m5(number) => "Карточек в папке: ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{
@@ -128,7 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "installEmailApp": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста установите приложение Электронной Почты"),
         "intervalLearning":
-            MessageLookupByLibrary.simpleMessage("Интервальное"),
+            MessageLookupByLibrary.simpleMessage("Интервальное изучение"),
         "intervalLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Начать изучение карточек в порядке интервального обучения"),
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
@@ -153,6 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "navigationDrawerSignIn": MessageLookupByLibrary.simpleMessage("Войти"),
         "navigationDrawerSignOut":
             MessageLookupByLibrary.simpleMessage("Выход"),
+        "newName": MessageLookupByLibrary.simpleMessage("Новое имя"),
         "no": MessageLookupByLibrary.simpleMessage("нет"),
         "noAccess": MessageLookupByLibrary.simpleMessage("Нет доступа"),
         "noAddingWithReadAccessUserMessage":
@@ -184,6 +185,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Политика Конфиденциальности"),
         "profileTooltip": MessageLookupByLibrary.simpleMessage("Профиль"),
+        "rename": MessageLookupByLibrary.simpleMessage("Переименовать"),
+        "renameDeck":
+            MessageLookupByLibrary.simpleMessage("Переименовать папку"),
         "reversedCardLabel": MessageLookupByLibrary.simpleMessage(
             "Добавить обратную копию этой карточки"),
         "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
@@ -221,7 +225,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Условия Использования"),
         "unknownDeckType": MessageLookupByLibrary.simpleMessage("Неизвестный"),
-        "viewLearning": MessageLookupByLibrary.simpleMessage("Просмотр"),
+        "viewLearning":
+            MessageLookupByLibrary.simpleMessage("Учить друг за другом"),
         "viewLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Начать изучение всех карточек в любом порядке"),
         "whoHasAccessLabel":

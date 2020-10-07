@@ -1,13 +1,15 @@
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/view_models/edit_deck_bloc.dart';
 import 'package:delern_flutter/views/base/screen_bloc_view.dart';
-import 'package:delern_flutter/views/edit_deck/deck_settings_widget.dart';
-import 'package:delern_flutter/views/edit_deck/scroll_to_beginning_list_widget.dart';
+import 'package:delern_flutter/views/card_list/card_list_menu.dart';
+import 'package:delern_flutter/views/card_list/learning_section/learning_buttons_section.dart';
+import 'package:delern_flutter/views/card_list/scroll_to_beginning_list_widget.dart';
 import 'package:delern_flutter/views/helpers/arrow_to_fab_widget.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
 import 'package:delern_flutter/views/helpers/edit_delete_dismissible_widget.dart';
@@ -23,9 +25,8 @@ import 'package:delern_flutter/views/helpers/user_messages.dart';
 import 'package:flutter/material.dart';
 
 const int _kUpButtonVisibleRow = 20;
-const double _kDividerPadding = 12;
 
-class EditDeck extends StatefulWidget {
+class CardList extends StatefulWidget {
   static const routeName = '/cards';
 
   static Map<String, String> buildArguments({
@@ -35,13 +36,13 @@ class EditDeck extends StatefulWidget {
         'deckKey': deckKey,
       };
 
-  const EditDeck() : super();
+  const CardList() : super();
 
   @override
-  _EditDeckState createState() => _EditDeckState();
+  _CardListState createState() => _CardListState();
 }
 
-class _EditDeckState extends State<EditDeck> {
+class _CardListState extends State<CardList> {
   final TextEditingController _deckNameController = TextEditingController();
   DeckModel _currentDeckState;
   GlobalKey fabKey = GlobalKey();
@@ -87,75 +88,37 @@ class _EditDeckState extends State<EditDeck> {
         return bloc;
       },
       appBarBuilder: (bloc) => SearchBarWidget(
-        title: context.l.edit,
+        title: bloc.deck.name,
         search: (input) => _searchTextChanged(bloc, input),
         actions: _buildActions(bloc),
       ),
       bodyBuilder: (bloc) => Column(
         children: <Widget>[
-          _buildEditDeck(bloc),
-          _buildCardsInDeck(bloc),
-          const Padding(
-            padding: EdgeInsets.only(bottom: _kDividerPadding),
-          ),
+          _SymmetricHorizontalPadding(
+              child: LearningButtonsSection(deck: _currentDeckState)),
+          _SymmetricHorizontalPadding(
+              child: _CardsInDeckCounterWidget(bloc: bloc)),
+          const SizedBox(height: 4),
           const Divider(
             height: 0,
           ),
-          Expanded(child: _buildCardList(bloc)),
+          Expanded(
+            child: _SymmetricHorizontalPadding(
+              child: _buildCardList(bloc),
+            ),
+          ),
         ],
       ),
       floatingActionButtonBuilder: _buildAddCard,
     );
   }
 
-  List<Widget> _buildActions(EditDeckBloc bloc) {
-    final menuAction = IconButton(
-      tooltip: context.l.deckSettingsTooltip,
-      icon: const Icon(Icons.more_vert),
-      onPressed: () {
-        showDialog<void>(
-          context: context,
-          builder: (context) => Dialog(
-              child: DeckSettingsWidget(deck: _currentDeckState, bloc: bloc)),
-        );
-      },
-    );
-
-    return <Widget>[menuAction];
-  }
-
-  Widget _buildEditDeck(EditDeckBloc bloc) => TextField(
-        textAlign: TextAlign.center,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          suffixIcon: const Icon(Icons.edit),
-          // We'd like to center text. Because of suffixIcon, the text
-          // is placed a little bit to the left. To fix this problem, we
-          // add an empty Container with size of Icon to the left.
-          prefixIcon: SizedBox(
-            height: IconTheme.of(context).size,
-            width: IconTheme.of(context).size,
-          ),
-        ),
-        maxLines: null,
-        keyboardType: TextInputType.multiline,
-        controller: _deckNameController,
-        style: app_styles.editDeckText,
-        onChanged: bloc.onDeckName.add,
-      );
-
-  Widget _buildCardsInDeck(EditDeckBloc bloc) =>
-      buildStreamBuilderWithValue<BuiltList<CardModel>>(
-          streamWithValue: bloc.list,
-          builder: (context, snapshot) => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    context.l.numberOfCards(snapshot.data.length),
-                    style: app_styles.secondaryText,
-                  ),
-                ],
-              ));
+  List<Widget> _buildActions(EditDeckBloc bloc) => <Widget>[
+        CardListPopupMenu(
+          bloc: bloc,
+          deck: _currentDeckState,
+        )
+      ];
 
   Widget _buildCardList(EditDeckBloc bloc) {
     final cardVerticalPadding =
@@ -244,33 +207,20 @@ class CardItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emptyExpanded = Expanded(
-      child: Container(
-        color: Colors.transparent,
-      ),
-    );
-
     final minHeight = max(
         MediaQuery.of(context).size.height * app_styles.kItemListHeightRatio,
         app_styles.kMinItemHeight);
-    final primaryFontSize =
-        max(minHeight * 0.25, app_styles.kMinPrimaryTextSize);
-    final primaryTextStyle =
-        app_styles.editCardPrimaryText.copyWith(fontSize: primaryFontSize);
-    final secondaryTextStyle = app_styles.editCardSecondaryText
-        .copyWith(fontSize: primaryFontSize / 1.5);
     final iconSize = max(minHeight * 0.5, app_styles.kMinIconHeight);
     return Row(
       children: <Widget>[
-        emptyExpanded,
         Expanded(
-          flex: 8,
           child: EditDeleteDismissible(
             key: Key(card.key),
             iconSize: iconSize,
             onEdit: (_) => bloc.onEditCardIntention.add(card),
             child: Material(
               elevation: app_styles.kItemElevation,
+              borderRadius: BorderRadius.circular(4),
               child: InkWell(
                 splashColor: Theme.of(context).splashColor,
                 onTap: () => openPreviewCardScreen(
@@ -280,8 +230,12 @@ class CardItemWidget extends StatelessWidget {
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(_kCardBorderPadding),
-                  color:
-                      specifyCardColors(deck.type, card.back).defaultBackground,
+                  decoration: BoxDecoration(
+                    color: specifyCardColors(deck.type, card.back)
+                        .defaultBackground,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+
                   // Use row to expand content to all available space
                   child: Row(
                     children: <Widget>[
@@ -290,17 +244,19 @@ class CardItemWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            TextOverflowEllipsisWidget(
-                              textDetails: card.frontWithoutTags,
-                              textStyle: primaryTextStyle,
+                            CardSideWidget(
+                              imageUrl: card.frontImagesUri.isNotEmpty
+                                  ? card.frontImagesUri[0]
+                                  : null,
+                              text: card.frontWithoutTags,
                             ),
-                            Container(
-                              padding: const EdgeInsets.only(
-                                  top: _kFrontBackTextPadding),
-                              child: TextOverflowEllipsisWidget(
-                                textDetails: card.back ?? '',
-                                textStyle: secondaryTextStyle,
-                              ),
+                            const Divider(),
+                            const SizedBox(height: _kFrontBackTextPadding),
+                            CardSideWidget(
+                              imageUrl: card.backImagesUri.isNotEmpty
+                                  ? card.backImagesUri[0]
+                                  : null,
+                              text: card.back,
                             ),
                           ],
                         ),
@@ -312,8 +268,77 @@ class CardItemWidget extends StatelessWidget {
             ),
           ),
         ),
-        emptyExpanded,
       ],
     );
   }
+}
+
+@immutable
+class CardSideWidget extends StatelessWidget {
+  final String imageUrl;
+  final String text;
+
+  const CardSideWidget({@required this.imageUrl, @required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    final minHeight = max(
+        MediaQuery.of(context).size.height * app_styles.kItemListHeightRatio,
+        app_styles.kMinItemHeight);
+    final primaryFontSize =
+        max(minHeight * 0.25, app_styles.kMinPrimaryTextSize);
+    final primaryTextStyle =
+        app_styles.editCardPrimaryText.copyWith(fontSize: primaryFontSize);
+    return Row(
+      children: [
+        if (imageUrl != null)
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: CachedNetworkImage(
+                height: MediaQuery.of(context).size.height * 0.08,
+                imageUrl: imageUrl),
+          ),
+        TextOverflowEllipsisWidget(
+          textDetails: text ?? '',
+          textStyle: primaryTextStyle,
+        ),
+      ],
+    );
+  }
+}
+
+@immutable
+class _SymmetricHorizontalPadding extends StatelessWidget {
+  final Widget child;
+
+  const _SymmetricHorizontalPadding({@required this.child});
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.025),
+        child: child,
+      );
+}
+
+class _CardsInDeckCounterWidget extends StatelessWidget {
+  final EditDeckBloc bloc;
+
+  const _CardsInDeckCounterWidget({@required this.bloc});
+
+  @override
+  Widget build(BuildContext context) =>
+      buildStreamBuilderWithValue<BuiltList<CardModel>>(
+          streamWithValue: bloc.list,
+          builder: (context, snapshot) => Row(
+                children: <Widget>[
+                  Text(
+                    context.l.numberOfCards(snapshot.data.length),
+                    style: app_styles.secondaryText.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ));
 }

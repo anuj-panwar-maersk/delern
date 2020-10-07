@@ -71,7 +71,7 @@
     "placeholders": {
     }
   },
-  "numberOfCards": "Karten im Lernset: {number}",
+  "numberOfCards": "Lernkarten in diesem Ordner: {number}",
   "@numberOfCards": {
     "description": "Card in the deck",
     "type": "text",
@@ -547,7 +547,7 @@
       }
     }
   },
-  "intervalLearning": "Intervall",
+  "intervalLearning": "Intervall-Lernen",
   "@intervalLearning": {
     "description": "Interval Learning Label",
     "type": "text",
@@ -561,7 +561,7 @@
     "placeholders": {
     }
   },
-  "viewLearning": "Ansehen",
+  "viewLearning": "Nacheinander lernen",
   "@viewLearning": {
     "description": "View Learning Label",
     "type": "text",
@@ -757,9 +757,23 @@
     "placeholders": {
     }
   },
+  "renameDeck": "Ordner umbenennen",
+  "@renameDeck": {
+    "description": "Label to rename decks that is used in buttons or menu",
+    "type": "text",
+    "placeholders": {
+    }
+  },
   "addReminder": "Erinnerung hinzufügen",
   "@addReminder": {
     "description": "Add Reminder label in button",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "newName": "Neuer Name",
+  "@newName": {
+    "description": "New name label in case user renames something",
     "type": "text",
     "placeholders": {
     }
@@ -816,6 +830,13 @@
   "notificationInSettingsSchedule": "Du kannst dies auch später in den App-Einstellungen tun.",
   "@notificationInSettingsSchedule": {
     "description": "Schedule notification later in settings label",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "rename": "Umbenennen",
+  "@rename": {
+    "description": "Rename label for buttons and menu",
     "type": "text",
     "placeholders": {
     }

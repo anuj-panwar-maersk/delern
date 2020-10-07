@@ -155,3 +155,8 @@ Future<void> logScheduleNotifications(
       'cards': totalCards,
       'scheduled': isScheduled ? 1 : 0,
     });
+Future<void> logIntervalLearningEvent() =>
+    FirebaseAnalytics().logEvent(name: 'learning_interval');
+
+Future<void> logViewLearningEvent() =>
+    FirebaseAnalytics().logEvent(name: 'learning_view');

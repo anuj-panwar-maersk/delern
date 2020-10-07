@@ -1,11 +1,11 @@
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/card_create_update/card_create_update.dart';
+import 'package:delern_flutter/views/card_list/card_list.dart';
 import 'package:delern_flutter/views/card_preview/card_preview.dart';
 import 'package:delern_flutter/views/cards_interval_learning/cards_interval_learning.dart';
 import 'package:delern_flutter/views/cards_view_learning/cards_view_learning.dart';
 import 'package:delern_flutter/views/deck_sharing/deck_sharing.dart';
-import 'package:delern_flutter/views/edit_deck/edit_deck.dart';
 import 'package:delern_flutter/views/notifications/notification_settings.dart';
 import 'package:delern_flutter/views/sign_in/sign_in.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 //   take them to list of decks page ("/" named route).
 
 final routes = <String, Widget Function(BuildContext)>{
-  EditDeck.routeName: (_) => const EditDeck(),
+  CardList.routeName: (_) => const CardList(),
   CardCreateUpdate.routeNameNew: (_) => const CardCreateUpdate(),
   CardCreateUpdate.routeNameEdit: (_) => const CardCreateUpdate(),
   CardPreview.routeName: (_) => const CardPreview(),
@@ -31,14 +31,14 @@ final routes = <String, Widget Function(BuildContext)>{
   NotificationSettings.routeName: (_) => const NotificationSettings(),
 };
 
-Future<void> openEditDeckScreen(
+Future<void> openLearnDeckScreen(
   BuildContext context, {
   @required String deckKey,
 }) =>
     Navigator.pushNamed(
       context,
-      EditDeck.routeName,
-      arguments: EditDeck.buildArguments(deckKey: deckKey),
+      CardList.routeName,
+      arguments: CardList.buildArguments(deckKey: deckKey),
     );
 
 Future<void> openLearnCardIntervalScreen(
@@ -72,12 +72,18 @@ Future<void> openLearnCardViewScreen(
 Future<void> openNewCardScreen(
   BuildContext context, {
   @required String deckKey,
-}) =>
-    Navigator.pushNamed(
-      context,
-      CardCreateUpdate.routeNameNew,
-      arguments: CardCreateUpdate.buildArguments(deckKey: deckKey),
-    );
+  bool isDecksScreen = false,
+}) {
+  // After adding cards make sure that user is at learning cards screen
+  if (isDecksScreen) {
+    openLearnDeckScreen(context, deckKey: deckKey);
+  }
+  return Navigator.pushNamed(
+    context,
+    CardCreateUpdate.routeNameNew,
+    arguments: CardCreateUpdate.buildArguments(deckKey: deckKey),
+  );
+}
 
 Future<void> openEditCardScreen(
   BuildContext context, {

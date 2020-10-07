@@ -84,7 +84,7 @@ class AppLocalizations {
       );
 
   String numberOfCards(int number) => Intl.message(
-        'Cards in the deck: $number',
+        'Cards in this folder: $number',
         name: 'numberOfCards',
         args: [number],
         desc: 'Card in the deck',
@@ -512,7 +512,7 @@ Twitter: https://twitter.com/dasdelern''',
       );
 
   String get intervalLearning => Intl.message(
-        'Interval',
+        'Interval Learning',
         name: 'intervalLearning',
         desc: 'Interval Learning Label',
       );
@@ -524,7 +524,7 @@ Twitter: https://twitter.com/dasdelern''',
       );
 
   String get viewLearning => Intl.message(
-        'View',
+        'One after another',
         name: 'viewLearning',
         desc: 'View Learning Label',
       );
@@ -738,5 +738,23 @@ Twitter: https://twitter.com/dasdelern''',
         'You can also do it later in app settings.',
         name: 'notificationInSettingsSchedule',
         desc: 'Schedule notification later in settings label',
+      );
+
+  String get renameDeck => Intl.message(
+        'Rename folder',
+        name: 'renameDeck',
+        desc: 'Label to rename decks that is used in buttons or menu',
+      );
+
+  String get newName => Intl.message(
+        'New name',
+        name: 'newName',
+        desc: 'New name label in case user renames something',
+      );
+
+  String get rename => Intl.message(
+        'Rename',
+        name: 'rename',
+        desc: 'Rename label for buttons and menu',
       );
 }

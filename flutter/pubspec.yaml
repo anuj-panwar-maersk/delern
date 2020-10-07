@@ -24,6 +24,7 @@ dependencies:
   flutter_local_notifications:
   provider:
   intl:
+  auto_size_text:
 
   flutter_sentry:
   # Needed for the User context type, version is bound by flutter_sentry.

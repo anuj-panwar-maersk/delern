@@ -56,7 +56,7 @@
     "placeholders": {
     }
   },
-  "numberOfCards": "Карточек в списке: {number}",
+  "numberOfCards": "Карточек в папке: {number}",
   "@numberOfCards": {
     "description": "Number of cards",
     "type": "text",
@@ -495,14 +495,14 @@
     "placeholders": {
     }
   },
-  "intervalLearning": "Интервальное",
+  "intervalLearning": "Интервальное изучение",
   "@intervalLearning": {
     "description": "Interval Learning Label",
     "type": "text",
     "placeholders": {
     }
   },
-  "viewLearning": "Просмотр",
+  "viewLearning": "Учить друг за другом",
   "@viewLearning": {
     "description": "View Learning Label",
     "type": "text",
@@ -756,9 +756,23 @@
     "placeholders": {
     }
   },
+  "renameDeck": "Переименовать папку",
+  "@renameDeck": {
+    "description": "Label to rename decks that is used in buttons or menu",
+    "type": "text",
+    "placeholders": {
+    }
+  },
   "addReminder": "Добавить напоминание",
   "@addReminder": {
     "description": "Add Reminder label in button",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "newName": "Новое имя",
+  "@newName": {
+    "description": "New name label in case user renames something",
     "type": "text",
     "placeholders": {
     }
@@ -815,6 +829,13 @@
   "notificationInSettingsSchedule": "Вы также можете сделать это позже в настройках приложения.",
   "@notificationInSettingsSchedule": {
     "description": "Schedule notification later in settings label",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "rename": "Переименовать",
+  "@rename": {
+    "description": "Rename label for buttons and menu",
     "type": "text",
     "placeholders": {
     }

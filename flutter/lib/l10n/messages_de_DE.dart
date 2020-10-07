@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m4(deckName) => "Lernen: ${deckName}";
 
-  static m5(number) => "Karten im Lernset: ${number}";
+  static m5(number) => "Lernkarten in diesem Ordner: ${number}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{
@@ -123,7 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Fehler beim Laden des Bildes. Bitte versuche es später."),
         "installEmailApp": MessageLookupByLibrary.simpleMessage(
             "Bitte installiere die E-Mail-App"),
-        "intervalLearning": MessageLookupByLibrary.simpleMessage("Intervall"),
+        "intervalLearning":
+            MessageLookupByLibrary.simpleMessage("Intervall-Lernen"),
         "intervalLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Für das Intervall-Lernen bestellte Lernkarten starten"),
         "inviteToAppMessage": MessageLookupByLibrary.simpleMessage(
@@ -151,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Anmelden"),
         "navigationDrawerSignOut":
             MessageLookupByLibrary.simpleMessage("Abmelden"),
+        "newName": MessageLookupByLibrary.simpleMessage("Neuer Name"),
         "no": MessageLookupByLibrary.simpleMessage("nein"),
         "noAccess": MessageLookupByLibrary.simpleMessage("Kein Zugang"),
         "noAddingWithReadAccessUserMessage":
@@ -184,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
         "profileTooltip": MessageLookupByLibrary.simpleMessage("Profil"),
+        "rename": MessageLookupByLibrary.simpleMessage("Umbenennen"),
+        "renameDeck": MessageLookupByLibrary.simpleMessage("Ordner umbenennen"),
         "reversedCardLabel": MessageLookupByLibrary.simpleMessage(
             "Eine umgekehrte Kopie dieser Karte hinzufügen"),
         "save": MessageLookupByLibrary.simpleMessage("Speichern"),
@@ -221,7 +225,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Nutzungsbedingungen"),
         "unknownDeckType": MessageLookupByLibrary.simpleMessage("Unbekannt"),
-        "viewLearning": MessageLookupByLibrary.simpleMessage("Ansehen"),
+        "viewLearning":
+            MessageLookupByLibrary.simpleMessage("Nacheinander lernen"),
         "viewLearningTooltip": MessageLookupByLibrary.simpleMessage(
             "Lerne alle Karten in beliebiger Reihenfolge zu"),
         "whoHasAccessLabel":
