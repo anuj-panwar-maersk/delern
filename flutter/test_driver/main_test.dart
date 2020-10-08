@@ -273,6 +273,20 @@ void main() {
       await driver.tap(find.pageBack());
     });
 
+    test('Add 3 cards to show notification suggestion screen', () async {
+      await driver.tap(find.text('My Test Deck2'));
+      await driver.tap(find.byType('FloatingActionButton'));
+      await fillInAndAddCard('front 4', 'back4');
+      await fillInAndAddCard('front5', 'back5');
+      await fillInAndAddCard('front6', 'back6');
+      await driver.tap(find.pageBack());
+      await driver
+          .waitFor(find.text(localizations.learnCardsNotificationSuggestion));
+      await tapDialogButton(localizations.later);
+      // Back to the list of decks.
+      await driver.tap(find.pageBack());
+    });
+
     test('Delete deck', () async {
       // Swipe right.
       await driver.scroll(

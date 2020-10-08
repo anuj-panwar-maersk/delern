@@ -101,7 +101,7 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
     if (AppConfig.instance.isNotificationsSet) {
       final notificationScheduleFromAppSettings = serializers.deserializeWith(
           NotificationSchedule.serializer,
-          json.decode(AppConfig.instance.notificationSchedule));
+          json.decode(AppConfig.instance.notificationSchedule ?? '{}'));
       _notificationsSchedule = notificationScheduleFromAppSettings.toBuilder();
       _isNotificationScheduled = true;
     }
