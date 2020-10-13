@@ -228,6 +228,10 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
     for (final day in _notificationsSchedule.notificationSchedule[time]) {
       _cancelWeeklyNotification(time, day);
     }
+    // If nothing is sheduled, make sure to cancel all notifications
+    if (userSchedule.isEmpty) {
+      flutterLocalNotificationsPlugin.cancelAll();
+    }
     _notificationsSchedule.notificationSchedule.remove(time);
     _saveNotificationsToAppSettings();
     notifyListeners();
