@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
@@ -74,11 +75,9 @@ class _CardListState extends State<CardList> with RouteAware {
 
   @override
   void didPopNext() {
-    _scheduleNotifications();
-    // Check notification with delay to make sure that list of cards is showed
-    // It also fails without Future
-    // Uncaught error in zone: 'package:flutter/src/widgets/navigator.dart': Failed assertion: line 3524 pos 12: '!_debugLocked': is not true.
-    Future.delayed(const Duration(milliseconds: 300), _scheduleNotifications);
+    // _scheduleNotifications calls showDialog, and we can't push a route while
+    // popping a route.
+    scheduleMicrotask(_scheduleNotifications);
   }
 
   Future<void> _scheduleNotifications() async {
