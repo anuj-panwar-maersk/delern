@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
@@ -5,12 +6,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
+import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/view_models/edit_deck_bloc.dart';
+import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/base/screen_bloc_view.dart';
 import 'package:delern_flutter/views/card_list/card_list_menu.dart';
 import 'package:delern_flutter/views/card_list/learning_section/learning_buttons_section.dart';
 import 'package:delern_flutter/views/card_list/scroll_to_beginning_list_widget.dart';
 import 'package:delern_flutter/views/helpers/arrow_to_fab_widget.dart';
+import 'package:delern_flutter/views/helpers/auth_widget.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
 import 'package:delern_flutter/views/helpers/edit_delete_dismissible_widget.dart';
 import 'package:delern_flutter/views/helpers/empty_list_message_widget.dart';
@@ -22,7 +27,10 @@ import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/text_overflow_ellipsis_widget.dart';
 import 'package:delern_flutter/views/helpers/user_messages.dart';
+import 'package:delern_flutter/views/notifications/notification_schedule_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
 const int _kUpButtonVisibleRow = 20;
 
@@ -42,10 +50,66 @@ class CardList extends StatefulWidget {
   _CardListState createState() => _CardListState();
 }
 
-class _CardListState extends State<CardList> {
+// Example taken from documentation:
+// ignore: prefer_mixin
+class _CardListState extends State<CardList> with RouteAware {
   final TextEditingController _deckNameController = TextEditingController();
   DeckModel _currentDeckState;
   GlobalKey fabKey = GlobalKey();
+
+  @override
+  void didChangeDependencies() {
+    // didChangeDependencies might be called many times. Unsubscribe in case
+    // it was subscribed before
+    routeObserver?.unsubscribe(this);
+    // ignore: avoid_as
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    // _scheduleNotifications calls showDialog, and we can't push a route while
+    // popping a route.
+    scheduleMicrotask(_scheduleNotifications);
+  }
+
+  Future<void> _scheduleNotifications() async {
+    final user = CurrentUserWidget.of(context).user;
+
+    if (!context.read<LocalNotifications>().isNotificationScheduled) {
+      // Show screen to schedule notifications if cards are created
+      final decks = user.decks.value;
+
+      final totalCards = decks
+          .map((d) => d.cards.value)
+          .fold<int>(0, (previous, element) => previous + element.length);
+
+      if (totalCards >= AppConfig.instance.totalCardsForNotificationSchedule) {
+        final toSchedule = await showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => NotificationScheduleDialog(),
+        );
+        if (toSchedule == true) {
+          await context
+              .read<LocalNotifications>()
+              .scheduleDefaultNotifications();
+        }
+        context.read<LocalNotifications>().showNotificationSuggestion();
+        unawaited(logScheduleNotifications(
+          totalCards: totalCards,
+          isScheduled: toSchedule,
+        ));
+      }
+    }
+  }
 
   void _searchTextChanged(EditDeckBloc bloc, String input) {
     if (input == null) {

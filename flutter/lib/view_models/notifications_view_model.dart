@@ -101,7 +101,7 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
     if (AppConfig.instance.isNotificationsSet) {
       final notificationScheduleFromAppSettings = serializers.deserializeWith(
           NotificationSchedule.serializer,
-          json.decode(AppConfig.instance.notificationSchedule));
+          json.decode(AppConfig.instance.notificationSchedule ?? '{}'));
       _notificationsSchedule = notificationScheduleFromAppSettings.toBuilder();
       _isNotificationScheduled = true;
     }
@@ -227,6 +227,10 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   void deleteReminderRule(TimeOfDay time) {
     for (final day in _notificationsSchedule.notificationSchedule[time]) {
       _cancelWeeklyNotification(time, day);
+    }
+    // If nothing is sheduled, make sure to cancel all notifications
+    if (userSchedule.isEmpty) {
+      flutterLocalNotificationsPlugin.cancelAll();
     }
     _notificationsSchedule.notificationSchedule.remove(time);
     _saveNotificationsToAppSettings();
