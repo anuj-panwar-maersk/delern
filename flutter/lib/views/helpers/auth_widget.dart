@@ -1,25 +1,18 @@
 import 'dart:async';
 
 import 'package:delern_flutter/models/fcm_model.dart';
-import 'package:delern_flutter/models/local_notification.dart';
 import 'package:delern_flutter/models/user.dart';
-import 'package:delern_flutter/remote/analytics/amplitude_analytics.dart';
 import 'package:delern_flutter/remote/analytics/analytics.dart';
-import 'package:delern_flutter/remote/analytics/firebase_analytics.dart';
-import 'package:delern_flutter/remote/analytics/multi_analytics_logger.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
-import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
-import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
 import 'package:delern_flutter/views/sign_in/sign_in.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 
@@ -80,107 +73,55 @@ class _AuthWidgetState extends State<AuthWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => MultiProvider(
-        providers: [
-          Provider(
-            lazy: false,
-            create: setupAnalytics,
-          ),
-          ChangeNotifierProvider(
-              create: (providerContext) {
-                // TODO(ksheremet): Change notifications with
-                // locale change
-                final localizedNotifications =
-                    AppConfig.instance.notificationMessages[
-                            Localizations.localeOf(context).languageCode] ??
-                        [];
-                return LocalNotifications(
-                  onNotificationPressed: (payload) {
-                    providerContext
-                        .read<AnalyticsLogger>()
-                        .logLocalNotificationOpen(payload: payload);
-                  },
-                  flutterLocalNotificationsPlugin:
-                      FlutterLocalNotificationsPlugin(),
-                  messages: localizedNotifications.isNotEmpty
-                      ? localizedNotifications
-                      : <LocalNotification>[
-                          (LocalNotificationBuilder()
-                                ..title = context.l.defaultNotification)
-                              .build()
-                        ],
-                  notificationPurpose: context.l.notificationPurpose,
-                  analytics: providerContext.read<AnalyticsLogger>(),
-                );
-              },
-              lazy: false),
-        ],
-        builder: (context, child) => DataStreamWithValueBuilder<User>(
-          streamWithValue: widget.auth.currentUser,
-          onData: (currentUser) async {
-            if (currentUser == null) {
-              return;
-            }
+  Widget build(BuildContext context) => DataStreamWithValueBuilder<User>(
+        streamWithValue: widget.auth.currentUser,
+        onData: (currentUser) async {
+          if (currentUser == null) {
+            return;
+          }
 
-            // We won't get the first update if the user is already signed in,
-            // but it is only possible when the widget is re-created
-            // for some reason.
-            // When the app starts, the user is always signed out, and it's only
-            // the signInSilently call that we do below that may change that,
-            // without user interaction.
+          // We won't get the first update if the user is already signed in,
+          // but it is only possible when the widget is re-created
+          // for some reason.
+          // When the app starts, the user is always signed out, and it's only
+          // the signInSilently call that we do below that may change that,
+          // without user interaction.
 
-            error_reporting.uid = currentUser.uid;
+          error_reporting.uid = currentUser.uid;
 
-            // Must be called after each login to obtain FirebaseMessaging
-            // token.
-            FirebaseMessaging().configure(
-              // TODO(dotdoom): show a snack bar if message['notification'] map
-              //                has 'title' and 'body' values.
-              onMessage: (message) => null,
-            );
+          // Must be called after each login to obtain FirebaseMessaging
+          // token.
+          FirebaseMessaging().configure(
+            // TODO(dotdoom): show a snack bar if message['notification'] map
+            //                has 'title' and 'body' values.
+            onMessage: (message) => null,
+          );
 
-            // Analytics comes in last, since it's less important.
-            unawaited(
-                context.read<AnalyticsLogger>().setUserId(currentUser.uid));
-            final loginProviders = currentUser.profile.value.providers.isEmpty
-                ? 'anonymous'
-                : currentUser.profile.value.providers.join(',');
+          // Analytics comes in last, since it's less important.
+          unawaited(context.read<AnalyticsLogger>().setUserId(currentUser.uid));
+          final loginProviders = currentUser.profile.value.providers.isEmpty
+              ? 'anonymous'
+              : currentUser.profile.value.providers.join(',');
 
-            unawaited(context
-                .read<AnalyticsLogger>()
-                .logLogin(loginMethod: loginProviders));
+          unawaited(context
+              .read<AnalyticsLogger>()
+              .logLogin(loginMethod: loginProviders));
 
-            if ((await currentUser.auth.latestSignInCreatedNewUser) == true) {
-              unawaited(context.read<AnalyticsLogger>().logSignUp(
-                    signUpMethod: loginProviders,
-                  ));
-            }
-          },
-          builder: (context, currentUser) => CurrentUserWidget(
-            currentUser,
-            child: widget.child,
-          ),
-          nullValueBuilder: (context) => SignIn(
-            SignInMode.initialSignIn,
-            auth: widget.auth,
-          ),
+          if ((await currentUser.auth.latestSignInCreatedNewUser) == true) {
+            unawaited(context.read<AnalyticsLogger>().logSignUp(
+                  signUpMethod: loginProviders,
+                ));
+          }
+        },
+        builder: (context, currentUser) => CurrentUserWidget(
+          currentUser,
+          child: widget.child,
+        ),
+        nullValueBuilder: (context) => SignIn(
+          SignInMode.initialSignIn,
+          auth: widget.auth,
         ),
       );
-}
-
-AnalyticsLogger setupAnalytics(BuildContext context) {
-  final multiAnalyticsLogger =
-      MultiAnalyticsLogger(analyticList: <AnalyticsProvider>[
-    AmplitudeAnalytics(
-      // TODO(ksheremet): Store keys somewehre else
-      apiKey: kReleaseMode
-          ? 'e98825b2d2182ee5c619c3408e27fb60'
-          : '0c6ee8f335c9786288d821ed1ba63852',
-    ),
-    FirebaseAnalyticsWrapper(),
-  ]);
-
-  return AnalyticsLogger(multiAnalyticsLogger);
 }
 
 class CurrentUserWidget extends InheritedWidget {
