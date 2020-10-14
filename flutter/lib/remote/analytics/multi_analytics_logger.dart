@@ -1,8 +1,8 @@
 import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:flutter/foundation.dart';
 
-class MultiAnalyticsLogger extends AnalyticsLogger {
-  final List<AnalyticsLogger> analyticList;
+class MultiAnalyticsLogger extends AnalyticsProvider {
+  final List<AnalyticsProvider> analyticList;
 
   MultiAnalyticsLogger({@required this.analyticList});
 

@@ -1,7 +1,7 @@
 import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-class FirebaseAnalyticsWrapper extends AnalyticsLogger {
+class FirebaseAnalyticsWrapper extends AnalyticsProvider {
   @override
   Future<void> logEvent({String name, Map<String, dynamic> parameters}) =>
       FirebaseAnalytics().logEvent(name: name, parameters: parameters);

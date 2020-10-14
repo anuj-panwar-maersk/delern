@@ -26,7 +26,7 @@ Completer<T> startTrace<T>(String name) {
   return completer;
 }
 
-abstract class AnalyticsLogger {
+abstract class AnalyticsProvider {
   Future<void> logEvent({
     @required String name,
     Map<String, dynamic> parameters,
@@ -37,10 +37,10 @@ abstract class AnalyticsLogger {
   Future<void> setCurrentScreen({@required String screenName});
 }
 
-class Analytics implements AnalyticsLogger {
-  final AnalyticsLogger _analyticsLogger;
+class Analytics implements AnalyticsProvider {
+  final AnalyticsProvider _analyticsLogger;
 
-  Analytics(AnalyticsLogger analyticsLogger)
+  Analytics(AnalyticsProvider analyticsLogger)
       : _analyticsLogger = analyticsLogger;
 
   Future<void> logDeckCreate() =>

@@ -3,7 +3,7 @@ import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:flutter/material.dart';
 
 // https://developers.amplitude.com/docs/flutter-setup
-class AmplitudeAnalytics implements AnalyticsLogger {
+class AmplitudeAnalytics implements AnalyticsProvider {
   final String apiKey;
 
   bool _initialized = false;

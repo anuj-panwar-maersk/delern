@@ -169,7 +169,7 @@ class _AuthWidgetState extends State<AuthWidget> {
 
 Analytics setupAnalytics(BuildContext context) {
   final multiAnalyticsLogger =
-      MultiAnalyticsLogger(analyticList: <AnalyticsLogger>[
+      MultiAnalyticsLogger(analyticList: <AnalyticsProvider>[
     AmplitudeAnalytics(
       // TODO(ksheremet): Store keys somewehre else
       apiKey: kReleaseMode
