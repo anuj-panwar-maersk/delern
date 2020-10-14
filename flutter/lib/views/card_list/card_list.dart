@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/view_models/edit_deck_bloc.dart';
 import 'package:delern_flutter/view_models/notifications_view_model.dart';
@@ -103,10 +103,10 @@ class _CardListState extends State<CardList> with RouteAware {
               .scheduleDefaultNotifications();
         }
         context.read<LocalNotifications>().showNotificationSuggestion();
-        unawaited(logScheduleNotifications(
-          totalCards: totalCards,
-          isScheduled: toSchedule,
-        ));
+        unawaited(context.read<AnalyticsLogger>().logScheduleNotifications(
+              totalCards: totalCards,
+              isScheduled: toSchedule,
+            ));
       }
     }
   }
@@ -362,9 +362,11 @@ class CardSideWidget extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.08,
                 imageUrl: imageUrl),
           ),
-        TextOverflowEllipsisWidget(
-          textDetails: text ?? '',
-          textStyle: primaryTextStyle,
+        Expanded(
+          child: TextOverflowEllipsisWidget(
+            textDetails: text ?? '',
+            textStyle: primaryTextStyle,
+          ),
         ),
       ],
     );

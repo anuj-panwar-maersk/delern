@@ -14,7 +14,6 @@ class AmplitudeAnalytics implements AnalyticsProvider {
     final instance = Amplitude.getInstance();
     if (!_initialized) {
       await instance.init(apiKey);
-      await instance.trackingSessionEvents(true);
       _initialized = true;
     }
     return instance;
