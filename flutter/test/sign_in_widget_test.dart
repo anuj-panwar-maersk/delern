@@ -44,7 +44,7 @@ void main() {
           AppLocalizationsDelegate(),
         ],
         home: Scaffold(
-          body: Provider<Analytics>(
+          body: Provider<AnalyticsLogger>(
             create: (_) => MockAnalytics(),
             builder: (context, _) => SignIn(
               SignInMode.initialSignIn,
@@ -73,7 +73,7 @@ void main() {
         ],
         navigatorObservers: [observer],
         home: Scaffold(
-          body: Provider<Analytics>(
+          body: Provider<AnalyticsLogger>(
             create: (_) => MockAnalytics(),
             builder: (context, _) => SignIn(
               SignInMode.linkToAccount,
@@ -104,4 +104,4 @@ class MockAuth extends Mock implements Auth {}
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
-class MockAnalytics extends Mock implements Analytics {}
+class MockAnalytics extends Mock implements AnalyticsLogger {}

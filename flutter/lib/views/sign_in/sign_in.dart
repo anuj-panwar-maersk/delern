@@ -193,7 +193,7 @@ class _SignInState extends State<SignIn> {
     final buttons = <Widget>[
       GoogleSignInButton(
         onPressed: () {
-          context.read<Analytics>().logLoginEvent('google');
+          context.read<AnalyticsLogger>().logLoginEvent('google');
           _signInWithProvider(
             provider: AuthProvider.google,
           );
@@ -202,7 +202,7 @@ class _SignInState extends State<SignIn> {
       _kHeightBetweenWidgets,
       FacebookSignInButton(
         onPressed: () {
-          context.read<Analytics>().logLoginEvent('facebook');
+          context.read<AnalyticsLogger>().logLoginEvent('facebook');
           _signInWithProvider(
             provider: AuthProvider.facebook,
           );
@@ -216,7 +216,7 @@ class _SignInState extends State<SignIn> {
         builder: (context, snapshot) => AppleSignInButton(
           onPressed: snapshot.data == true
               ? () {
-                  context.read<Analytics>().logLoginEvent('apple');
+                  context.read<AnalyticsLogger>().logLoginEvent('apple');
                   _signInWithProvider(
                     provider: AuthProvider.apple,
                   );

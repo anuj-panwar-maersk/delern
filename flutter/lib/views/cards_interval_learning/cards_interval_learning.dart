@@ -197,15 +197,16 @@ class CardsIntervalLearningState extends State<CardsIntervalLearning> {
 
                               if (_answersCount.value == 1) {
                                 unawaited(context
-                                    .read<Analytics>()
+                                    .read<AnalyticsLogger>()
                                     .logStartLearning(deck.key));
                               }
-                              unawaited(
-                                  context.read<Analytics>().logCardResponse(
-                                        deckId: deck.key,
-                                        knows: knows,
-                                        previousLevel: scheduledCard.level,
-                                      ));
+                              unawaited(context
+                                  .read<AnalyticsLogger>()
+                                  .logCardResponse(
+                                    deckId: deck.key,
+                                    knows: knows,
+                                    previousLevel: scheduledCard.level,
+                                  ));
                             },
                           ),
                         ),

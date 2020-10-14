@@ -44,7 +44,7 @@ class _DeckSharingState extends State<DeckSharing> {
       _deckAccessesViewModel = DeckAccessesViewModel(
         user: user,
         deck: widget._deck,
-        analytics: context.read<Analytics>(),
+        analytics: context.read<AnalyticsLogger>(),
       );
     }
     super.didChangeDependencies();

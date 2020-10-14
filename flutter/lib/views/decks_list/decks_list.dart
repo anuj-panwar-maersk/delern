@@ -52,7 +52,7 @@ class _DecksListState extends State<DecksList> {
       _bloc?.dispose();
       _bloc = DecksListBloc(
         user: user,
-        analytics: context.read<Analytics>(),
+        analytics: context.read<AnalyticsLogger>(),
       );
     }
     super.didChangeDependencies();
@@ -82,7 +82,7 @@ class _DecksListState extends State<DecksList> {
               .scheduleDefaultNotifications();
         }
         context.read<LocalNotifications>().showNotificationSuggestion();
-        unawaited(context.read<Analytics>().logScheduleNotifications(
+        unawaited(context.read<AnalyticsLogger>().logScheduleNotifications(
               totalCards: totalCards,
               isScheduled: toSchedule,
             ));
@@ -233,7 +233,8 @@ class DeckListItemWidget extends StatelessWidget {
             iconSize: iconSize,
             onDelete: _confirmAndDeleteDeck,
             onEdit: (context) {
-              unawaited(context.read<Analytics>().logDeckEditSwipe(deck.key));
+              unawaited(
+                  context.read<AnalyticsLogger>().logDeckEditSwipe(deck.key));
               unawaited(openLearnDeckScreen(context, deckKey: deck.key));
             },
             child: Material(
@@ -333,7 +334,7 @@ class DeckListItemWidget extends StatelessWidget {
       return false;
     }
 
-    unawaited(context.read<Analytics>().logDeckDelete(deck.key));
+    unawaited(context.read<AnalyticsLogger>().logDeckDelete(deck.key));
 
     // Don't wait for deck deletion to finish caller animation; if item is
     // removed from the list faster than Dismissible finishes animating, it

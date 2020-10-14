@@ -29,7 +29,7 @@ class CardCreateUpdateBloc extends ScreenBloc {
   // on device.
   final List<String> _imagesToDelete = [];
 
-  final Analytics analytics;
+  final AnalyticsLogger analytics;
 
   CardCreateUpdateBloc({
     @required User user,

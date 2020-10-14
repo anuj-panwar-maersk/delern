@@ -45,7 +45,7 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   final NotificationPressedCallback onNotificationPressed;
   final List<LocalNotification> messages;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  final Analytics analytics;
+  final AnalyticsLogger analytics;
   bool _isNotificationScheduled = false;
   bool _iosPermissionGranted = false;
   final String notificationPurpose;

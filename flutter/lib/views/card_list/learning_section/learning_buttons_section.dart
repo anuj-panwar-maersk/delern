@@ -63,12 +63,12 @@ class LearningButtonsSection extends StatelessWidget {
                                 .user
                                 .updateDeck(deck: updatedDeck);
                           }
-                          unawaited(
-                              Provider.of<Analytics>(context, listen: false)
-                                  .logIntervalLearningEvent());
-                          unawaited(
-                              Provider.of<Analytics>(context, listen: false)
-                                  .logStartLearning(deck.key));
+                          unawaited(Provider.of<AnalyticsLogger>(context,
+                                  listen: false)
+                              .logIntervalLearningEvent());
+                          unawaited(Provider.of<AnalyticsLogger>(context,
+                                  listen: false)
+                              .logStartLearning(deck.key));
                           openLearnCardIntervalScreen(
                             context,
                             deckKey: deck.key,
@@ -90,12 +90,12 @@ class LearningButtonsSection extends StatelessWidget {
                         onTap: () {
                           // Use Provider.of instead of context because
                           // it interfere with localization context (context.l)
-                          unawaited(
-                              Provider.of<Analytics>(context, listen: false)
-                                  .logViewLearningEvent());
-                          unawaited(
-                              Provider.of<Analytics>(context, listen: false)
-                                  .logStartLearning(deck.key));
+                          unawaited(Provider.of<AnalyticsLogger>(context,
+                                  listen: false)
+                              .logViewLearningEvent());
+                          unawaited(Provider.of<AnalyticsLogger>(context,
+                                  listen: false)
+                              .logStartLearning(deck.key));
                           openLearnCardViewScreen(
                             context,
                             deckKey: deck.key,

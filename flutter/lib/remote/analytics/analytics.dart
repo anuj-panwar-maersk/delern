@@ -37,10 +37,10 @@ abstract class AnalyticsProvider {
   Future<void> setCurrentScreen({@required String screenName});
 }
 
-class Analytics implements AnalyticsProvider {
+class AnalyticsLogger {
   final AnalyticsProvider _analyticsLogger;
 
-  Analytics(AnalyticsProvider analyticsLogger)
+  AnalyticsLogger(AnalyticsProvider analyticsLogger)
       : _analyticsLogger = analyticsLogger;
 
   Future<void> logDeckCreate() =>
@@ -198,14 +198,5 @@ class Analytics implements AnalyticsProvider {
   Future<void> logViewLearningEvent() =>
       _analyticsLogger.logEvent(name: 'learning_view');
 
-  @override
-  Future<void> logEvent({String name, Map<String, dynamic> parameters}) =>
-      _analyticsLogger.logEvent(name: name, parameters: parameters);
-
-  @override
-  Future<void> setCurrentScreen({String screenName}) =>
-      _analyticsLogger.setCurrentScreen(screenName: screenName);
-
-  @override
   Future<void> setUserId(String id) => _analyticsLogger.setUserId(id);
 }

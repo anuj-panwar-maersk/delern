@@ -11,7 +11,7 @@ import 'package:pedantic/pedantic.dart';
 class DeckAccessesViewModel {
   final DeckModel deck;
   final User user;
-  final Analytics analytics;
+  final AnalyticsLogger analytics;
 
   ListAccessor<DeckAccessModel> get list => _list;
   final FilteredListAccessor<DeckAccessModel> _list;

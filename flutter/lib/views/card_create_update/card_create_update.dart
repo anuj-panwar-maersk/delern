@@ -79,7 +79,7 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
           deckKey: arguments['deckKey'],
           cardKey: arguments['cardKey'],
           user: user,
-          analytics: context.read<Analytics>(),
+          analytics: context.read<AnalyticsLogger>(),
         );
         bloc.doFrontSideTextController
             .listen((text) => _frontTextController.text = text);
@@ -149,7 +149,7 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
         onImageSelected: (file) {
           bloc.onFrontImageAdded.add(file);
           _isChanged = true;
-          context.read<Analytics>().logAddImageToCard(isFrontSide: true);
+          context.read<AnalyticsLogger>().logAddImageToCard(isFrontSide: true);
         },
         imageList: DisplayImageListWidget(
           addImageStream: bloc.doFrontImageAdded,
@@ -175,7 +175,7 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
         onImageSelected: (file) {
           bloc.onBackImageAdded.add(file);
           _isChanged = true;
-          context.read<Analytics>().logAddImageToCard(isFrontSide: false);
+          context.read<AnalyticsLogger>().logAddImageToCard(isFrontSide: false);
         },
         imageList: DisplayImageListWidget(
           addImageStream: bloc.doBackImageAdded,

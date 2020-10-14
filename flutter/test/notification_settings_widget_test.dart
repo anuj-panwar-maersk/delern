@@ -83,4 +83,4 @@ Future<void> deleteNotifications(WidgetTester tester) async {
 class MockFlutterLocalNotificationsPlugin extends Mock
     implements FlutterLocalNotificationsPlugin {}
 
-class MockAnalytics extends Mock implements Analytics {}
+class MockAnalytics extends Mock implements AnalyticsLogger {}

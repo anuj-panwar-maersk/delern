@@ -97,7 +97,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                 return LocalNotifications(
                   onNotificationPressed: (payload) {
                     providerContext
-                        .read<Analytics>()
+                        .read<AnalyticsLogger>()
                         .logLocalNotificationOpen(payload: payload);
                   },
                   flutterLocalNotificationsPlugin:
@@ -110,7 +110,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                               .build()
                         ],
                   notificationPurpose: context.l.notificationPurpose,
-                  analytics: providerContext.read<Analytics>(),
+                  analytics: providerContext.read<AnalyticsLogger>(),
                 );
               },
               lazy: false),
@@ -140,17 +140,18 @@ class _AuthWidgetState extends State<AuthWidget> {
             );
 
             // Analytics comes in last, since it's less important.
-            unawaited(context.read<Analytics>().setUserId(currentUser.uid));
+            unawaited(
+                context.read<AnalyticsLogger>().setUserId(currentUser.uid));
             final loginProviders = currentUser.profile.value.providers.isEmpty
                 ? 'anonymous'
                 : currentUser.profile.value.providers.join(',');
 
             unawaited(context
-                .read<Analytics>()
+                .read<AnalyticsLogger>()
                 .logLogin(loginMethod: loginProviders));
 
             if ((await currentUser.auth.latestSignInCreatedNewUser) == true) {
-              unawaited(context.read<Analytics>().logSignUp(
+              unawaited(context.read<AnalyticsLogger>().logSignUp(
                     signUpMethod: loginProviders,
                   ));
             }
@@ -167,7 +168,7 @@ class _AuthWidgetState extends State<AuthWidget> {
       );
 }
 
-Analytics setupAnalytics(BuildContext context) {
+AnalyticsLogger setupAnalytics(BuildContext context) {
   final multiAnalyticsLogger =
       MultiAnalyticsLogger(analyticList: <AnalyticsProvider>[
     AmplitudeAnalytics(
@@ -179,7 +180,7 @@ Analytics setupAnalytics(BuildContext context) {
     FirebaseAnalyticsWrapper(),
   ]);
 
-  return Analytics(multiAnalyticsLogger);
+  return AnalyticsLogger(multiAnalyticsLogger);
 }
 
 class CurrentUserWidget extends InheritedWidget {

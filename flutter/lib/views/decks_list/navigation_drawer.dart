@@ -200,7 +200,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     BuildContext context,
     User user,
   ) async {
-    unawaited(context.read<Analytics>().logPromoteAnonymous());
+    unawaited(context.read<AnalyticsLogger>().logPromoteAnonymous());
     return openLinkAccountScreen(context, auth: user.auth);
   }
 }

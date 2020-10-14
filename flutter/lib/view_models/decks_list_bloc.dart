@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 
 class DecksListBloc {
   final User user;
-  final Analytics analytics;
+  final AnalyticsLogger analytics;
 
   ListAccessor<DeckModel> get decksList => _filteredDecksList;
   FilteredListAccessor<DeckModel> _filteredDecksList;
