@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/view_models/decks_list_bloc.dart';
 import 'package:delern_flutter/views/decks_list/create_deck_widget.dart';
 import 'package:delern_flutter/views/decks_list/deck_menu.dart';
@@ -22,6 +22,7 @@ import 'package:delern_flutter/views/helpers/user_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
 class DecksList extends StatefulWidget {
   const DecksList();
@@ -44,7 +45,10 @@ class _DecksListState extends State<DecksList> {
     final user = CurrentUserWidget.of(context).user;
     if (_bloc?.user != user) {
       _bloc?.dispose();
-      _bloc = DecksListBloc(user: user);
+      _bloc = DecksListBloc(
+        user: user,
+        analytics: context.read<AnalyticsLogger>(),
+      );
     }
     super.didChangeDependencies();
   }
@@ -192,7 +196,8 @@ class DeckListItemWidget extends StatelessWidget {
             iconSize: iconSize,
             onDelete: _confirmAndDeleteDeck,
             onEdit: (context) {
-              unawaited(logDeckEditSwipe(deck.key));
+              unawaited(
+                  context.read<AnalyticsLogger>().logDeckEditSwipe(deck.key));
               unawaited(openLearnDeckScreen(context, deckKey: deck.key));
             },
             child: Material(
@@ -292,7 +297,7 @@ class DeckListItemWidget extends StatelessWidget {
       return false;
     }
 
-    unawaited(logDeckDelete(deck.key));
+    unawaited(context.read<AnalyticsLogger>().logDeckDelete(deck.key));
 
     // Don't wait for deck deletion to finish caller animation; if item is
     // removed from the list faster than Dismissible finishes animating, it

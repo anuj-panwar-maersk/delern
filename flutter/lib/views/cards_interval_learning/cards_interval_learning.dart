@@ -7,7 +7,7 @@ import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/models/scheduled_card_model.dart';
 import 'package:delern_flutter/models/user.dart';
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/views/cards_interval_learning/card_actions_menu_widget.dart';
 import 'package:delern_flutter/views/cards_interval_learning/card_answer_buttons_widget.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
@@ -22,6 +22,7 @@ import 'package:delern_flutter/views/helpers/text_overflow_ellipsis_widget.dart'
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
 const _kCardPaddingRatio = 0.07;
 
@@ -195,13 +196,17 @@ class CardsIntervalLearningState extends State<CardsIntervalLearning> {
                               ++_answersCount.value;
 
                               if (_answersCount.value == 1) {
-                                unawaited(logStartLearning(deck.key));
+                                unawaited(context
+                                    .read<AnalyticsLogger>()
+                                    .logStartLearning(deck.key));
                               }
-                              unawaited(logCardResponse(
-                                deckId: deck.key,
-                                knows: knows,
-                                previousLevel: scheduledCard.level,
-                              ));
+                              unawaited(context
+                                  .read<AnalyticsLogger>()
+                                  .logCardResponse(
+                                    deckId: deck.key,
+                                    knows: knows,
+                                    previousLevel: scheduledCard.level,
+                                  ));
                             },
                           ),
                         ),

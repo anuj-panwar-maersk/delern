@@ -1,4 +1,8 @@
 PODS:
+  - Amplitude (5.2.1)
+  - amplitude_flutter (0.0.1):
+    - Amplitude (= 5.2.1)
+    - Flutter
   - "app_settings (3.0.0+1)":
     - Flutter
   - AppAuth (1.4.0):
@@ -249,6 +253,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - amplitude_flutter (from `.symlinks/plugins/amplitude_flutter/ios`)
   - app_settings (from `.symlinks/plugins/app_settings/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
@@ -275,6 +280,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Amplitude
     - AppAuth
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -309,6 +315,8 @@ SPEC REPOS:
     - Sentry
 
 EXTERNAL SOURCES:
+  amplitude_flutter:
+    :path: ".symlinks/plugins/amplitude_flutter/ios"
   app_settings:
     :path: ".symlinks/plugins/app_settings/ios"
   device_info:
@@ -357,6 +365,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
+  Amplitude: 9774e93d48d9f41f271a4479e06369a30ab31db1
+  amplitude_flutter: 5b9cab3f48db637a37d67b93e5dc49fa9b206686
   app_settings: d103828c9f5d515c4df9ee754dabd443f7cedcf3
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
@@ -413,6 +423,6 @@ SPEC CHECKSUMS:
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: b3818bea47ae64ad7aa38e9f65cc7ad2be32d5e6
 
 COCOAPODS: 1.9.3

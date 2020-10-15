@@ -1,6 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:delern_flutter/models/deck_model.dart';
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/views/card_list/learning_section/learning_method_widget.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
@@ -10,6 +10,7 @@ import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
 import 'package:delern_flutter/views/helpers/tags_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
 @immutable
 class LearningButtonsSection extends StatelessWidget {
@@ -62,8 +63,12 @@ class LearningButtonsSection extends StatelessWidget {
                                 .user
                                 .updateDeck(deck: updatedDeck);
                           }
-                          unawaited(logIntervalLearningEvent());
-                          unawaited(logStartLearning(deck.key));
+                          unawaited(Provider.of<AnalyticsLogger>(context,
+                                  listen: false)
+                              .logIntervalLearningEvent());
+                          unawaited(Provider.of<AnalyticsLogger>(context,
+                                  listen: false)
+                              .logStartLearning(deck.key));
                           openLearnCardIntervalScreen(
                             context,
                             deckKey: deck.key,
@@ -83,8 +88,14 @@ class LearningButtonsSection extends StatelessWidget {
                         image:
                             Image.asset('images/viewing_learning_image.webp'),
                         onTap: () {
-                          unawaited(logViewLearningEvent());
-                          unawaited(logStartLearning(deck.key));
+                          // Use Provider.of instead of context because
+                          // it interfere with localization context (context.l)
+                          unawaited(Provider.of<AnalyticsLogger>(context,
+                                  listen: false)
+                              .logViewLearningEvent());
+                          unawaited(Provider.of<AnalyticsLogger>(context,
+                                  listen: false)
+                              .logStartLearning(deck.key));
                           openLearnCardViewScreen(
                             context,
                             deckKey: deck.key,

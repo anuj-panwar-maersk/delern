@@ -10,7 +10,7 @@ import 'package:delern_flutter/models/local_notification.dart';
 import 'package:delern_flutter/models/notification_payload.dart';
 import 'package:delern_flutter/models/notification_schedule.dart';
 import 'package:delern_flutter/models/serializers.dart';
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +45,7 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   final NotificationPressedCallback onNotificationPressed;
   final List<LocalNotification> messages;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  final AnalyticsLogger analytics;
   bool _isNotificationScheduled = false;
   bool _iosPermissionGranted = false;
   final String notificationPurpose;
@@ -56,6 +57,7 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
     @required this.messages,
     @required this.flutterLocalNotificationsPlugin,
     @required this.notificationPurpose,
+    @required this.analytics,
   }) {
     _init();
     _initUserScheduledNotifications();
@@ -110,8 +112,8 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
   Future<bool> _checkPermissions() async {
     if (Platform.isIOS && !_iosPermissionGranted) {
       _iosPermissionGranted = await _requestIOSPermissions();
-      unawaited(
-          logIosNotificationPermissions(isGranted: _iosPermissionGranted));
+      unawaited(analytics.logIosNotificationPermissions(
+          isGranted: _iosPermissionGranted));
     }
     if (Platform.isIOS) {
       return _iosPermissionGranted;

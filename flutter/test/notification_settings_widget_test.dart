@@ -1,4 +1,5 @@
 import 'package:delern_flutter/models/local_notification.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
@@ -16,17 +17,18 @@ void main() {
       await tester.pumpWidget(
         ChangeNotifierProvider<LocalNotifications>(
           create: (context) => LocalNotifications(
-              flutterLocalNotificationsPlugin:
-                  MockFlutterLocalNotificationsPlugin(),
-              messages: [
-                (LocalNotificationBuilder()..title = 'Test notification')
-                    .build()
-              ],
-              notificationPurpose: 'Test',
-              onNotificationPressed: (payload) {
-                debugPrint(
-                    'Notification pressed with payload:${payload.toString()}');
-              }),
+            flutterLocalNotificationsPlugin:
+                MockFlutterLocalNotificationsPlugin(),
+            messages: [
+              (LocalNotificationBuilder()..title = 'Test notification').build()
+            ],
+            notificationPurpose: 'Test',
+            onNotificationPressed: (payload) {
+              debugPrint(
+                  'Notification pressed with payload:${payload.toString()}');
+            },
+            analytics: MockAnalytics(),
+          ),
           child: const MaterialApp(
             localizationsDelegates: [
               AppLocalizationsDelegate(),
@@ -80,3 +82,5 @@ Future<void> deleteNotifications(WidgetTester tester) async {
 
 class MockFlutterLocalNotificationsPlugin extends Mock
     implements FlutterLocalNotificationsPlugin {}
+
+class MockAnalytics extends Mock implements AnalyticsLogger {}

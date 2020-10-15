@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/user_lookup.dart';
 import 'package:delern_flutter/view_models/deck_access_view_model.dart';
@@ -18,6 +19,7 @@ import 'package:delern_flutter/views/helpers/slow_operation_widget.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/user_messages.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DeckSharing extends StatefulWidget {
   static const routeName = '/share-deck';
@@ -39,8 +41,11 @@ class _DeckSharingState extends State<DeckSharing> {
   void didChangeDependencies() {
     final user = CurrentUserWidget.of(context).user;
     if (_deckAccessesViewModel?.user != user) {
-      _deckAccessesViewModel =
-          DeckAccessesViewModel(user: user, deck: widget._deck);
+      _deckAccessesViewModel = DeckAccessesViewModel(
+        user: user,
+        deck: widget._deck,
+        analytics: context.read<AnalyticsLogger>(),
+      );
     }
     super.didChangeDependencies();
   }

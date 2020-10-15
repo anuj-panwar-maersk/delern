@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/sign_in/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   testWidgets(
@@ -42,9 +44,12 @@ void main() {
           AppLocalizationsDelegate(),
         ],
         home: Scaffold(
-          body: SignIn(
-            SignInMode.initialSignIn,
-            auth: auth,
+          body: Provider<AnalyticsLogger>(
+            create: (_) => MockAnalytics(),
+            builder: (context, _) => SignIn(
+              SignInMode.initialSignIn,
+              auth: auth,
+            ),
           ),
         ),
       ));
@@ -68,9 +73,12 @@ void main() {
         ],
         navigatorObservers: [observer],
         home: Scaffold(
-          body: SignIn(
-            SignInMode.linkToAccount,
-            auth: auth,
+          body: Provider<AnalyticsLogger>(
+            create: (_) => MockAnalytics(),
+            builder: (context, _) => SignIn(
+              SignInMode.linkToAccount,
+              auth: auth,
+            ),
           ),
         ),
       ));
@@ -95,3 +103,5 @@ void main() {
 class MockAuth extends Mock implements Auth {}
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
+class MockAnalytics extends Mock implements AnalyticsLogger {}

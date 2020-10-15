@@ -6,7 +6,7 @@ import 'package:delern_flutter/models/base/stream_with_value.dart';
 import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/models/user.dart';
-import 'package:delern_flutter/remote/analytics.dart';
+import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
 import 'package:delern_flutter/view_models/base/screen_bloc.dart';
 import 'package:meta/meta.dart';
@@ -29,9 +29,12 @@ class CardCreateUpdateBloc extends ScreenBloc {
   // on device.
   final List<String> _imagesToDelete = [];
 
+  final AnalyticsLogger analytics;
+
   CardCreateUpdateBloc({
     @required User user,
     @required String deckKey,
+    @required this.analytics,
     String cardKey,
   })  : assert(deckKey != null),
         isAddOperation = cardKey == null,
@@ -229,7 +232,7 @@ class CardCreateUpdateBloc extends ScreenBloc {
     final card = _card.build();
 
     if (isAddOperation) {
-      logCardCreate(card.deckKey);
+      analytics.logCardCreate(card.deckKey);
       return user.createCard(card: card, addReversed: _addReversedCard);
     } else {
       return user.updateCard(card: card);
