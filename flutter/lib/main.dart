@@ -1,3 +1,4 @@
+import 'package:amplitude_flutter/amplitude.dart';
 import 'package:delern_flutter/models/local_notification.dart';
 import 'package:delern_flutter/remote/analytics/amplitude_analytics.dart';
 import 'package:delern_flutter/remote/analytics/analytics.dart';
@@ -32,9 +33,11 @@ class App extends StatelessWidget {
       FirebaseAnalyticsObserver(analytics: FirebaseAnalytics());
 
   final Auth auth;
+  final AnalyticsLogger analyticsLogger;
 
   const App({
     @required this.auth,
+    @required this.analyticsLogger,
   });
 
   @override
@@ -79,38 +82,37 @@ class App extends StatelessWidget {
                   providers: [
                     Provider(
                       lazy: false,
-                      create: setupAnalytics,
+                      create: (_) => analyticsLogger,
                     ),
                     ChangeNotifierProvider(
-                        create: (providerContext) {
-                          // TODO(ksheremet): Change notifications with
-                          // locale change
-                          final localizedNotifications =
-                              AppConfig.instance.notificationMessages[
-                                      Localizations.localeOf(context)
-                                          .languageCode] ??
-                                  [];
-                          return LocalNotifications(
-                            onNotificationPressed: (payload) {
-                              providerContext
-                                  .read<AnalyticsLogger>()
-                                  .logLocalNotificationOpen(payload: payload);
-                            },
-                            flutterLocalNotificationsPlugin:
-                                FlutterLocalNotificationsPlugin(),
-                            messages: localizedNotifications.isNotEmpty
-                                ? localizedNotifications
-                                : <LocalNotification>[
-                                    (LocalNotificationBuilder()
-                                          ..title =
-                                              context.l.defaultNotification)
-                                        .build()
-                                  ],
-                            notificationPurpose: context.l.notificationPurpose,
-                            analytics: providerContext.read<AnalyticsLogger>(),
-                          );
-                        },
-                        lazy: false),
+                      create: (providerContext) {
+                        // TODO(ksheremet): Change notifications with
+                        // locale change
+                        final localizedNotifications = AppConfig
+                                    .instance.notificationMessages[
+                                Localizations.localeOf(context).languageCode] ??
+                            [];
+                        return LocalNotifications(
+                          onNotificationPressed: (payload) {
+                            providerContext
+                                .read<AnalyticsLogger>()
+                                .logLocalNotificationOpen(payload: payload);
+                          },
+                          flutterLocalNotificationsPlugin:
+                              FlutterLocalNotificationsPlugin(),
+                          messages: localizedNotifications.isNotEmpty
+                              ? localizedNotifications
+                              : <LocalNotification>[
+                                  (LocalNotificationBuilder()
+                                        ..title = context.l.defaultNotification)
+                                      .build()
+                                ],
+                          notificationPurpose: context.l.notificationPurpose,
+                          analytics: providerContext.read<AnalyticsLogger>(),
+                        );
+                      },
+                      lazy: false,
+                    ),
                   ],
                   child: AuthWidget(
                     auth: auth,
@@ -129,29 +131,37 @@ class App extends StatelessWidget {
   }
 }
 
-AnalyticsLogger setupAnalytics(BuildContext context) {
-  final multiAnalyticsLogger =
-      MultiAnalyticsLogger(analyticList: <AnalyticsProvider>[
-    AmplitudeAnalytics(
-      // TODO(ksheremet): Store keys somewehre else
-      apiKey: kReleaseMode
-          ? 'e98825b2d2182ee5c619c3408e27fb60'
-          : '0c6ee8f335c9786288d821ed1ba63852',
+Future<AnalyticsLogger> _setupAnalytics() async {
+  final amplitudeInstance = Amplitude.getInstance();
+  // TODO(ksheremet): Store keys somewehre else
+  await amplitudeInstance.init(
+    kReleaseMode
+        ? 'e98825b2d2182ee5c619c3408e27fb60'
+        : '0c6ee8f335c9786288d821ed1ba63852',
+  );
+  final multiAnalyticsProvider =
+      MultiAnalyticsProvider(analyticList: <AnalyticsProvider>[
+    AmplitudeAnalyticsProvider(
+      instance: amplitudeInstance,
     ),
-    FirebaseAnalyticsWrapper(),
+    FirebaseAnalyticsProvider(),
   ]);
 
-  return AnalyticsLogger(multiAnalyticsLogger);
+  return AnalyticsLogger(multiAnalyticsProvider);
 }
 
 Future<void> main() async => FlutterSentry.wrap(
       () async {
         await Firebase.initializeApp();
         unawaited(FirebaseDatabase.instance.setPersistenceEnabled(true));
-        unawaited(FirebaseAnalytics().logAppOpen());
         await AppConfig.instance.initialize();
         setDeviceOrientation();
-        runApp(App(auth: Auth()));
+        final analyticsLogger = await _setupAnalytics();
+        unawaited(analyticsLogger.logAppOpen());
+        runApp(App(
+          auth: Auth(),
+          analyticsLogger: analyticsLogger,
+        ));
       },
       dsn: 'https://e6b5021448e14a49803b2c734621deae@sentry.io/1867466',
     );

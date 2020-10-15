@@ -199,4 +199,6 @@ class AnalyticsLogger {
       _analyticsLogger.logEvent(name: 'learning_view');
 
   Future<void> setUserId(String id) => _analyticsLogger.setUserId(id);
+
+  Future<void> logAppOpen() => _analyticsLogger.logEvent(name: 'app_open');
 }
