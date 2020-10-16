@@ -39,7 +39,7 @@ class LearningButtonsSection extends StatelessWidget {
                 : const ProgressIndicatorWidget(),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.23,
+            height: MediaQuery.of(context).size.height * 0.20,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
