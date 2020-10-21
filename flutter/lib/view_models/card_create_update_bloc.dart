@@ -71,6 +71,12 @@ class CardCreateUpdateBloc extends ScreenBloc {
   final _onBackSideTextController = StreamController<String>();
   Sink<String> get onBackSideText => _onBackSideTextController.sink;
 
+  final _onColorController = StreamController<int>();
+  Sink<int> get onColor => _onColorController.sink;
+
+  final _doColorController = StreamController<int>();
+  Stream<int> get doColor => _doColorController.stream;
+
   final _addReversedCardController = StreamController<bool>();
   Sink<bool> get onAddReversedCard => _addReversedCardController.sink;
 
@@ -226,6 +232,10 @@ class CardCreateUpdateBloc extends ScreenBloc {
       _doBackImageAddedController.add(_card.backImagesUri.build());
       _checkOperationAvailability();
     });
+    _onColorController.stream.listen((colorValue) {
+      _card.color = colorValue;
+      _doColorController.add(_card.color);
+    });
   }
 
   Future<void> _createOrUpdateCard() {
@@ -305,6 +315,7 @@ class CardCreateUpdateBloc extends ScreenBloc {
     _onClearImagesController.close();
     _doShowFrontImagePlaceholderController.close();
     _doShowBackImagePlaceholderController.close();
+    _onColorController.close();
     super.dispose();
   }
 }

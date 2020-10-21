@@ -23,6 +23,8 @@ abstract class CardModel
   DateTime get createdAt;
   BuiltList<String> get frontImagesUri;
   BuiltList<String> get backImagesUri;
+  @nullable
+  int get color;
 
   static Serializer<CardModel> get serializer => _$cardModelSerializer;
 

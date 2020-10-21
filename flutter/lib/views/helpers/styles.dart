@@ -23,6 +23,16 @@ const kNotificationByDayDisabledColor = Colors.grey;
 final kNotificationByDayEnabledColor = Colors.orange;
 final kFontSizeSliderColor = Colors.orange;
 
+const kRedCardColor = Color(0xFFF28B82);
+const kOrangeCardColor = Color(0xFFFBBC04);
+const kYellowCardColor = Color(0xFFFFF475);
+const kGreenCardColor = Color(0xFFCCFF90);
+const kBlueCardColor = Color(0xFFA7FFEB);
+const kPaleBlueCardColor = Color(0xFFCBF0F8);
+const kDarkBlueCardColor = Color(0xFFAECBFA);
+const kLilacCardColor = Color(0xFFD7AEFB);
+const kCardPickeBorderColor = Color(0xFFF2787A);
+
 // "Facebook brand blue" color per instructions at
 // https://developers.facebook.com/docs/facebook-login/for-devices
 const kFacebookBlueColor = Color(0xFF4267B2);
