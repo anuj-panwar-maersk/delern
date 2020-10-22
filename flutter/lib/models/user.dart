@@ -168,6 +168,7 @@ class User {
         '$cardPath/backImagesUri': reverse
             ? card.frontImagesUri.toList()
             : card.backImagesUri.toList(),
+        '$cardPath/color': card.color,
         '$scheduledCardPath/level': 0,
         '$scheduledCardPath/repeatAt': repeatAt.millisecondsSinceEpoch,
       });
@@ -188,6 +189,7 @@ class User {
       '$cardPath/back': card.back,
       '$cardPath/frontImagesUri': card.frontImagesUri.toList(),
       '$cardPath/backImagesUri': card.backImagesUri.toList(),
+      '$cardPath/color': card.color,
     });
   }
 

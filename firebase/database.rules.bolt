@@ -154,6 +154,7 @@ type Card {
   createdAt: Number,
   frontImagesUri: String[] | Null,
   backImagesUri: String[] | Null,
+  color: Number | Null,
 }
 
 path /cards/{deckId} {
