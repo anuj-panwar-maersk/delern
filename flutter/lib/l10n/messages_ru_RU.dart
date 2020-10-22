@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Карточка и обратная карточка были добавлены"),
         "cardDeletedUserMessage":
             MessageLookupByLibrary.simpleMessage("Карточка удалена"),
+        "cardsFontSize":
+            MessageLookupByLibrary.simpleMessage("Размер шрифта карточке"),
         "cardsToLearnLabel": m1,
         "chooseTimeOfDayLabel":
             MessageLookupByLibrary.simpleMessage("Выберите время дня"),
@@ -199,6 +201,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "send": MessageLookupByLibrary.simpleMessage("Отправить"),
         "serverUnavailableUserMessage": MessageLookupByLibrary.simpleMessage(
             "Сервер временно недоступен, пожалуйста, попробуйте позже"),
+        "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "settingsDeckMenu": MessageLookupByLibrary.simpleMessage("Настройки"),
         "shareDeckMenu": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "shareDeckTooltip":

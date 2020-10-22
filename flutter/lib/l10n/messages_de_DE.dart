@@ -59,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Karte und umgekehrte Karte wurden hinzugefügt"),
         "cardDeletedUserMessage":
             MessageLookupByLibrary.simpleMessage("Karte wurde gelöscht"),
+        "cardsFontSize":
+            MessageLookupByLibrary.simpleMessage("Schriftgröße der Karten"),
         "cardsToLearnLabel": m1,
         "chooseTimeOfDayLabel":
             MessageLookupByLibrary.simpleMessage("Tageszeit wählen"),
@@ -199,6 +201,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "send": MessageLookupByLibrary.simpleMessage("Senden"),
         "serverUnavailableUserMessage": MessageLookupByLibrary.simpleMessage(
             "Server vorübergehend nicht verfügbar, bitte versuche es später noch einmal"),
+        "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "settingsDeckMenu":
             MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "shareDeckMenu": MessageLookupByLibrary.simpleMessage("Teilen"),

@@ -1,5 +1,6 @@
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/remote/auth.dart';
+import 'package:delern_flutter/views/app_settings/app_settings.dart';
 import 'package:delern_flutter/views/card_create_update/card_create_update.dart';
 import 'package:delern_flutter/views/card_list/card_list.dart';
 import 'package:delern_flutter/views/card_preview/card_preview.dart';
@@ -29,6 +30,7 @@ final routes = <String, Widget Function(BuildContext)>{
   CardsIntervalLearning.routeName: (_) => const CardsIntervalLearning(),
   CardsViewLearning.routeName: (_) => const CardsViewLearning(),
   NotificationSettings.routeName: (_) => const NotificationSettings(),
+  AppSettings.routeName: (_) => const AppSettings(),
 };
 
 Future<void> openLearnDeckScreen(
@@ -139,6 +141,11 @@ Future<void> openNotificationSettingsScreen(BuildContext context) =>
     Navigator.pushNamed(
       context,
       NotificationSettings.routeName,
+    );
+
+Future<void> openAppSettingsScreen(BuildContext context) => Navigator.pushNamed(
+      context,
+      AppSettings.routeName,
     );
 
 // Observer that notifies RouteAware routes about the changes
