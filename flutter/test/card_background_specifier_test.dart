@@ -1,6 +1,6 @@
-import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
+import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:test/test.dart';
 
 void main() {

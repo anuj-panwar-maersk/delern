@@ -144,6 +144,7 @@ class _CardsViewLearningState extends State<CardsViewLearning>
                             colors: specifyCardColors(
                               bloc.deck.value.type,
                               snapshot.data[index].back,
+                              cardColorValue: snapshot.data[index].color,
                             ),
                             key: ValueKey(snapshot.data[index].key),
                           ),
