@@ -1,5 +1,10 @@
+import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
+import 'package:delern_flutter/views/helpers/device_info.dart';
 import 'package:flutter/material.dart';
+
+const double maxFontSize = 50;
+const double minFontSize = 15;
 
 const kPrimarySwatch = Colors.green;
 const kLightPrimaryColor = Color(0xFFC8E6C9);
@@ -16,6 +21,7 @@ final kGeneralDeckTypeColor = Colors.grey[200];
 final kBottomSheetColor = Colors.blueGrey[50];
 const kNotificationByDayDisabledColor = Colors.grey;
 final kNotificationByDayEnabledColor = Colors.orange;
+final kFontSizeSliderColor = Colors.orange;
 
 // "Facebook brand blue" color per instructions at
 // https://developers.facebook.com/docs/facebook-login/for-devices
@@ -48,6 +54,33 @@ class CardColor {
     @required this.backSideBackground,
   })  : assert(frontSideBackground != null),
         assert(backSideBackground != null);
+}
+
+TextStyle specifyCardFontStyle() {
+  final _isPhone = isPhone();
+  TextStyle textStyle;
+
+  if (AppConfig.instance.cardsFontSize == null) {
+    textStyle = _isPhone
+        ? primaryText
+        : primaryText.copyWith(
+            fontSize: MediaQueryData.fromWindow(WidgetsBinding.instance.window)
+                    .size
+                    .longestSide *
+                0.035);
+  } else {
+    textStyle =
+        primaryText.copyWith(fontSize: AppConfig.instance.cardsFontSize);
+  }
+  return textStyle;
+}
+
+// In numbered list we need to add list indent to size numbers
+// properly
+// https://github.com/flutter/flutter_markdown/issues/255
+double specifyMarkdownListIndent() {
+  final fontSize = specifyCardFontStyle().fontSize;
+  return fontSize * 1.1;
 }
 
 final Map<Gender, CardColor> cardBackgroundColors = {

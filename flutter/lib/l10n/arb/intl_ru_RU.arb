@@ -839,5 +839,19 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "settings": "Настройки",
+  "@settings": {
+    "description": "Settings label for buttons and menu",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "cardsFontSize": "Размер шрифта карточке",
+  "@cardsFontSize": {
+    "description": "Cards font size label for settings",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

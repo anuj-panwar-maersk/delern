@@ -840,5 +840,19 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "settings": "Einstellungen",
+  "@settings": {
+    "description": "Settings label for buttons and menu",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "cardsFontSize": "Schriftgröße der Karten",
+  "@cardsFontSize": {
+    "description": "Cards font size label for settings",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

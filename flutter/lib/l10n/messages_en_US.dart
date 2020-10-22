@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Card and reversed card were added"),
         "cardDeletedUserMessage":
             MessageLookupByLibrary.simpleMessage("Card was deleted"),
+        "cardsFontSize":
+            MessageLookupByLibrary.simpleMessage("Cards font size"),
         "cardsToLearnLabel": m1,
         "chooseTimeOfDayLabel":
             MessageLookupByLibrary.simpleMessage("Choose time of day"),
@@ -188,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "send": MessageLookupByLibrary.simpleMessage("Send"),
         "serverUnavailableUserMessage": MessageLookupByLibrary.simpleMessage(
             "Server temporarily unavailable, please try again later"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "settingsDeckMenu": MessageLookupByLibrary.simpleMessage("Settings"),
         "shareDeckMenu": MessageLookupByLibrary.simpleMessage("Share"),
         "shareDeckTooltip": MessageLookupByLibrary.simpleMessage("Share deck"),

@@ -87,11 +87,14 @@ class DeviceInfo {
 /// If devices is phone, do not allow landscape orientation
 void setDeviceOrientation() {
   WidgetsFlutterBinding.ensureInitialized();
-  final isPhone = MediaQueryData.fromWindow(WidgetsBinding.instance.window)
-          .size
-          .shortestSide <
-      600;
-  if (isPhone) {
+
+  if (isPhone()) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 }
+
+bool isPhone() =>
+    MediaQueryData.fromWindow(WidgetsBinding.instance.window)
+        .size
+        .shortestSide <
+    600;

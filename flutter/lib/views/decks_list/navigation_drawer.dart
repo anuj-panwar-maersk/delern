@@ -75,6 +75,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           openNotificationSettingsScreen(context);
         },
       ),
+      ListTile(
+        leading: const Icon(Icons.settings),
+        title: Text(context.l.settings),
+        onTap: () {
+          Navigator.pop(context);
+          openAppSettingsScreen(context);
+        },
+      ),
       const Divider(height: 1),
       AboutListTile(
         icon: const Icon(Icons.perm_device_information),

@@ -21,6 +21,7 @@ class CardSideWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => NonScrollingMarkdownWidget(
         text: _markdownContent,
-        textStyle: app_styles.primaryText,
+        textStyle: app_styles.specifyCardFontStyle(),
+        listIndent: app_styles.specifyMarkdownListIndent(),
       );
 }

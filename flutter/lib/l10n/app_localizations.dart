@@ -757,4 +757,15 @@ Twitter: https://twitter.com/dasdelern''',
         name: 'rename',
         desc: 'Rename label for buttons and menu',
       );
+
+  String get settings => Intl.message(
+        'Settings',
+        name: 'settings',
+        desc: 'Settings label for buttons and menu',
+      );
+  String get cardsFontSize => Intl.message(
+        'Cards font size',
+        name: 'cardsFontSize',
+        desc: 'Cards font size label for settings',
+      );
 }

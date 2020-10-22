@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2020-10-06T08:51:11.908936",
+  "@@last_modified": "2020-10-22T14:36:31.221834",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -837,6 +837,20 @@
   "rename": "Rename",
   "@rename": {
     "description": "Rename label for buttons and menu",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings label for buttons and menu",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "cardsFontSize": "Cards font size",
+  "@cardsFontSize": {
+    "description": "Cards font size label for settings",
     "type": "text",
     "placeholders": {
     }
