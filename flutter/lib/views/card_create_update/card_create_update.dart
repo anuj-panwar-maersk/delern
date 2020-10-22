@@ -204,7 +204,10 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
       ),
       CardColorPicker(
         selectedColor: _cardColor,
-        onColorSelected: bloc.onColor,
+        onColorSelected: (colorValue) {
+          bloc.onColor.add(colorValue);
+          _isChanged = true;
+        },
       ),
     ];
 

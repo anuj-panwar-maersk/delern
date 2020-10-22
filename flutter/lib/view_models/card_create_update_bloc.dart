@@ -57,6 +57,7 @@ class CardCreateUpdateBloc extends ScreenBloc {
     _doBackImageAddedController.add(_card.backImagesUri.build());
     _doShowFrontImagePlaceholderController.add(false);
     _doShowBackImagePlaceholderController.add(false);
+    _doColorController.add(_card.color);
     _initListeners();
   }
 
@@ -239,6 +240,7 @@ class CardCreateUpdateBloc extends ScreenBloc {
         _card.color = colorValue;
       }
       _doColorController.add(_card.color);
+      _checkOperationAvailability();
     });
   }
 

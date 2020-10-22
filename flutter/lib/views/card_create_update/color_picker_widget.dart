@@ -23,9 +23,11 @@ Map<_ColorPicker, Color> _colorPickerMap = {
   _ColorPicker.lilac: app_styles.kLilacCardColor,
 };
 
+typedef ColorSelectedCallBack = void Function(int colorValue);
+
 class CardColorPicker extends StatelessWidget {
   final Color selectedColor;
-  final Sink<int> onColorSelected;
+  final ColorSelectedCallBack onColorSelected;
 
   const CardColorPicker({
     @required this.onColorSelected,
@@ -44,7 +46,7 @@ class CardColorPicker extends StatelessWidget {
                       selected: selectedColor != null &&
                           selectedColor.value == _colorPickerMap[e].value,
                       onPressed: () =>
-                          onColorSelected.add(_colorPickerMap[e].value),
+                          onColorSelected(_colorPickerMap[e].value),
                     ))
                 .toList(),
           ),
