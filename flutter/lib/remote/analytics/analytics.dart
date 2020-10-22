@@ -201,4 +201,9 @@ class AnalyticsLogger {
   Future<void> setUserId(String id) => _analyticsLogger.setUserId(id);
 
   Future<void> logAppOpen() => _analyticsLogger.logEvent(name: 'app_open');
+
+  Future<void> logFontSizeChanged(double fontSize) => _analyticsLogger
+          .logEvent(name: 'font_size_changed', parameters: <String, dynamic>{
+        'font_size': fontSize,
+      });
 }

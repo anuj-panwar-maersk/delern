@@ -3,6 +3,9 @@ import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 
+const double maxFontSize = 50;
+const double minFontSize = 15;
+
 const kPrimarySwatch = Colors.green;
 const kLightPrimaryColor = Color(0xFFC8E6C9);
 const kAccentColor = Colors.redAccent;
