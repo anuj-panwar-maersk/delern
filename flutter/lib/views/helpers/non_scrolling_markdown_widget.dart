@@ -6,8 +6,13 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 class NonScrollingMarkdownWidget extends StatelessWidget {
   final String text;
   final TextStyle textStyle;
+  final double listIndent;
 
-  const NonScrollingMarkdownWidget({this.text, this.textStyle});
+  const NonScrollingMarkdownWidget({
+    this.text,
+    this.textStyle,
+    this.listIndent,
+  });
 
   @override
   Widget build(BuildContext context) => Center(
@@ -22,6 +27,7 @@ class NonScrollingMarkdownWidget extends StatelessWidget {
             // The default is symmetric(horizontal: 16, vertical: 8).
             tableCellsPadding: const EdgeInsets.all(6),
             tableColumnWidth: const IntrinsicColumnWidth(),
+            listIndent: listIndent,
           ),
           // Use custom image builder to have loading
           imageBuilder: (uri, title, alt) => buildDisplayImageWidget(
