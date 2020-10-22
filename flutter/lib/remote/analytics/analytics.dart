@@ -206,4 +206,9 @@ class AnalyticsLogger {
           .logEvent(name: 'font_size_changed', parameters: <String, dynamic>{
         'font_size': fontSize,
       });
+
+  Future<void> logCardColorPicked(int color) => _analyticsLogger
+          .logEvent(name: 'card_color_selected', parameters: <String, dynamic>{
+        'color': color,
+      });
 }
