@@ -1,4 +1,3 @@
-import 'package:delern_flutter/views/helpers/device_info.dart';
 import 'package:delern_flutter/views/helpers/non_scrolling_markdown_widget.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:flutter/material.dart';
@@ -22,14 +21,7 @@ class CardSideWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => NonScrollingMarkdownWidget(
         text: _markdownContent,
-        textStyle: isPhone()
-            ? app_styles.primaryText
-            : app_styles.primaryText.copyWith(
-                fontSize: MediaQuery.of(context).size.longestSide * 0.035),
-        // In numbered list we need to add list indent to size numbers
-        // properly
-        // https://github.com/flutter/flutter_markdown/issues/255
-        listIndent:
-            isPhone() ? null : MediaQuery.of(context).size.longestSide * 0.04,
+        textStyle: app_styles.specifyCardFontStyle(),
+        listIndent: app_styles.specifyMarkdownListIndent(),
       );
 }

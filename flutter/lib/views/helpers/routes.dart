@@ -1,6 +1,7 @@
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/remote/auth.dart';
 import 'package:delern_flutter/views/app_settings/app_settings.dart';
+import 'package:delern_flutter/views/app_settings/cards_font_size.dart';
 import 'package:delern_flutter/views/card_create_update/card_create_update.dart';
 import 'package:delern_flutter/views/card_list/card_list.dart';
 import 'package:delern_flutter/views/card_preview/card_preview.dart';
@@ -31,6 +32,7 @@ final routes = <String, Widget Function(BuildContext)>{
   CardsViewLearning.routeName: (_) => const CardsViewLearning(),
   NotificationSettings.routeName: (_) => const NotificationSettings(),
   AppSettings.routeName: (_) => const AppSettings(),
+  CardsFontSize.routeName: (_) => const CardsFontSize(),
 };
 
 Future<void> openLearnDeckScreen(
@@ -146,6 +148,12 @@ Future<void> openNotificationSettingsScreen(BuildContext context) =>
 Future<void> openAppSettingsScreen(BuildContext context) => Navigator.pushNamed(
       context,
       AppSettings.routeName,
+    );
+
+Future<void> openCardsFontSizeSettingsScreen(BuildContext context) =>
+    Navigator.pushNamed(
+      context,
+      CardsFontSize.routeName,
     );
 
 // Observer that notifies RouteAware routes about the changes

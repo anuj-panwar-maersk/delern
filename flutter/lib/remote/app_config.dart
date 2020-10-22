@@ -105,4 +105,11 @@ class AppConfig {
 
   set notificationSchedule(String schedule) =>
       _sharedPreferences?.setString(_notificationsScheduleKey, schedule);
+
+  static const _cardsFontSizeKey = 'cards_font_size';
+
+  double get cardsFontSize => _sharedPreferences?.getDouble(_cardsFontSizeKey);
+
+  set cardsFontSize(double fontSize) =>
+      _sharedPreferences?.setDouble(_cardsFontSizeKey, fontSize);
 }
