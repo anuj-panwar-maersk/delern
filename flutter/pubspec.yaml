@@ -25,6 +25,7 @@ dependencies:
   provider:
   intl:
   auto_size_text:
+  equatable:
 
   flutter_sentry:
   # Needed for the User context type, version is bound by flutter_sentry.

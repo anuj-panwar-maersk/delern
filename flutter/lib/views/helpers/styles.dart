@@ -1,6 +1,7 @@
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 const double maxFontSize = 50;
@@ -55,7 +56,7 @@ const double kImageMenuButtonSize = 36;
 const double kBottomSheetBorderRadius = 24;
 const double kBottomSheetElevation = 20;
 
-class CardColor {
+class CardColor extends Equatable {
   final Color frontSideBackground;
   final Color backSideBackground;
   Color get defaultBackground => frontSideBackground;
@@ -64,6 +65,9 @@ class CardColor {
     @required this.backSideBackground,
   })  : assert(frontSideBackground != null),
         assert(backSideBackground != null);
+
+  @override
+  List<Object> get props => [frontSideBackground, backSideBackground];
 }
 
 TextStyle specifyCardFontStyle() {
