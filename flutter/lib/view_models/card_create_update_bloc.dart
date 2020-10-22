@@ -233,7 +233,11 @@ class CardCreateUpdateBloc extends ScreenBloc {
       _checkOperationAvailability();
     });
     _onColorController.stream.listen((colorValue) {
-      _card.color = colorValue;
+      if (_card.color == colorValue) {
+        _card.color = null;
+      } else {
+        _card.color = colorValue;
+      }
       _doColorController.add(_card.color);
     });
   }

@@ -96,8 +96,12 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
                 ));
         bloc.doColor.listen((colorValue) {
           setState(() {
-            final hexValue = convertColorValueToHex(colorValue);
-            _cardColor = hexValue == null ? null : Color(hexValue);
+            if (colorValue == null) {
+              _cardColor = null;
+            } else {
+              final hexValue = convertColorValueToHex(colorValue);
+              _cardColor = hexValue == null ? null : Color(hexValue);
+            }
           });
         });
         return bloc;
