@@ -326,6 +326,7 @@ class CardCreateUpdateBloc extends ScreenBloc {
     _doShowFrontImagePlaceholderController.close();
     _doShowBackImagePlaceholderController.close();
     _onColorController.close();
+    _doColorController.close();
     super.dispose();
   }
 }
