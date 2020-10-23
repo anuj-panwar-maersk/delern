@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:delern_flutter/models/card_color.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
@@ -83,9 +84,10 @@ void main() {
       expect(
           specifyCardColors(basicDeckType, 'die Mutter',
               cardColorValue: kRedCardColor.value),
-          app_styles.CardColor(
-              frontSideBackground: Color(kRedCardColor.value),
-              backSideBackground: Color(kRedCardColor.value)));
+          (CardColorBuilder()
+                ..frontSideBackground = Color(kRedCardColor.value)
+                ..backSideBackground = Color(kRedCardColor.value))
+              .build());
     });
   });
 }

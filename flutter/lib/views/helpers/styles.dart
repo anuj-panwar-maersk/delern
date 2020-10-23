@@ -1,7 +1,7 @@
+import 'package:delern_flutter/models/card_color.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 const double maxFontSize = 50;
@@ -56,20 +56,6 @@ const double kImageMenuButtonSize = 36;
 const double kBottomSheetBorderRadius = 24;
 const double kBottomSheetElevation = 20;
 
-class CardColor extends Equatable {
-  final Color frontSideBackground;
-  final Color backSideBackground;
-  Color get defaultBackground => frontSideBackground;
-  const CardColor({
-    @required this.frontSideBackground,
-    @required this.backSideBackground,
-  })  : assert(frontSideBackground != null),
-        assert(backSideBackground != null);
-
-  @override
-  List<Object> get props => [frontSideBackground, backSideBackground];
-}
-
 TextStyle specifyCardFontStyle() {
   final _isPhone = isPhone();
   TextStyle textStyle;
@@ -98,17 +84,22 @@ double specifyMarkdownListIndent() {
 }
 
 final Map<Gender, CardColor> cardBackgroundColors = {
-  Gender.noGender: const CardColor(
-      frontSideBackground: Color(0xFFF5F5F5), backSideBackground: Colors.white),
-  Gender.masculine: CardColor(
-      frontSideBackground: Colors.blueAccent[100],
-      backSideBackground: Colors.blue[200]),
-  Gender.feminine: CardColor(
-      frontSideBackground: Colors.pinkAccent[100],
-      backSideBackground: Colors.pink[200]),
-  Gender.neuter: CardColor(
-      frontSideBackground: Colors.amberAccent[100],
-      backSideBackground: Colors.amber[200]),
+  Gender.noGender: (CardColorBuilder()
+        ..frontSideBackground = const Color(0xFFF5F5F5)
+        ..backSideBackground = Colors.white)
+      .build(),
+  Gender.masculine: (CardColorBuilder()
+        ..frontSideBackground = Colors.blueAccent[100]
+        ..backSideBackground = Colors.blue[200])
+      .build(),
+  Gender.feminine: (CardColorBuilder()
+        ..frontSideBackground = Colors.pinkAccent[100]
+        ..backSideBackground = Colors.pink[200])
+      .build(),
+  Gender.neuter: (CardColorBuilder()
+        ..frontSideBackground = Colors.amberAccent[100]
+        ..backSideBackground = Colors.amber[200])
+      .build(),
 };
 
 final Color signInBackgroundColor = Colors.grey[50];

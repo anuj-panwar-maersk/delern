@@ -1,8 +1,8 @@
 import 'dart:ui';
 
+import 'package:delern_flutter/models/card_color.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
-import 'package:delern_flutter/views/helpers/styles.dart';
 
 enum Gender {
   masculine,
@@ -12,12 +12,14 @@ enum Gender {
 }
 
 // If user assigned color when created a card, prefer color chosen by user
-app_styles.CardColor specifyCardColors(DeckType deckType, String text,
+CardColor specifyCardColors(DeckType deckType, String text,
     {int cardColorValue}) {
   if (cardColorValue != null) {
     final cardColor = Color(cardColorValue);
-    return CardColor(
-        frontSideBackground: cardColor, backSideBackground: cardColor);
+    return (CardColorBuilder()
+          ..frontSideBackground = cardColor
+          ..backSideBackground = cardColor)
+        .build();
   }
   return app_styles.cardBackgroundColors[_specifyCardGender(deckType, text)];
 }

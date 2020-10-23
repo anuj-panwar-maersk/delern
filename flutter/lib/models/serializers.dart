@@ -3,6 +3,7 @@ library serializers;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:delern_flutter/models/card_color.dart';
 import 'package:delern_flutter/models/card_model.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
@@ -67,6 +68,7 @@ class TimeOfDaySerializer implements PrimitiveSerializer<TimeOfDay> {
   NotificationSchedule,
   NotificationPayload,
   LocalNotification,
+  CardColor,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
