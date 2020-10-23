@@ -7,7 +7,6 @@ import 'package:delern_flutter/views/card_create_update/card_side_input_widget.d
 import 'package:delern_flutter/views/card_create_update/color_picker_widget.dart';
 import 'package:delern_flutter/views/helpers/display_image_widget.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
-import 'package:delern_flutter/views/helpers/number_converter.dart';
 import 'package:delern_flutter/views/helpers/progress_indicator_widget.dart';
 import 'package:delern_flutter/views/helpers/save_updates_dialog.dart';
 import 'package:delern_flutter/views/helpers/stream_with_value_builder.dart';
@@ -96,12 +95,7 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
                 ));
         bloc.doColor.listen((colorValue) {
           setState(() {
-            if (colorValue == null) {
-              _cardColor = null;
-            } else {
-              final hexValue = convertColorValueToHex(colorValue);
-              _cardColor = hexValue == null ? null : Color(hexValue);
-            }
+            _cardColor = colorValue == null ? null : Color(colorValue);
           });
         });
         return bloc;

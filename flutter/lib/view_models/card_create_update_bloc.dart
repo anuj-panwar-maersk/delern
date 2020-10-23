@@ -9,7 +9,6 @@ import 'package:delern_flutter/models/user.dart';
 import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
 import 'package:delern_flutter/view_models/base/screen_bloc.dart';
-import 'package:delern_flutter/views/helpers/number_converter.dart';
 import 'package:meta/meta.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:rxdart/rxdart.dart';
@@ -235,6 +234,8 @@ class CardCreateUpdateBloc extends ScreenBloc {
       _checkOperationAvailability();
     });
     _onColorController.stream.listen((colorValue) {
+      // If user pressed 2nd time on the same color, color is desabled
+      // to default.
       if (_card.color == colorValue) {
         _card.color = null;
       } else {
@@ -251,7 +252,7 @@ class CardCreateUpdateBloc extends ScreenBloc {
     if (isAddOperation) {
       analytics.logCardCreate(card.deckKey);
       if (card.color != null) {
-        analytics.logCardColorPicked(convertColorValueToHex(card.color));
+        analytics.logCardColorPicked(card.color.toRadixString(16));
       }
       return user.createCard(card: card, addReversed: _addReversedCard);
     } else {
