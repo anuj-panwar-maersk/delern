@@ -12,6 +12,7 @@ import 'package:delern_flutter/models/notification_schedule.dart';
 import 'package:delern_flutter/models/serializers.dart';
 import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/remote/app_config.dart';
+import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -71,7 +72,7 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
 
   Future<void> _init() async {
     const initializationSettingsAndroid =
-        AndroidInitializationSettings('delern');
+        AndroidInitializationSettings('ic_notification');
     // Notification permissions are not requested to be able to ask it later.
     const initializationSettingsIOS = IOSInitializationSettings(
         requestAlertPermission: false,
@@ -140,6 +141,8 @@ class LocalNotifications extends ChangeNotifier with DiagnosticableTreeMixin {
       importance: Importance.Max,
       priority: Priority.High,
       ticker: 'ticker',
+      // Keep in sync with Firebase color in AndroidManifest.xml.
+      color: app_styles.kPrimarySwatch,
     );
     const iOSPlatformChannelSpecifics = IOSNotificationDetails();
     final platformChannelSpecifics = NotificationDetails(
