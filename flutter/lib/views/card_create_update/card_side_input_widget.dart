@@ -18,6 +18,7 @@ class CardSideInputWidget extends StatelessWidget {
   final bool autofocus;
   final String hint;
   final Widget imageList;
+  final Color color;
 
   const CardSideInputWidget({
     @required Key key,
@@ -28,10 +29,12 @@ class CardSideInputWidget extends StatelessWidget {
     this.onImageSelected,
     this.focusNode,
     this.autofocus = false,
+    this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Card(
+        color: color,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(

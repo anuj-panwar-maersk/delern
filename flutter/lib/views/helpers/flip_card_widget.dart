@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:delern_flutter/views/helpers/card_color.dart';
 import 'package:delern_flutter/views/helpers/card_side_widget.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
@@ -19,7 +20,7 @@ class FlipCardWidget extends StatefulWidget {
   final BuiltList<String> backImages;
   final BuiltSet<String> tags;
 
-  final app_styles.CardColor colors;
+  final CardColor colors;
   final ValueNotifier<bool> hasBeenFlipped;
 
   /// The [key] is required and must be unique to the card. E.g.:
@@ -56,7 +57,7 @@ class FlipCardWidget extends StatefulWidget {
     properties
       ..add(StringProperty('front', front))
       ..add(StringProperty('back', back))
-      ..add(DiagnosticsProperty<app_styles.CardColor>('colors', colors));
+      ..add(DiagnosticsProperty<CardColor>('colors', colors));
   }
 }
 

@@ -295,7 +295,8 @@ class CardItemWidget extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(_kCardBorderPadding),
                   decoration: BoxDecoration(
-                    color: specifyCardColors(deck.type, card.back)
+                    color: specifyCardColors(deck.type, card.back,
+                            cardColorValue: card.color)
                         .defaultBackground,
                     borderRadius: BorderRadius.circular(4),
                   ),

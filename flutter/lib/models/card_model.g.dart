@@ -50,6 +50,12 @@ class _$CardModelSerializer implements StructuredSerializer<CardModel> {
         ..add(serializers.serialize(object.createdAt,
             specifiedType: const FullType(DateTime)));
     }
+    if (object.color != null) {
+      result
+        ..add('color')
+        ..add(serializers.serialize(object.color,
+            specifiedType: const FullType(int)));
+    }
     return result;
   }
 
@@ -96,6 +102,10 @@ class _$CardModelSerializer implements StructuredSerializer<CardModel> {
                       const FullType(BuiltList, const [const FullType(String)]))
               as BuiltList<Object>);
           break;
+        case 'color':
+          result.color = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
       }
     }
 
@@ -118,6 +128,8 @@ class _$CardModel extends CardModel {
   final BuiltList<String> frontImagesUri;
   @override
   final BuiltList<String> backImagesUri;
+  @override
+  final int color;
 
   factory _$CardModel([void Function(CardModelBuilder) updates]) =>
       (new CardModelBuilder()..update(updates)).build();
@@ -129,7 +141,8 @@ class _$CardModel extends CardModel {
       this.back,
       this.createdAt,
       this.frontImagesUri,
-      this.backImagesUri})
+      this.backImagesUri,
+      this.color})
       : super._() {
     if (front == null) {
       throw new BuiltValueNullFieldError('CardModel', 'front');
@@ -162,7 +175,8 @@ class _$CardModel extends CardModel {
         back == other.back &&
         createdAt == other.createdAt &&
         frontImagesUri == other.frontImagesUri &&
-        backImagesUri == other.backImagesUri;
+        backImagesUri == other.backImagesUri &&
+        color == other.color;
   }
 
   @override
@@ -171,12 +185,14 @@ class _$CardModel extends CardModel {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, deckKey.hashCode), key.hashCode),
-                        front.hashCode),
-                    back.hashCode),
-                createdAt.hashCode),
-            frontImagesUri.hashCode),
-        backImagesUri.hashCode));
+                    $jc(
+                        $jc($jc($jc(0, deckKey.hashCode), key.hashCode),
+                            front.hashCode),
+                        back.hashCode),
+                    createdAt.hashCode),
+                frontImagesUri.hashCode),
+            backImagesUri.hashCode),
+        color.hashCode));
   }
 
   @override
@@ -188,7 +204,8 @@ class _$CardModel extends CardModel {
           ..add('back', back)
           ..add('createdAt', createdAt)
           ..add('frontImagesUri', frontImagesUri)
-          ..add('backImagesUri', backImagesUri))
+          ..add('backImagesUri', backImagesUri)
+          ..add('color', color))
         .toString();
   }
 }
@@ -228,6 +245,10 @@ class CardModelBuilder implements Builder<CardModel, CardModelBuilder> {
   set backImagesUri(ListBuilder<String> backImagesUri) =>
       _$this._backImagesUri = backImagesUri;
 
+  int _color;
+  int get color => _$this._color;
+  set color(int color) => _$this._color = color;
+
   CardModelBuilder() {
     CardModel._initializeBuilder(this);
   }
@@ -241,6 +262,7 @@ class CardModelBuilder implements Builder<CardModel, CardModelBuilder> {
       _createdAt = _$v.createdAt;
       _frontImagesUri = _$v.frontImagesUri?.toBuilder();
       _backImagesUri = _$v.backImagesUri?.toBuilder();
+      _color = _$v.color;
       _$v = null;
     }
     return this;
@@ -271,7 +293,8 @@ class CardModelBuilder implements Builder<CardModel, CardModelBuilder> {
               back: back,
               createdAt: createdAt,
               frontImagesUri: frontImagesUri.build(),
-              backImagesUri: backImagesUri.build());
+              backImagesUri: backImagesUri.build(),
+              color: color);
     } catch (_) {
       String _$failedField;
       try {

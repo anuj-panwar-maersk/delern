@@ -1,6 +1,10 @@
-import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
+import 'dart:ui';
+
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
+import 'package:delern_flutter/views/helpers/card_color.dart';
+import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
+import 'package:delern_flutter/views/helpers/styles.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -70,6 +74,20 @@ void main() {
     test('noColor', () {
       expect(specifyCardColors(basicDeckType, 'die Mutter'),
           app_styles.cardBackgroundColors[Gender.noGender]);
+    });
+  });
+
+  group('User selected Color', () {
+    const basicDeckType = DeckType.german;
+
+    test('Red card color', () {
+      expect(
+        specifyCardColors(basicDeckType, 'die Mutter',
+            cardColorValue: kRedCardColor.value),
+        CardColor(
+            frontSideBackground: Color(kRedCardColor.value),
+            backSideBackground: Color(kRedCardColor.value)),
+      );
     });
   });
 }

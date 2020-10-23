@@ -8,6 +8,7 @@ part of serializers;
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AccessType.serializer)
+      ..add(CardColor.serializer)
       ..add(CardModel.serializer)
       ..add(DeckAccessModel.serializer)
       ..add(DeckModel.serializer)

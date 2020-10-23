@@ -4,6 +4,7 @@ import 'package:delern_flutter/remote/analytics/analytics.dart';
 import 'package:delern_flutter/view_models/card_create_update_bloc.dart';
 import 'package:delern_flutter/views/base/screen_bloc_view.dart';
 import 'package:delern_flutter/views/card_create_update/card_side_input_widget.dart';
+import 'package:delern_flutter/views/card_create_update/color_picker_widget.dart';
 import 'package:delern_flutter/views/helpers/display_image_widget.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/helpers/progress_indicator_widget.dart';
@@ -39,6 +40,7 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
   final TextEditingController _frontTextController = TextEditingController();
   final TextEditingController _backTextController = TextEditingController();
   final FocusNode _frontSideFocus = FocusNode();
+  Color _cardColor;
 
   @override
   void dispose() {
@@ -91,6 +93,11 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
                   onDiscardChanges: bloc.onDiscardChanges,
                   defaultDiscard: userClosesScreen,
                 ));
+        bloc.doColor.listen((colorValue) {
+          setState(() {
+            _cardColor = colorValue == null ? null : Color(colorValue);
+          });
+        });
         return bloc;
       },
       appBarBuilder: _buildAppBar,
@@ -162,6 +169,7 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
         hint: context.l.frontSideHint,
         autofocus: true,
         focusNode: _frontSideFocus,
+        color: _cardColor,
       ),
       CardSideInputWidget(
         key: const Key('backCardInput'),
@@ -186,6 +194,14 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
           showImagePlaceholderStream: bloc.doShowBackImagePlaceholder,
         ),
         hint: context.l.backSideHint,
+        color: _cardColor,
+      ),
+      CardColorPicker(
+        selectedColor: _cardColor,
+        onColorSelected: (colorValue) {
+          bloc.onColor.add(colorValue);
+          _isChanged = true;
+        },
       ),
     ];
 

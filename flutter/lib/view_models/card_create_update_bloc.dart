@@ -57,6 +57,7 @@ class CardCreateUpdateBloc extends ScreenBloc {
     _doBackImageAddedController.add(_card.backImagesUri.build());
     _doShowFrontImagePlaceholderController.add(false);
     _doShowBackImagePlaceholderController.add(false);
+    _doColorController.add(_card.color);
     _initListeners();
   }
 
@@ -70,6 +71,12 @@ class CardCreateUpdateBloc extends ScreenBloc {
 
   final _onBackSideTextController = StreamController<String>();
   Sink<String> get onBackSideText => _onBackSideTextController.sink;
+
+  final _onColorController = StreamController<int>();
+  Sink<int> get onColor => _onColorController.sink;
+
+  final _doColorController = StreamController<int>();
+  Stream<int> get doColor => _doColorController.stream;
 
   final _addReversedCardController = StreamController<bool>();
   Sink<bool> get onAddReversedCard => _addReversedCardController.sink;
@@ -226,6 +233,17 @@ class CardCreateUpdateBloc extends ScreenBloc {
       _doBackImageAddedController.add(_card.backImagesUri.build());
       _checkOperationAvailability();
     });
+    _onColorController.stream.listen((colorValue) {
+      // If user pressed 2nd time on the same color, color is desabled
+      // to default.
+      if (_card.color == colorValue) {
+        _card.color = null;
+      } else {
+        _card.color = colorValue;
+      }
+      _doColorController.add(_card.color);
+      _checkOperationAvailability();
+    });
   }
 
   Future<void> _createOrUpdateCard() {
@@ -233,6 +251,10 @@ class CardCreateUpdateBloc extends ScreenBloc {
 
     if (isAddOperation) {
       analytics.logCardCreate(card.deckKey);
+      if (card.color != null) {
+        analytics
+            .logCardColorPicked(card.color.toRadixString(16).padLeft(8, '0'));
+      }
       return user.createCard(card: card, addReversed: _addReversedCard);
     } else {
       return user.updateCard(card: card);
@@ -305,6 +327,8 @@ class CardCreateUpdateBloc extends ScreenBloc {
     _onClearImagesController.close();
     _doShowFrontImagePlaceholderController.close();
     _doShowBackImagePlaceholderController.close();
+    _onColorController.close();
+    _doColorController.close();
     super.dispose();
   }
 }

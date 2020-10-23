@@ -1,5 +1,6 @@
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
+import 'package:delern_flutter/views/helpers/card_color.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,16 @@ const kNotificationByDayDisabledColor = Colors.grey;
 final kNotificationByDayEnabledColor = Colors.orange;
 final kFontSizeSliderColor = Colors.orange;
 
+const kRedCardColor = Color(0xFFF28B82);
+const kOrangeCardColor = Color(0xFFFBBC04);
+const kYellowCardColor = Color(0xFFFFF475);
+const kGreenCardColor = Color(0xFFCCFF90);
+const kBlueCardColor = Color(0xFFA7FFEB);
+const kPaleBlueCardColor = Color(0xFFCBF0F8);
+const kDarkBlueCardColor = Color(0xFFAECBFA);
+const kLilacCardColor = Color(0xFFD7AEFB);
+const kColorSelectedBorderColor = Color(0xFFF2787A);
+
 // "Facebook brand blue" color per instructions at
 // https://developers.facebook.com/docs/facebook-login/for-devices
 const kFacebookBlueColor = Color(0xFF4267B2);
@@ -44,17 +55,6 @@ const double kCardElevation = 6;
 const double kImageMenuButtonSize = 36;
 const double kBottomSheetBorderRadius = 24;
 const double kBottomSheetElevation = 20;
-
-class CardColor {
-  final Color frontSideBackground;
-  final Color backSideBackground;
-  Color get defaultBackground => frontSideBackground;
-  const CardColor({
-    @required this.frontSideBackground,
-    @required this.backSideBackground,
-  })  : assert(frontSideBackground != null),
-        assert(backSideBackground != null);
-}
 
 TextStyle specifyCardFontStyle() {
   final _isPhone = isPhone();
@@ -84,8 +84,9 @@ double specifyMarkdownListIndent() {
 }
 
 final Map<Gender, CardColor> cardBackgroundColors = {
-  Gender.noGender: const CardColor(
-      frontSideBackground: Color(0xFFF5F5F5), backSideBackground: Colors.white),
+  Gender.noGender: CardColor(
+      frontSideBackground: const Color(0xFFF5F5F5),
+      backSideBackground: Colors.white),
   Gender.masculine: CardColor(
       frontSideBackground: Colors.blueAccent[100],
       backSideBackground: Colors.blue[200]),

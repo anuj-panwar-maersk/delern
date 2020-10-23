@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:amplitude_flutter/amplitude.dart';
 import 'package:delern_flutter/models/local_notification.dart';
 import 'package:delern_flutter/remote/analytics/amplitude_analytics.dart';
@@ -6,6 +8,7 @@ import 'package:delern_flutter/remote/analytics/firebase_analytics.dart';
 import 'package:delern_flutter/remote/analytics/multi_analytics_logger.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/remote/auth.dart';
+import 'package:delern_flutter/remote/error_reporting.dart' as error_reporting;
 import 'package:delern_flutter/view_models/notifications_view_model.dart';
 import 'package:delern_flutter/views/decks_list/decks_list.dart';
 import 'package:delern_flutter/views/helpers/auth_widget.dart';
@@ -26,6 +29,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_sentry/flutter_sentry.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
+
+const _applicationStartupTimeout = Duration(seconds: 2);
 
 @immutable
 class App extends StatelessWidget {
@@ -131,33 +136,52 @@ class App extends StatelessWidget {
   }
 }
 
-Future<AnalyticsLogger> _setupAnalytics() async {
+Future<AnalyticsLogger> _setupAnalytics(Duration timeout) async {
   final amplitudeInstance = Amplitude.getInstance();
-  // TODO(ksheremet): Store keys somewehre else
-  await amplitudeInstance.init(
-    kReleaseMode
-        ? 'e98825b2d2182ee5c619c3408e27fb60'
-        : '0c6ee8f335c9786288d821ed1ba63852',
-  );
-  final multiAnalyticsProvider =
-      MultiAnalyticsProvider(analyticList: <AnalyticsProvider>[
-    AmplitudeAnalyticsProvider(
-      instance: amplitudeInstance,
-    ),
+  final analyticList = <AnalyticsProvider>[
     FirebaseAnalyticsProvider(),
-  ]);
-
-  return AnalyticsLogger(multiAnalyticsProvider);
+  ];
+  try {
+    // TODO(ksheremet): Store keys somewehre else
+    await trace(
+      'amplitude_initialize',
+      amplitudeInstance.init(
+        kReleaseMode
+            ? 'e98825b2d2182ee5c619c3408e27fb60'
+            : '0c6ee8f335c9786288d821ed1ba63852',
+      ),
+    ).timeout(timeout);
+    analyticList.add(AmplitudeAnalyticsProvider(
+      instance: amplitudeInstance,
+    ));
+  } catch (e, stackTrace) {
+    unawaited(error_reporting.report(e, stackTrace: stackTrace));
+  }
+  return AnalyticsLogger(MultiAnalyticsProvider(analyticList: analyticList));
 }
 
 Future<void> main() async => FlutterSentry.wrap(
       () async {
         await Firebase.initializeApp();
         unawaited(FirebaseDatabase.instance.setPersistenceEnabled(true));
-        await AppConfig.instance.initialize();
-        setDeviceOrientation();
-        final analyticsLogger = await _setupAnalytics();
-        unawaited(analyticsLogger.logAppOpen());
+
+        AnalyticsLogger analyticsLogger;
+        // Ideally we'd start tracing before Firebase.initializeApp but that's
+        // not supported by Firebase Analytics.
+        await trace('app_initialize', () async {
+          try {
+            await trace(
+              'app_config_initialize',
+              AppConfig.instance.initialize(),
+            ).timeout(_applicationStartupTimeout);
+          } on TimeoutException catch (e, stackTrace) {
+            unawaited(error_reporting.report(e, stackTrace: stackTrace));
+          }
+          setDeviceOrientation();
+          analyticsLogger = await _setupAnalytics(_applicationStartupTimeout);
+          unawaited(analyticsLogger.logAppOpen());
+        }());
+
         runApp(App(
           auth: Auth(),
           analyticsLogger: analyticsLogger,
