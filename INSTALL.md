@@ -67,8 +67,8 @@ account, in case you need to debug it from your workstation. One of the keys has
 to be stored in JSON format in `GOOGLE_APPLICATION_CREDENTIALS_DATA` encrypted
 secret (base64-encoded).
 
-This service account has to be given "Release manager" role on the
-"Settings > Users & permissions" page of
+This service account has to be given all except Admin and Financial access at
+"Users and permissions" page of
 [Google Play Console](https://play.google.com/apps/publish/).
 
 ### Build iOS app and publish to App Store
