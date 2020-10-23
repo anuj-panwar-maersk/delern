@@ -30,7 +30,7 @@ import 'package:flutter_sentry/flutter_sentry.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 
-const _operationTimeOut = Duration(seconds: 10);
+const _applicationStartupTimeout = Duration(seconds: 2);
 
 @immutable
 class App extends StatelessWidget {
@@ -143,13 +143,14 @@ Future<AnalyticsLogger> _setupAnalytics(Duration timeout) async {
   ];
   try {
     // TODO(ksheremet): Store keys somewehre else
-    await amplitudeInstance
-        .init(
-          kReleaseMode
-              ? 'e98825b2d2182ee5c619c3408e27fb60'
-              : '0c6ee8f335c9786288d821ed1ba63852',
-        )
-        .timeout(timeout);
+    await trace(
+      'amplitude_initialize',
+      amplitudeInstance.init(
+        kReleaseMode
+            ? 'e98825b2d2182ee5c619c3408e27fb60'
+            : '0c6ee8f335c9786288d821ed1ba63852',
+      ),
+    ).timeout(timeout);
     analyticList.add(AmplitudeAnalyticsProvider(
       instance: amplitudeInstance,
     ));
@@ -163,14 +164,24 @@ Future<void> main() async => FlutterSentry.wrap(
       () async {
         await Firebase.initializeApp();
         unawaited(FirebaseDatabase.instance.setPersistenceEnabled(true));
-        try {
-          await AppConfig.instance.initialize().timeout(_operationTimeOut);
-        } on TimeoutException catch (e, stackTrace) {
-          unawaited(error_reporting.report(e, stackTrace: stackTrace));
-        }
-        setDeviceOrientation();
-        final analyticsLogger = await _setupAnalytics(_operationTimeOut);
-        unawaited(analyticsLogger.logAppOpen());
+
+        AnalyticsLogger analyticsLogger;
+        // Ideally we'd start tracing before Firebase.initializeApp but that's
+        // not supported by Firebase Analytics.
+        await trace('app_initialize', () async {
+          try {
+            await trace(
+              'app_config_initialize',
+              AppConfig.instance.initialize(),
+            ).timeout(_applicationStartupTimeout);
+          } on TimeoutException catch (e, stackTrace) {
+            unawaited(error_reporting.report(e, stackTrace: stackTrace));
+          }
+          setDeviceOrientation();
+          analyticsLogger = await _setupAnalytics(_applicationStartupTimeout);
+          unawaited(analyticsLogger.logAppOpen());
+        }());
+
         runApp(App(
           auth: Auth(),
           analyticsLogger: analyticsLogger,

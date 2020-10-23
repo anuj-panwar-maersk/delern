@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:delern_flutter/models/card_color.dart';
 import 'package:delern_flutter/models/deck_model.dart';
+import 'package:delern_flutter/views/helpers/card_color.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 
 enum Gender {
@@ -16,10 +16,8 @@ CardColor specifyCardColors(DeckType deckType, String text,
     {int cardColorValue}) {
   if (cardColorValue != null) {
     final cardColor = Color(cardColorValue);
-    return (CardColorBuilder()
-          ..frontSideBackground = cardColor
-          ..backSideBackground = cardColor)
-        .build();
+    return CardColor(
+        frontSideBackground: cardColor, backSideBackground: cardColor);
   }
   return app_styles.cardBackgroundColors[_specifyCardGender(deckType, text)];
 }

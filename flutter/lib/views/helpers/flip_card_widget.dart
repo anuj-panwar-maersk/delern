@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:delern_flutter/models/card_color.dart';
+import 'package:delern_flutter/views/helpers/card_color.dart';
 import 'package:delern_flutter/views/helpers/card_side_widget.dart';
 import 'package:delern_flutter/views/helpers/localization.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;

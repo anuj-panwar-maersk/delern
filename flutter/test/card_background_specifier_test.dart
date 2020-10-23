@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:delern_flutter/models/card_color.dart';
 import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
+import 'package:delern_flutter/views/helpers/card_color.dart';
 import 'package:delern_flutter/views/helpers/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/styles.dart';
 import 'package:test/test.dart';
@@ -82,12 +82,12 @@ void main() {
 
     test('Red card color', () {
       expect(
-          specifyCardColors(basicDeckType, 'die Mutter',
-              cardColorValue: kRedCardColor.value),
-          (CardColorBuilder()
-                ..frontSideBackground = Color(kRedCardColor.value)
-                ..backSideBackground = Color(kRedCardColor.value))
-              .build());
+        specifyCardColors(basicDeckType, 'die Mutter',
+            cardColorValue: kRedCardColor.value),
+        CardColor(
+            frontSideBackground: Color(kRedCardColor.value),
+            backSideBackground: Color(kRedCardColor.value)),
+      );
     });
   });
 }

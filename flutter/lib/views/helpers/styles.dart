@@ -1,6 +1,6 @@
-import 'package:delern_flutter/models/card_color.dart';
 import 'package:delern_flutter/remote/app_config.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
+import 'package:delern_flutter/views/helpers/card_color.dart';
 import 'package:delern_flutter/views/helpers/device_info.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +32,7 @@ const kBlueCardColor = Color(0xFFA7FFEB);
 const kPaleBlueCardColor = Color(0xFFCBF0F8);
 const kDarkBlueCardColor = Color(0xFFAECBFA);
 const kLilacCardColor = Color(0xFFD7AEFB);
-const kCardSelectedBorderColor = Color(0xFFF2787A);
+const kColorSelectedBorderColor = Color(0xFFF2787A);
 
 // "Facebook brand blue" color per instructions at
 // https://developers.facebook.com/docs/facebook-login/for-devices
@@ -84,22 +84,18 @@ double specifyMarkdownListIndent() {
 }
 
 final Map<Gender, CardColor> cardBackgroundColors = {
-  Gender.noGender: (CardColorBuilder()
-        ..frontSideBackground = const Color(0xFFF5F5F5)
-        ..backSideBackground = Colors.white)
-      .build(),
-  Gender.masculine: (CardColorBuilder()
-        ..frontSideBackground = Colors.blueAccent[100]
-        ..backSideBackground = Colors.blue[200])
-      .build(),
-  Gender.feminine: (CardColorBuilder()
-        ..frontSideBackground = Colors.pinkAccent[100]
-        ..backSideBackground = Colors.pink[200])
-      .build(),
-  Gender.neuter: (CardColorBuilder()
-        ..frontSideBackground = Colors.amberAccent[100]
-        ..backSideBackground = Colors.amber[200])
-      .build(),
+  Gender.noGender: CardColor(
+      frontSideBackground: const Color(0xFFF5F5F5),
+      backSideBackground: Colors.white),
+  Gender.masculine: CardColor(
+      frontSideBackground: Colors.blueAccent[100],
+      backSideBackground: Colors.blue[200]),
+  Gender.feminine: CardColor(
+      frontSideBackground: Colors.pinkAccent[100],
+      backSideBackground: Colors.pink[200]),
+  Gender.neuter: CardColor(
+      frontSideBackground: Colors.amberAccent[100],
+      backSideBackground: Colors.amber[200]),
 };
 
 final Color signInBackgroundColor = Colors.grey[50];

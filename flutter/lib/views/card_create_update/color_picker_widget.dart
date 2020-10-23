@@ -63,7 +63,7 @@ class _ColorButton extends StatelessWidget {
             shape: BoxShape.circle,
             border: selected
                 ? Border.all(
-                    color: app_styles.kCardSelectedBorderColor,
+                    color: app_styles.kColorSelectedBorderColor,
                     width: 2,
                   )
                 : null,

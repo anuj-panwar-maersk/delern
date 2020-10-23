@@ -252,7 +252,8 @@ class CardCreateUpdateBloc extends ScreenBloc {
     if (isAddOperation) {
       analytics.logCardCreate(card.deckKey);
       if (card.color != null) {
-        analytics.logCardColorPicked(card.color.toRadixString(16));
+        analytics
+            .logCardColorPicked(card.color.toRadixString(16).padLeft(8, '0'));
       }
       return user.createCard(card: card, addReversed: _addReversedCard);
     } else {

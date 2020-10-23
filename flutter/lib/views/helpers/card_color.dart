@@ -10,7 +10,14 @@ abstract class CardColor implements Built<CardColor, CardColorBuilder> {
   Color get backSideBackground;
   Color get defaultBackground => frontSideBackground;
 
-  factory CardColor([void Function(CardColorBuilder) updates]) = _$CardColor;
+  factory CardColor({
+    Color frontSideBackground,
+    Color backSideBackground,
+  }) =>
+      _$CardColor._(
+        frontSideBackground: frontSideBackground,
+        backSideBackground: backSideBackground,
+      );
   CardColor._();
 
   static Serializer<CardColor> get serializer => _$cardColorSerializer;
