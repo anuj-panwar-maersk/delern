@@ -32,7 +32,7 @@ const kBlueCardColor = Color(0xFFA7FFEB);
 const kPaleBlueCardColor = Color(0xFFCBF0F8);
 const kDarkBlueCardColor = Color(0xFFAECBFA);
 const kLilacCardColor = Color(0xFFD7AEFB);
-const kCardPickeBorderColor = Color(0xFFF2787A);
+const kCardSelectedBorderColor = Color(0xFFF2787A);
 
 // "Facebook brand blue" color per instructions at
 // https://developers.facebook.com/docs/facebook-login/for-devices

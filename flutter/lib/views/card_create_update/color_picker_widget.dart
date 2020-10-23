@@ -34,7 +34,7 @@ class CardColorPicker extends StatelessWidget {
                         color: color,
                         selected: selectedColor != null &&
                             selectedColor.value == color.value,
-                        onPressed: () => onColorSelected(color.value),
+                        onTap: () => onColorSelected(color.value),
                       ))
                   .toList()),
         ),
@@ -44,17 +44,17 @@ class CardColorPicker extends StatelessWidget {
 class _ColorButton extends StatelessWidget {
   final Color color;
   final bool selected;
-  final VoidCallback onPressed;
+  final VoidCallback onTap;
 
   const _ColorButton({
     @required this.color,
     this.selected = false,
-    this.onPressed,
+    this.onTap,
   }) : assert(color != null);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () => onPressed?.call(),
+        onTap: () => onTap?.call(),
         child: Container(
           height: 30,
           width: 30,
@@ -63,7 +63,7 @@ class _ColorButton extends StatelessWidget {
             shape: BoxShape.circle,
             border: selected
                 ? Border.all(
-                    color: app_styles.kCardPickeBorderColor,
+                    color: app_styles.kCardSelectedBorderColor,
                     width: 2,
                   )
                 : null,

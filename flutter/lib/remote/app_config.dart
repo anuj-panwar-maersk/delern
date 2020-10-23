@@ -9,8 +9,6 @@ import 'package:flutter/foundation.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _fetchTimeout = Duration(seconds: 8);
-
 class AppConfig {
   static final AppConfig _instance = AppConfig._();
 
@@ -77,12 +75,17 @@ class AppConfig {
         debugMode: kDebugMode,
       ));
 
-      await _remoteConfig
-          .fetch(
-            expiration:
-                kDebugMode ? const Duration() : const Duration(hours: 5),
-          )
-          .timeout(_fetchTimeout);
+      try {
+        await _remoteConfig.fetch(
+          expiration: kDebugMode ? const Duration() : const Duration(hours: 5),
+        );
+      } catch (e, stackTrace) {
+        // Catch a generic Exception because that's what fetch() throws.
+        unawaited(error_reporting.report(e, stackTrace: stackTrace));
+        // No use to activateFetched() since fetch() did not succeed.
+        return;
+      }
+
       if (await _remoteConfig.activateFetched()) {
         debugPrint('Fetched Remote Config from the server and it has changed');
       }
